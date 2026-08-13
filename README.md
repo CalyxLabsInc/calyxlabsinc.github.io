@@ -1,10 +1,10 @@
 # Calyx Labs Inc. Website
 
-Static multi-page website for **calyxlabs.github.io**.
+Static multi-page website for **calyxlabsinc.github.io**.
 
 ## Publish with GitHub Pages
 
-1. Put these files in the root of the `calyxlabs.github.io` repository.
+1. Put these files in the root of the `calyxlabsinc.github.io` repository.
 2. Replace `favicon.ico` with the final company icon, keeping the same filename.
 3. Replace all placeholder contact, repository, sponsor, donation, and wallet links.
 4. In GitHub repository settings, open **Pages** and deploy from the main branch/root if it is not already enabled.
