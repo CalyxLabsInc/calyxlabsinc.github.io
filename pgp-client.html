@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calyx PGP Client — Post-Quantum OpenPGP for Android | Calyx Labs Inc.</title>
+  <meta name="description" content="Calyx Labs Inc. — Post-Quantum Android Security Apps (Calyx PGP Client), Arcade Gaming (Zappy Bird), and Hardened Linux Utilities (Calyx Linux, Calyx Terminal, Calyx SOC) engineered by Tristen Martinez (Calyxia)." />
+  <link rel="icon" type="image/png" href="assets/images/pgp-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/pgp-icon.png" alt="Calyx Labs Inc. Logo" />
+        <div class="brand-text">
+          CALYX <span class="neon">LABS INC.</span>
+          <span class="brand-sub">Obsidian Security &bull; Android &amp; Linux</span>
+        </div>
+      </a>
+
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle Menu">&#9776;</button>
+
+      <ul id="nav-links" class="nav-links">
+          <li><a href="index.html" class="">Home</a></li>
+          <li><a href="pgp-client.html" class="active">Calyx PGP Client</a></li>
+          <li><a href="zappy-bird.html" class="">Zappy Bird</a></li>
+          <li><a href="linux-tools.html" class="">Linux & SOC Suite</a></li>
+          <li><a href="about.html" class="">About</a></li>
+          <li><a href="privacy.html" class="">Privacy Policy</a></li>
+          <li><a href="contact.html" class="nav-cta">Contact</a></li>
+          
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+  <section style="padding-top: 4rem;">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Flagship Android Security Release &bull; v0.1.0-alpha</span>
+          <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1.25rem;">
+            <img src="assets/images/pgp-icon.png" alt="Calyx PGP Client Icon" style="width: 84px; height: 84px; border-radius: 20px; border: 2px solid var(--neon-pink); box-shadow: var(--neon-pink-glow);" />
+            <div>
+              <h1 class="hero-title" style="margin-bottom: 0.25rem; font-size: clamp(2.1rem, 4vw, 3.3rem);">Calyx <span class="text-neon">PGP Client</span></h1>
+              <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary);">Package: <span style="color: var(--neon-pink-bright);">com.calyxlabs.pgpclient</span> &bull; Google Play Store</div>
+            </div>
+          </div>
+
+          <p class="lead">
+            <strong>Quantum-Proof PGP Security</strong> for Android. Create a fresh OpenPGP profile or import existing keys in seconds. Engineered by <strong>Tristen Martinez (aka Calyxia)</strong> with RFC 4880 / RFC 9580 OpenPGP compliance, <strong>ML-KEM-1024 + ML-DSA-87</strong> post-quantum hybrid cryptography, and a <strong>100% Local Hardware Keyring</strong>.
+          </p>
+
+          <div class="btn-group">
+            <a href="#screenshots" class="btn btn-primary">Explore Interactive Screenshots &darr;</a>
+            <a href="#signing-verification" class="btn btn-secondary">Verify SHA-256 Certificate</a>
+            <a href="google_play_privacy_policy.txt" class="btn btn-secondary">Zero-Data Privacy Policy</a>
+          </div>
+
+          <div class="badge-list" style="margin-top: 1.5rem;">
+            <span class="badge pink">RFC 4880 / 9580 OpenPGP</span>
+            <span class="badge pink">ML-KEM-1024 + ML-DSA-87</span>
+            <span class="badge pink">AES-256-GCM + SHA-256</span>
+            <span class="badge green">PBKDF2 Key Protection</span>
+          </div>
+        </div>
+
+        <div class="card card-neon">
+          <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--neon-pink-bright); margin-bottom: 0.75rem;">// PUBLIC KEY BLOCK PREVIEW (POST-QUANTUM SUITE)</div>
+          <div class="code-box" style="font-size: 0.78rem;">
+-----BEGIN PGP PUBLIC KEY BLOCK-----<br/>
+Version: Calyx PGP Client v0.1.0-alpha (RFC 4880 / RFC 9580)<br/>
+Comment: Identity: Calyx Labs Inc. &lt;calyxlabsinc@gmail.com&gt;<br/>
+Comment: Suite: ML-KEM-1024 + ML-DSA-87 (Post-Quantum OpenPGP)<br/>
+Comment: Key ID: AEDCB922D6AF39A5<br/>
+Comment: Fingerprint: 58E5 3B77 6935 2226 E942 9164 AEDC B922 D6AF 39A5<br/>
+<br/>
+mQINBGc8zRABEADzRLIUaaHCddavLM2kuaFIxNX98V2...<br/>
+-----END PGP PUBLIC KEY BLOCK-----
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">Key ID: AEDCB922D6AF39A5</span>
+            <button type="button" class="copy-btn" onclick="copyText('58E5 3B77 6935 2226 E942 9164 AEDC B922 D6AF 39A5', 'OpenPGP v4/v6 Fingerprint')">Copy PGP Fingerprint</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Cryptographic Modules -->
+  <section style="background: rgba(13, 13, 20, 0.65); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <span class="eyebrow">All-In-One PGP Suite</span>
+      <h2 class="section-title">Complete <span class="text-neon">Crypto Workspace</span> Architecture</h2>
+      <p class="lead" style="margin-bottom: 3rem;">Every tool needed for modern message authentication, local file container encryption, and hardware-backed key lifecycle management.</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">MODULE 01 // SETUP &amp; KEYRING</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.65rem;">Quantum-Proof Key Generation</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Create a fresh OpenPGP profile or import existing `.asc` / `.gpg` key blocks in seconds. Supports hybrid Post-Quantum parameters (<strong>ML-KEM-1024 + ML-DSA-87</strong>) alongside PBKDF2 + AES-256-GCM passphrase protection.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">MODULE 02 // INSTANT VERIFICATION</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.65rem;">Share &amp; Verify via QR Code</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Audit OpenPGP v4/v6 fingerprints (`58E5 3B77...`), inspect Local Hardware Keyring health status, and exchange public keys air-gapped via high-density QR codes without network exposure.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">MODULE 03 // AUTHENTICATED NOTEPAD</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.65rem;">Encrypt &amp; Sign Text Notes</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Turn sensitive plaintext into RFC 4880 ASCII-armored PGP messages (`-----BEGIN PGP MESSAGE-----`) using authenticated <strong>AES-256-GCM + SHA-256</strong> cipher modes with one-tap copy or direct transfer to Decrypt Notepad.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">MODULE 04 // SECURE FILE CONTAINERS</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.65rem;">Protect Local Device Files</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Select any document from your Android device or paste file buffer contents to package into encrypted `.asc` or `.pgp` OpenPGP containers ready for offline storage or secure transport.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">MODULE 05 // UNIFIED NAVIGATION</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.65rem;">Streamlined Drawer &amp; Armor Inspector</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Switch effortlessly between Manage Keys, Encrypt Notepad, Decrypt Notepad, Encrypt Files, Decrypt Files, News, and Credits with built-in OpenPGP armor inspection.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">MODULE 06 // TRANSPARENT AUTHORSHIP</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.65rem;">Verified SHA-256 Signing Identity</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Built-in cryptographic attribution screen lets users inspect the exact APK signing certificate Distinguished Name (DN), SHA-256 fingerprint, and SHA-1 digest directly inside the app.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Official Screenshot Gallery -->
+  <section id="screenshots">
+    <div class="container">
+      <span class="eyebrow">Official App Interface Gallery</span>
+      <h2 class="section-title">Inside <span class="text-neon">Calyx PGP Client</span> (v0.1.0-alpha)</h2>
+      <p class="lead" style="margin-bottom: 2.5rem;">Click any screenshot below to inspect the full-resolution Obsidian Black &amp; Neon Pink interface.</p>
+
+      <div class="screenshot-grid">
+        <div class="screenshot-card" onclick="openLightbox('assets/images/pgp-setup.png', 'Quantum-Proof PGP Security — Setup Wizard')">
+          <img src="assets/images/pgp-setup.png" alt="Calyx PGP Setup Screen" />
+          <div class="screenshot-caption">1. Quantum-Proof Setup</div>
+          <div class="screenshot-sub">Create a fresh OpenPGP profile or import existing keys in seconds.</div>
+        </div>
+
+        <div class="screenshot-card" onclick="openLightbox('assets/images/pgp-workspace.png', 'Complete Crypto Workspace — Navigation Drawer')">
+          <img src="assets/images/pgp-workspace.png" alt="Calyx PGP Complete Crypto Workspace" />
+          <div class="screenshot-caption">2. Complete Crypto Workspace</div>
+          <div class="screenshot-sub">Fast access to key management, notepad &amp; file encryption tools.</div>
+        </div>
+
+        <div class="screenshot-card" onclick="openLightbox('assets/images/pgp-qr-verify.png', 'Share & Verify via QR Code — Key Status & Fingerprint Audit')">
+          <img src="assets/images/pgp-qr-verify.png" alt="Calyx PGP Share and Verify QR Code" />
+          <div class="screenshot-caption">3. Share &amp; Verify via QR Code</div>
+          <div class="screenshot-sub">Audit v4/v6 fingerprints, hardware keyring health &amp; identity status.</div>
+        </div>
+
+        <div class="screenshot-card" onclick="openLightbox('assets/images/pgp-encrypt-notes.png', 'Encrypt & Sign Text Notes — AES-256-GCM + SHA-256')">
+          <img src="assets/images/pgp-encrypt-notes.png" alt="Calyx PGP Encrypt Notepad" />
+          <div class="screenshot-caption">4. Encrypt &amp; Sign Text Notes</div>
+          <div class="screenshot-sub">Turn plaintext into ASCII-armored PGP messages with AES-256-GCM.</div>
+        </div>
+
+        <div class="screenshot-card" onclick="openLightbox('assets/images/pgp-encrypt-files.png', 'Protect Local Device Files — .asc and .pgp Containers')">
+          <img src="assets/images/pgp-encrypt-files.png" alt="Calyx PGP Encrypt Files" />
+          <div class="screenshot-caption">5. Protect Local Device Files</div>
+          <div class="screenshot-sub">Package any document into encrypted .asc or .pgp OpenPGP containers.</div>
+        </div>
+
+        <div class="screenshot-card" onclick="openLightbox('assets/images/pgp-credits.png', 'Built by Calyx Labs Inc. — Credits & SHA-256 Signing Certificate')">
+          <img src="assets/images/pgp-credits.png" alt="Calyx PGP Credits and Signing Identity" />
+          <div class="screenshot-caption">6. Transparent Authorship</div>
+          <div class="screenshot-sub">Engineered by Tristen Martinez (Calyxia) with verified SHA-256 signing.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cryptographic Signing Identity Verification -->
+  <section id="signing-verification" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="card card-neon" style="padding: 2.5rem;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+          <div>
+            <span class="eyebrow">Software Attribution &amp; Signing Identity</span>
+            <h2 style="font-size: 1.85rem;">Verify Official <span class="text-neon">APK Signing Certificates</span></h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">Always verify that your copy of <code>com.calyxlabs.pgpclient</code> matches our official cryptographic signatures below.</p>
+          </div>
+          <button type="button" class="copy-btn" onclick="copyText('EB:24:7C:4D:82:C2:D1:22:CC:89:42:37:46:84:07:C6:E1:B6:59:51:D7:C7:4B:F3:7C:D5:94:8E:55:F6:7C:E3', 'Certificate SHA-256 Fingerprint')">Copy SHA-256 Fingerprint</button>
+        </div>
+
+        <div class="grid-2">
+          <div class="code-box">
+            <div style="color: var(--text-muted); margin-bottom: 0.35rem;">SIGNER SUBJECT DISTINGUISHED NAME (DN)</div>
+            <div>CN=Tristen Martinez (aka Calyxia), OU=Engineering, O=Calyx Labs Inc., L=Cleveland, ST=OH, postalCode=44105, C=US</div>
+            <div style="color: var(--text-muted); margin: 1rem 0 0.35rem;">OPENPGP V4/V6 FINGERPRINT (KEY ID: AEDCB922D6AF39A5)</div>
+            <div>58E5 3B77 6935 2226 E942 9164 AEDC B922 D6AF 39A5</div>
+          </div>
+
+          <div class="code-box">
+            <div style="color: var(--text-muted); margin-bottom: 0.35rem;">CERTIFICATE SHA-256 FINGERPRINT (ALIAS: CALYXLABS)</div>
+            <div>EB:24:7C:4D:82:C2:D1:22:CC:89:42:37:46:84:07:C6:E1:B6:59:51:D7:C7:4B:F3:7C:D5:94:8E:55:F6:7C:E3</div>
+            <div style="color: var(--text-muted); margin: 1rem 0 0.35rem;">CERTIFICATE SHA-1 FINGERPRINT</div>
+            <div>16:63:D3:55:EC:F5:9D:F9:1F:78:66:6C:1B:A0:39:09:CE:46:49:02</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Screenshot Lightbox Modal -->
+  <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close preview">&times;</button>
+      <img id="lightbox-img" src="assets/images/pgp-icon.png" alt="Screenshot preview" />
+      <p id="lightbox-caption" class="screenshot-caption" style="text-align:center; margin-top:0.85rem;"></p>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="brand-logo" style="margin-bottom: 1rem;">
+            <img src="assets/images/pgp-icon.png" alt="Calyx Labs Inc." />
+            <div class="brand-text">
+              CALYX <span class="neon">LABS INC.</span>
+              <span class="brand-sub">Engineered by Tristen Martinez (Calyxia)</span>
+            </div>
+          </a>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+            Independent software engineering laboratory in Cleveland, Ohio specializing in zero-telemetry Android applications, post-quantum cryptography, and hardened Linux security utilities.
+          </p>
+          <div class="badge-list">
+            <span class="badge pink">100% Zero Data Collection</span>
+            <span class="badge green">SHA-256 Verified Releases</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Android Releases</h4>
+          <ul class="footer-links">
+            <li><a href="pgp-client.html">Calyx PGP Client (v0.1.0-alpha)</a></li>
+            <li><a href="zappy-bird.html">Zappy Bird (v1.0.0 Official)</a></li>
+            <li><a href="google_play_privacy_policy.txt">Google Play Privacy Policy (.txt)</a></li>
+            <li><a href="privacy.html">Zero-Data Security Pledge</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Linux &amp; Utilities</h4>
+          <ul class="footer-links">
+            <li><a href="linux-tools.html#calyx-soc">Calyx Security Operations Center</a></li>
+            <li><a href="linux-tools.html#calyx-linux">Calyx Linux Distribution</a></li>
+            <li><a href="linux-tools.html#calyx-terminal">Calyx Terminal Emulator</a></li>
+            <li><a href="linux-tools.html#calyx-webserver">Calyx Web Server (Pure Python)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Direct Contact &amp; Signing</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:calyxlabsinc@gmail.com">calyxlabsinc@gmail.com</a></li>
+            <li><a href="contact.html">Interactive Email Composer</a></li>
+            <li><a href="about.html#signing-identity">Verify Signing Certificates</a></li>
+            <li><span style="color: var(--text-muted); font-size: 0.82rem;">Cleveland, Ohio 44105, USA</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Calyx Labs Inc. Created, Designed &amp; Engineered by <strong>Tristen Martinez (aka Calyxia)</strong>. All rights reserved.</div>
+        <div>
+          <a href="google_play_privacy_policy.txt" style="color: var(--neon-pink-bright); font-family: var(--font-mono);">/google_play_privacy_policy.txt</a>
+          &nbsp;&bull;&nbsp;
+          <a href="mailto:calyxlabsinc@gmail.com" style="color: var(--text-secondary);">calyxlabsinc@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  
+</body>
+</html>

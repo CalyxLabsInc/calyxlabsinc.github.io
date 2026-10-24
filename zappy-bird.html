@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zappy Bird v1.0.0 — High-Voltage Arcade Game | Calyx Labs Inc.</title>
+  <meta name="description" content="Calyx Labs Inc. — Post-Quantum Android Security Apps (Calyx PGP Client), Arcade Gaming (Zappy Bird), and Hardened Linux Utilities (Calyx Linux, Calyx Terminal, Calyx SOC) engineered by Tristen Martinez (Calyxia)." />
+  <link rel="icon" type="image/png" href="assets/images/pgp-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/pgp-icon.png" alt="Calyx Labs Inc. Logo" />
+        <div class="brand-text">
+          CALYX <span class="neon">LABS INC.</span>
+          <span class="brand-sub">Obsidian Security &bull; Android &amp; Linux</span>
+        </div>
+      </a>
+
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle Menu">&#9776;</button>
+
+      <ul id="nav-links" class="nav-links">
+          <li><a href="index.html" class="">Home</a></li>
+          <li><a href="pgp-client.html" class="">Calyx PGP Client</a></li>
+          <li><a href="zappy-bird.html" class="active">Zappy Bird</a></li>
+          <li><a href="linux-tools.html" class="">Linux & SOC Suite</a></li>
+          <li><a href="about.html" class="">About</a></li>
+          <li><a href="privacy.html" class="">Privacy Policy</a></li>
+          <li><a href="contact.html" class="nav-cta">Contact</a></li>
+          
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+  <section style="padding-top: 4rem;">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow cyan">Official Release v1.0.0 &bull; Google Play Arcade</span>
+          <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1.25rem;">
+            <img src="assets/images/zappy-icon.png" alt="Zappy Bird Official Icon" style="width: 84px; height: 84px; border-radius: 20px; border: 2px solid var(--cyan-zap); box-shadow: 0 0 24px rgba(0, 229, 255, 0.5);" />
+            <div>
+              <h1 class="hero-title" style="margin-bottom: 0.25rem; font-size: clamp(2.1rem, 4vw, 3.3rem);">Zappy <span class="text-cyan">Bird</span></h1>
+              <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary);">Official Release v1.0.0 &bull; <span style="color: var(--cyan-zap);">Calyx Labs Inc.</span></div>
+            </div>
+          </div>
+
+          <p class="lead">
+            <strong>Ready, Set, Zap!</strong> Guide the electric Zappy Bird through high-voltage pipe gauntlets across dynamic day and night cityscapes. Every 10 tubes unlocks a game-changing <strong>+3 to +10 Power-Up</strong>—including <strong>E-Bomb</strong>, <strong>Teleporter</strong>, and <strong>Super Jump</strong>—plus local <strong>WiFi Versus</strong> multiplayer!
+          </p>
+
+          <div class="btn-group">
+            <a href="#playable-demo" class="btn btn-cyan">Play Interactive Browser Demo &darr;</a>
+            <a href="#zappy-screenshots" class="btn btn-secondary">View Official Screenshots</a>
+            <a href="google_play_privacy_policy.txt" class="btn btn-secondary">Zero-Data Privacy Policy</a>
+          </div>
+
+          <div class="badge-list" style="margin-top: 1.5rem;">
+            <span class="badge" style="border-color: var(--cyan-zap); color: var(--cyan-zap);">Every 10 Tubes: +3 to +10 Power-Up!</span>
+            <span class="badge pink">E-Bomb &bull; Teleporter &bull; Super Jump</span>
+            <span class="badge green">Solo Play &amp; WiFi Versus</span>
+          </div>
+        </div>
+
+        <div class="card card-cyan">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <img src="assets/images/zappy-menu.jpg" alt="Zappy Bird Main Menu" style="border-radius: 12px; border: 1px solid rgba(0,229,255,0.4); cursor: pointer;" onclick="openLightbox('assets/images/zappy-menu.jpg', 'Zappy Bird v1.0.0 — Main Menu: Solo Play & WiFi Versus')" />
+            <img src="assets/images/zappy-gameplay.jpg" alt="Zappy Bird Gameplay" style="border-radius: 12px; border: 1px solid rgba(0,229,255,0.4); cursor: pointer;" onclick="openLightbox('assets/images/zappy-gameplay.jpg', 'Zappy Bird v1.0.0 — Ready, Set, Zap! Night Mode & Power-Up HUD')" />
+          </div>
+          <div style="margin-top: 1rem; text-align: center; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">
+            Click either screenshot to inspect full-resolution gameplay art
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Power-Ups & Game Modes Breakdown -->
+  <section style="background: rgba(13, 13, 20, 0.65); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <span class="eyebrow cyan">Power-Up System &amp; Multiplayer</span>
+      <h2 class="section-title">10-Tube <span class="text-cyan">Power-Up Arsenal</span> &amp; Modes</h2>
+      <p class="lead" style="margin-bottom: 3rem;">Clear 10 tubes to charge your Power-Up meter (`POWER-UP: 10/10 TUBES`) and unleash electric abilities yielding +3 to +10 bonus tube points.</p>
+
+      <div class="grid-3">
+        <div class="card card-cyan">
+          <div style="font-family: var(--font-mono); color: var(--cyan-zap); font-size: 0.8rem; margin-bottom: 0.5rem;">POWER-UP 01 // DESTRUCTIVE SURGE</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.65rem;">&#9889; E-Bomb</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Detonates a high-voltage electromagnetic pulse that vaporizes incoming green pipe obstacles in your path and awards instant bonus clearance points.
+          </p>
+        </div>
+
+        <div class="card card-cyan">
+          <div style="font-family: var(--font-mono); color: var(--cyan-zap); font-size: 0.8rem; margin-bottom: 0.5rem;">POWER-UP 02 // QUANTUM BLINK</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.65rem;">&#127744; Teleporter</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Warps Zappy Bird safely across tight pipe corridors in a flash of cyan lightning, granting temporary phase immunity and +3 to +10 tube progression.
+          </p>
+        </div>
+
+        <div class="card card-cyan">
+          <div style="font-family: var(--font-mono); color: var(--cyan-zap); font-size: 0.8rem; margin-bottom: 0.5rem;">POWER-UP 03 // KINETIC BOOST</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.65rem;">&#128640; Super Jump</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Launches Zappy Bird with precision high-arc elevation control and stabilized glide physics to conquer rapid vertical pipe shifts effortlessly.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">GAME MODE // SOLO PLAY</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.65rem;">Solo High-Score Chase</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Test your reflexes across dynamic Day and Crescent-Moon Night cityscapes with customizable <code>MODE: AUTO-USE</code> power-up deployment and Play Store profile badge display.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">GAME MODE // WIFI VERSUS</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.65rem;">Local WiFi Versus Battles</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Challenge friends head-to-head over local WiFi with zero external servers or lag. Outlast your opponent as tube speeds and power-up combos escalate.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">PRIVACY // ZERO TRACKING</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.65rem;">100% Zero-Data Gaming</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Just like our cryptographic tools, Zappy Bird collects zero personal data, zero location telemetry, and zero third-party ad network profiles.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Playable Browser Demo -->
+  <section id="playable-demo">
+    <div class="container">
+      <div class="card card-cyan" style="padding: 2.5rem;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+          <div>
+            <span class="eyebrow cyan">Interactive HTML5 Arcade Preview</span>
+            <h2 style="font-size: 1.9rem;">Play <span class="text-cyan">Zappy Bird</span> Mini Web Demo</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">Click/Tap the game screen or press <strong>Spacebar</strong> to Zap! Every 10 tubes triggers an automatic <strong>+3 to +10 Power-Up Surge</strong>!</p>
+          </div>
+          <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <button type="button" id="zappy-start-btn" class="btn btn-cyan" onclick="startZappyGame()">Start / Restart Game</button>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 340px; gap: 2rem; align-items: center;" class="hero-grid">
+          <div style="background: #050c1a; border: 2px solid var(--cyan-zap); border-radius: 16px; padding: 0.75rem; box-shadow: 0 0 30px rgba(0, 229, 255, 0.25); text-align: center;">
+            <canvas id="zappy-canvas" width="520" height="420" style="width: 100%; max-width: 520px; height: auto; border-radius: 10px; cursor: pointer; margin: 0 auto; display: block;"></canvas>
+          </div>
+
+          <div class="card" style="background: #080d18; border-color: rgba(0,229,255,0.3);">
+            <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--cyan-zap); margin-bottom: 0.5rem;">// LIVE TELEMETRY HUD</div>
+            <div style="display: grid; gap: 0.85rem; margin-bottom: 1.25rem;">
+              <div style="background: #0d1526; padding: 0.85rem 1rem; border-radius: 8px; border: 1px solid rgba(0,229,255,0.2);">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">CURRENT SCORE</div>
+                <div id="zappy-score-display" style="font-size: 1.8rem; font-weight: 800; color: #fff; font-family: var(--font-mono);">0</div>
+              </div>
+              <div style="background: #0d1526; padding: 0.85rem 1rem; border-radius: 8px; border: 1px solid rgba(0,229,255,0.2);">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">POWER-UP METER (10 TUBES)</div>
+                <div id="zappy-power-display" style="font-size: 1.1rem; font-weight: 700; color: var(--cyan-zap); font-family: var(--font-mono);">0 / 10 TUBES</div>
+              </div>
+              <div style="background: #0d1526; padding: 0.85rem 1rem; border-radius: 8px; border: 1px solid rgba(255,0,127,0.3);">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">HIGH SCORE</div>
+                <div id="zappy-best-display" style="font-size: 1.35rem; font-weight: 800; color: var(--neon-pink-bright); font-family: var(--font-mono);">0</div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary" style="width: 100%;" onclick="zapFlap()">&#9889; TAP TO ZAP!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Official Gallery -->
+  <section id="zappy-screenshots">
+    <div class="container">
+      <span class="eyebrow cyan">Official Release Artwork</span>
+      <h2 class="section-title">Zappy Bird <span class="text-cyan">Gallery</span></h2>
+      <div class="grid-3" style="margin-top: 2rem;">
+        <div class="screenshot-card" onclick="openLightbox('assets/images/zappy-icon.png', 'Zappy Bird — Official App Icon')">
+          <img src="assets/images/zappy-icon.png" alt="Zappy Bird Icon" />
+          <div class="screenshot-caption">Official Zappy Bird Icon</div>
+          <div class="screenshot-sub">High-voltage electric arcade mascot and green pipe gauntlet.</div>
+        </div>
+        <div class="screenshot-card" onclick="openLightbox('assets/images/zappy-menu.jpg', 'Zappy Bird v1.0.0 — Main Menu Screen')">
+          <img src="assets/images/zappy-menu.jpg" alt="Zappy Bird Main Menu" />
+          <div class="screenshot-caption">ZAP AWAY! Main Menu</div>
+          <div class="screenshot-sub">Solo Play, WiFi Versus, High Score tracker &amp; 10-Tube Power-Up overview.</div>
+        </div>
+        <div class="screenshot-card" onclick="openLightbox('assets/images/zappy-gameplay.jpg', 'Zappy Bird v1.0.0 — Night Skyline Gameplay')">
+          <img src="assets/images/zappy-gameplay.jpg" alt="Zappy Bird Gameplay" />
+          <div class="screenshot-caption">READY, SET, ZAP! Gameplay</div>
+          <div class="screenshot-sub">Crescent-moon night skyline, Power-Up 0/10 counter &amp; Auto-Use mode.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Screenshot Lightbox Modal -->
+  <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close preview">&times;</button>
+      <img id="lightbox-img" src="assets/images/pgp-icon.png" alt="Screenshot preview" />
+      <p id="lightbox-caption" class="screenshot-caption" style="text-align:center; margin-top:0.85rem;"></p>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="brand-logo" style="margin-bottom: 1rem;">
+            <img src="assets/images/pgp-icon.png" alt="Calyx Labs Inc." />
+            <div class="brand-text">
+              CALYX <span class="neon">LABS INC.</span>
+              <span class="brand-sub">Engineered by Tristen Martinez (Calyxia)</span>
+            </div>
+          </a>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+            Independent software engineering laboratory in Cleveland, Ohio specializing in zero-telemetry Android applications, post-quantum cryptography, and hardened Linux security utilities.
+          </p>
+          <div class="badge-list">
+            <span class="badge pink">100% Zero Data Collection</span>
+            <span class="badge green">SHA-256 Verified Releases</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Android Releases</h4>
+          <ul class="footer-links">
+            <li><a href="pgp-client.html">Calyx PGP Client (v0.1.0-alpha)</a></li>
+            <li><a href="zappy-bird.html">Zappy Bird (v1.0.0 Official)</a></li>
+            <li><a href="google_play_privacy_policy.txt">Google Play Privacy Policy (.txt)</a></li>
+            <li><a href="privacy.html">Zero-Data Security Pledge</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Linux &amp; Utilities</h4>
+          <ul class="footer-links">
+            <li><a href="linux-tools.html#calyx-soc">Calyx Security Operations Center</a></li>
+            <li><a href="linux-tools.html#calyx-linux">Calyx Linux Distribution</a></li>
+            <li><a href="linux-tools.html#calyx-terminal">Calyx Terminal Emulator</a></li>
+            <li><a href="linux-tools.html#calyx-webserver">Calyx Web Server (Pure Python)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Direct Contact &amp; Signing</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:calyxlabsinc@gmail.com">calyxlabsinc@gmail.com</a></li>
+            <li><a href="contact.html">Interactive Email Composer</a></li>
+            <li><a href="about.html#signing-identity">Verify Signing Certificates</a></li>
+            <li><span style="color: var(--text-muted); font-size: 0.82rem;">Cleveland, Ohio 44105, USA</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Calyx Labs Inc. Created, Designed &amp; Engineered by <strong>Tristen Martinez (aka Calyxia)</strong>. All rights reserved.</div>
+        <div>
+          <a href="google_play_privacy_policy.txt" style="color: var(--neon-pink-bright); font-family: var(--font-mono);">/google_play_privacy_policy.txt</a>
+          &nbsp;&bull;&nbsp;
+          <a href="mailto:calyxlabsinc@gmail.com" style="color: var(--text-secondary);">calyxlabsinc@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  
+<script>
+(function() {
+  const canvas = document.getElementById('zappy-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let birdY = 200, birdV = 0, score = 0, bestScore = 0, tubeCharge = 0;
+  let pipes = [];
+  let running = false;
+  let flashText = 'TAP TO ZAP!';
+  let flashTimer = 60;
+  let animId = null;
+
+  function resetState() {
+    birdY = 190;
+    birdV = 0;
+    score = 0;
+    tubeCharge = 0;
+    pipes = [{ x: 420, top: 110, gap: 125, passed: false }];
+    flashText = 'READY, SET, ZAP!';
+    flashTimer = 45;
+    updateHud();
+  }
+
+  function updateHud() {
+    const sEl = document.getElementById('zappy-score-display');
+    const pEl = document.getElementById('zappy-power-display');
+    const bEl = document.getElementById('zappy-best-display');
+    if (sEl) sEl.textContent = String(score);
+    if (pEl) pEl.textContent = `${tubeCharge} / 10 TUBES`;
+    if (bEl) bEl.textContent = String(bestScore);
+  }
+
+  window.startZappyGame = function() {
+    if (animId) cancelAnimationFrame(animId);
+    resetState();
+    running = true;
+    loop();
+  };
+
+  window.zapFlap = function() {
+    if (!running) {
+      window.startZappyGame();
+    }
+    birdV = -5.8;
+  };
+
+  canvas.addEventListener('click', () => window.zapFlap());
+  window.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      window.zapFlap();
+    }
+  });
+
+  function drawScene() {
+    // Night sky background
+    ctx.fillStyle = '#091428';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Moon
+    ctx.fillStyle = '#ffe566';
+    ctx.beginPath();
+    ctx.arc(430, 70, 22, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#091428';
+    ctx.beginPath();
+    ctx.arc(440, 64, 18, 0, Math.PI * 2);
+    ctx.fill();
+
+    // City silhouette
+    ctx.fillStyle = '#12223d';
+    for (let i = 0; i < 9; i++) {
+      const h = 65 + (i * 23) % 55;
+      ctx.fillRect(i * 60, 350 - h, 52, h);
+    }
+
+    // Pipes
+    pipes.forEach(p => {
+      ctx.fillStyle = '#26a629';
+      ctx.strokeStyle = '#00e5ff';
+      ctx.lineWidth = 2;
+      ctx.fillRect(p.x, 0, 52, p.top);
+      ctx.strokeRect(p.x, 0, 52, p.top);
+      const bottomY = p.top + p.gap;
+      ctx.fillRect(p.x, bottomY, 52, 350 - bottomY);
+      ctx.strokeRect(p.x, bottomY, 52, 350 - bottomY);
+    });
+
+    // Ground strip
+    ctx.fillStyle = '#53a625';
+    ctx.fillRect(0, 350, canvas.width, 16);
+    ctx.fillStyle = '#d8c577';
+    ctx.fillRect(0, 366, canvas.width, 54);
+
+    // Electric Zappy Bird
+    ctx.save();
+    ctx.translate(115, birdY);
+    ctx.fillStyle = '#00c8ff';
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(0, 0, 16, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    // Eye & Beak
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(5, -4, 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#060609';
+    ctx.beginPath();
+    ctx.arc(7, -4, 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#ffb300';
+    ctx.fillRect(12, -2, 12, 7);
+    ctx.restore();
+
+    // HUD Banner
+    if (flashTimer > 0) {
+      ctx.fillStyle = '#00e5ff';
+      ctx.font = 'bold 20px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(flashText, canvas.width / 2, 105);
+    }
+  }
+
+  function loop() {
+    if (!running) return;
+    birdV += 0.31;
+    birdY += birdV;
+    if (flashTimer > 0) flashTimer--;
+
+    if (pipes[pipes.length - 1].x < 270) {
+      const topH = 55 + Math.floor(Math.random() * 140);
+      pipes.push({ x: 530, top: topH, gap: 125, passed: false });
+    }
+
+    for (let i = pipes.length - 1; i >= 0; i--) {
+      const p = pipes[i];
+      p.x -= 2.7;
+
+      // Collision check
+      if (115 + 14 > p.x && 115 - 14 < p.x + 52) {
+        if (birdY - 14 < p.top || birdY + 14 > p.top + p.gap) {
+          running = false;
+          flashText = 'GAME OVER — TAP TO RETRY!';
+          flashTimer = 999;
+          drawScene();
+          return;
+        }
+      }
+
+      if (!p.passed && p.x + 52 < 115) {
+        p.passed = true;
+        score += 1;
+        tubeCharge += 1;
+        if (tubeCharge >= 10) {
+          const bonus = 3 + Math.floor(Math.random() * 8);
+          const powers = ['E-BOMB', 'TELEPORTER', 'SUPER JUMP'];
+          const pick = powers[Math.floor(Math.random() * powers.length)];
+          score += bonus;
+          tubeCharge = 0;
+          flashText = `${pick} ACTIVATED! +${bonus} BONUS!`;
+          flashTimer = 85;
+        }
+        if (score > bestScore) bestScore = score;
+        updateHud();
+      }
+
+      if (p.x < -60) pipes.splice(i, 1);
+    }
+
+    if (birdY > 336 || birdY < 14) {
+      running = false;
+      flashText = 'GAME OVER — TAP TO RETRY!';
+      flashTimer = 999;
+      drawScene();
+      return;
+    }
+
+    drawScene();
+    animId = requestAnimationFrame(loop);
+  }
+
+  resetState();
+  drawScene();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+================================================================================
+CALYX LABS INC. - GOOGLE PLAY & SOFTWARE PRIVACY POLICY
+================================================================================
+Effective Date: October 20, 2026
+Last Updated:   October 23, 2026
+Canonical URL:  https://calyxlabsinc.github.io/google_play_privacy_policy.txt
+Developer:      Calyx Labs Inc. (Founded & Engineered by Tristen Martinez / Calyxia)
+Location:       Cleveland, Ohio, USA (44105)
+Contact Email:  calyxlabsinc@gmail.com
+Website:        https://calyxlabsinc.github.io/
+================================================================================
+
+1. OVERVIEW & ZERO-DATA COLLECTION GUARANTEE
+--------------------------------------------------------------------------------
+Calyx Labs Inc. ("we", "our", or "us") builds privacy-first Android applications
+(including Calyx PGP Client and Zappy Bird) as well as Linux distributions and
+security utilities (including Calyx Linux, Calyx Terminal, and the Calyx Security
+Operations Center).
+
+OUR CORE PRIVACY PRINCIPLE IS SIMPLE:
+WE COLLECT NO DATA WHATSOEVER ON OUR USERS.
+
+We do not collect, store, transmit, log, profile, share, or sell any personal
+information, device identifiers, usage telemetry, crash analytics, location data,
+contacts, or cryptographic material.
+
+2. INFORMATION WE DO NOT COLLECT
+--------------------------------------------------------------------------------
+When you download, install, or use any Calyx Labs Inc. application from the
+Google Play Store or our official repositories:
+
+  * NO Personal Data: We never ask for or collect your name, email address,
+    phone number, physical address, or demographic information.
+  * NO Telemetry or Analytics: Our apps contain zero third-party analytics SDKs,
+    tracking pixels, behavior loggers, or crash reporting agents.
+  * NO Advertising Identifiers: Our apps contain no third-party ad networks and
+    never read or transmit your Google Advertising ID (AAID).
+  * NO Cloud Key or File Syncing: All cryptographic operations, keyrings, files,
+    notes, and game scores remain 100% locally stored on your device.
+
+3. APPLICATION-SPECIFIC PRIVACY DETAILS
+--------------------------------------------------------------------------------
+A. Calyx PGP Client (Package: com.calyxlabs.pgpclient)
+   - 100% Local Keyring: All OpenPGP keys (RFC 4880 / RFC 9580, ML-KEM-1024 +
+     ML-DSA-87 Post-Quantum suites), passphrases (PBKDF2 + AES-256-GCM),
+     encrypted notes, and encrypted file containers (.asc / .pgp) are generated
+     and processed strictly offline on your local device hardware.
+   - Camera / QR Verification: When using QR code key verification, camera data
+     is processed strictly in volatile memory on-device to decode the QR code
+     and is never stored or transmitted anywhere.
+   - File Access: Selecting local files for encryption or decryption uses the
+     standard Android Storage Access Framework (SAF) on your device. Files
+     never leave your device.
+
+B. Zappy Bird (Official Release v1.0.0)
+   - Local Storage: High scores, preferences, and power-up settings are saved
+     strictly on your local device.
+   - WiFi Versus Mode: Local WiFi multiplayer communicates directly between
+     peer devices on your local network without routing personal data through
+     any external Calyx Labs Inc. tracking servers.
+
+C. Calyx Linux, Calyx Terminal & Calyx Security Operations Center (SOC)
+   - All system hardening checks, network tunnel inspections, Tor/VPN routing
+     monitors, RAM wiping routines, and terminal operations execute locally on
+     your machine with zero phone-home telemetry.
+
+4. THIRD-PARTY SERVICES
+--------------------------------------------------------------------------------
+If you download our Android applications through the Google Play Store, Google
+LLC may collect standard store installation metrics governed by your Google
+account settings and the Google Privacy Policy (https://policies.google.com/privacy).
+Calyx Labs Inc. itself receives no personally identifiable information from
+your use of our software.
+
+5. CHILDREN'S PRIVACY (COPPA COMPLIANCE)
+--------------------------------------------------------------------------------
+Because Calyx Labs Inc. collects no personal data, usage data, or device
+identifiers from any user of any age, our applications fully comply with the
+Children's Online Privacy Protection Act (COPPA) and international equivalents.
+
+6. SECURITY & CRYPTOGRAPHIC AUTHENTICATION
+--------------------------------------------------------------------------------
+All official Calyx Labs Inc. releases are cryptographically signed by:
+  Signer DN:   CN=Tristen Martinez (aka Calyxia), OU=Engineering,
+               O=Calyx Labs Inc., L=Cleveland, ST=OH, postalCode=44105, C=US
+  SHA-256:     EB:24:7C:4D:82:C2:D1:22:CC:89:42:37:46:84:07:C6:E1:B6:59:51:D7:C7:4B:F3:7C:D5:94:8E:55:F6:7C:E3
+  SHA-1:       16:63:D3:55:EC:F5:9D:F9:1F:78:66:6C:1B:A0:39:09:CE:46:49:02
+  OpenPGP v4/v6 Fingerprint:
+               58E5 3B77 6935 2226 E942 9164 AEDC B922 D6AF 39A5
+
+7. CHANGES TO THIS PRIVACY POLICY
+--------------------------------------------------------------------------------
+Our zero-data collection commitment is permanent. If we ever update this document
+to cover new applications or legal disclosures, the updated text will be posted
+at https://calyxlabsinc.github.io/google_play_privacy_policy.txt with a revised
+"Last Updated" date.
+
+8. CONTACT US
+--------------------------------------------------------------------------------
+If you have any questions about this Privacy Policy or our security architecture,
+please contact us directly:
+
+  Company:   Calyx Labs Inc.
+  Founder:   Tristen Martinez (aka Calyxia)
+  Email:     calyxlabsinc@gmail.com
+  Website:   https://calyxlabsinc.github.io/
+================================================================================

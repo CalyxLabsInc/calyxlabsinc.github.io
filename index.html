@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post-Quantum Android Security & Linux Utilities | Calyx Labs Inc.</title>
+  <meta name="description" content="Calyx Labs Inc. — Post-Quantum Android Security Apps (Calyx PGP Client), Arcade Gaming (Zappy Bird), and Hardened Linux Utilities (Calyx Linux, Calyx Terminal, Calyx SOC) engineered by Tristen Martinez (Calyxia)." />
+  <link rel="icon" type="image/png" href="assets/images/pgp-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/pgp-icon.png" alt="Calyx Labs Inc. Logo" />
+        <div class="brand-text">
+          CALYX <span class="neon">LABS INC.</span>
+          <span class="brand-sub">Obsidian Security &bull; Android &amp; Linux</span>
+        </div>
+      </a>
+
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle Menu">&#9776;</button>
+
+      <ul id="nav-links" class="nav-links">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="pgp-client.html" class="">Calyx PGP Client</a></li>
+          <li><a href="zappy-bird.html" class="">Zappy Bird</a></li>
+          <li><a href="linux-tools.html" class="">Linux & SOC Suite</a></li>
+          <li><a href="about.html" class="">About</a></li>
+          <li><a href="privacy.html" class="">Privacy Policy</a></li>
+          <li><a href="contact.html" class="nav-cta">Contact</a></li>
+          
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+  <!-- Hero Section -->
+  <section style="padding-top: 4.5rem;">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Obsidian Black &bull; Neon Pink &bull; Zero Telemetry</span>
+          <h1 class="hero-title">
+            Post-Quantum <span class="text-neon">Android Security</span> &amp; Hardened Linux Systems.
+          </h1>
+          <p class="lead">
+            Welcome to <strong>Calyx Labs Inc.</strong> Founded and engineered by <strong>Tristen Martinez (aka Calyxia)</strong>, we build uncompromising Android applications for the Google Play Store alongside sovereign Linux security utilities—with <strong>zero user data collection</strong>.
+          </p>
+
+          <div class="btn-group">
+            <a href="pgp-client.html" class="btn btn-primary">Explore Calyx PGP Client &rarr;</a>
+            <a href="zappy-bird.html" class="btn btn-cyan">Play Zappy Bird v1.0.0 &rarr;</a>
+            <a href="linux-tools.html" class="btn btn-secondary">Linux &amp; SOC Suite</a>
+          </div>
+
+          <div class="badge-list" style="margin-top: 1.75rem;">
+            <span class="badge pink">RFC 4880 / 9580 OpenPGP</span>
+            <span class="badge pink">ML-KEM-1024 + ML-DSA-87</span>
+            <span class="badge green">100% Local Keyring</span>
+            <span class="badge">Kodachi-Style Linux SOC</span>
+          </div>
+        </div>
+
+        <!-- Hero Right Showcase Card -->
+        <div class="card card-neon" style="padding: 1.75rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+            <div style="display: flex; align-items: center; gap: 0.85rem;">
+              <img src="assets/images/pgp-icon.png" alt="Calyx PGP Icon" style="width: 54px; height: 54px; border-radius: 12px; border: 1.5px solid var(--neon-pink);" />
+              <div>
+                <div style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--neon-pink-bright); text-transform: uppercase;">Flagship Google Play Release</div>
+                <h3 style="font-size: 1.3rem;">Calyx PGP Client</h3>
+                <div style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">v0.1.0-alpha &bull; com.calyxlabs.pgpclient</div>
+              </div>
+            </div>
+            <span class="badge green">Verified</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 1.25rem;">
+            <img src="assets/images/pgp-setup.png" alt="Calyx PGP Setup" style="border-radius: 10px; border: 1px solid var(--neon-pink-border); cursor: pointer;" onclick="openLightbox('assets/images/pgp-setup.png', 'Calyx PGP Client — Quantum-Proof PGP Security Setup')" />
+            <img src="assets/images/pgp-qr-verify.png" alt="Calyx PGP QR Verification" style="border-radius: 10px; border: 1px solid var(--neon-pink-border); cursor: pointer;" onclick="openLightbox('assets/images/pgp-qr-verify.png', 'Calyx PGP Client — Instant Key Verification via QR Code')" />
+          </div>
+
+          <div class="code-box" style="font-size: 0.75rem; padding: 0.9rem;">
+            <div style="color: var(--text-muted); margin-bottom: 0.25rem;">// OFFICIAL RELEASE SIGNING FINGERPRINT (SHA-256)</div>
+            EB:24:7C:4D:82:C2:D1:22:CC:89:42:37:46:84:07:C6:E1:B6:59:51:D7:C7:4B:F3:7C:D5:94:8E:55:F6:7C:E3
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Metrics Strip -->
+      <div class="stat-strip">
+        <div class="stat-box">
+          <div class="stat-value">0 Bytes</div>
+          <div class="stat-label">User Data Collected or Transmitted</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">ML-KEM-1024</div>
+          <div class="stat-label">Post-Quantum Hybrid OpenPGP Security</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">2 Flagships</div>
+          <div class="stat-label">Android Releases on Google Play Store</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">4+ Utilities</div>
+          <div class="stat-label">Calyx Linux, Terminal, SOC &amp; Web Server</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flagship Android Apps Section -->
+  <section style="background: rgba(13, 13, 20, 0.6); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div style="margin-bottom: 3rem;">
+        <span class="eyebrow">Google Play Store Portfolio</span>
+        <h2 class="section-title">Flagship <span class="text-neon">Android Applications</span></h2>
+        <p class="lead">Designed and engineered from the ground up with local-first architecture, zero tracking SDKs, and crisp visual identity.</p>
+      </div>
+
+      <div class="grid-2">
+        <!-- App 1: Calyx PGP Client -->
+        <div class="card card-neon" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+              <img src="assets/images/pgp-icon.png" alt="Calyx PGP Client Icon" style="width: 72px; height: 72px; border-radius: 16px; border: 2px solid var(--neon-pink); box-shadow: var(--neon-pink-glow);" />
+              <div>
+                <span class="badge pink">POST-QUANTUM CRYPTOGRAPHY</span>
+                <h3 style="font-size: 1.65rem; margin-top: 0.35rem;">Calyx PGP Client</h3>
+                <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">v0.1.0-alpha &bull; Package: com.calyxlabs.pgpclient</p>
+              </div>
+            </div>
+
+            <p style="color: var(--text-secondary); margin-bottom: 1.25rem;">
+              An all-in-one Android OpenPGP cryptographic workspace supporting RFC 4880 &amp; RFC 9580 standards with post-quantum <strong>ML-KEM-1024 + ML-DSA-87</strong> key suites and <strong>AES-256-GCM + SHA-256</strong> authenticated encryption.
+            </p>
+
+            <ul style="list-style: none; display: grid; gap: 0.6rem; margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 0.92rem;">
+              <li><strong style="color: var(--neon-pink-bright);">&#10003; Complete Crypto Workspace:</strong> Fast access to Manage Keys, Encrypt/Decrypt Notepad, and Encrypt/Decrypt local `.asc` / `.pgp` files.</li>
+              <li><strong style="color: var(--neon-pink-bright);">&#10003; Instant QR Key Verification:</strong> Audit OpenPGP v4/v6 fingerprints, hardware keyring health, and PBKDF2 + AES-256-GCM status via QR code.</li>
+              <li><strong style="color: var(--neon-pink-bright);">&#10003; 100% Local Keyring:</strong> Zero cloud key uploads—private keys never leave your device hardware.</li>
+            </ul>
+          </div>
+
+          <div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.5rem;">
+              <img src="assets/images/pgp-workspace.png" alt="Workspace" style="border-radius: 8px; cursor: pointer; border: 1px solid var(--border-subtle);" onclick="openLightbox('assets/images/pgp-workspace.png', 'Calyx PGP Client — Complete Crypto Workspace')" />
+              <img src="assets/images/pgp-encrypt-notes.png" alt="Encrypt Notes" style="border-radius: 8px; cursor: pointer; border: 1px solid var(--border-subtle);" onclick="openLightbox('assets/images/pgp-encrypt-notes.png', 'Calyx PGP Client — Encrypt & Sign Text Notes')" />
+              <img src="assets/images/pgp-encrypt-files.png" alt="Encrypt Files" style="border-radius: 8px; cursor: pointer; border: 1px solid var(--border-subtle);" onclick="openLightbox('assets/images/pgp-encrypt-files.png', 'Calyx PGP Client — Protect Local Device Files')" />
+            </div>
+
+            <div class="btn-group" style="margin-top: 0;">
+              <a href="pgp-client.html" class="btn btn-primary" style="width: 100%;">View Full Calyx PGP Client Specs &amp; Screenshots &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- App 2: Zappy Bird -->
+        <div class="card card-cyan" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+              <img src="assets/images/zappy-icon.png" alt="Zappy Bird Icon" style="width: 72px; height: 72px; border-radius: 16px; border: 2px solid var(--cyan-zap); box-shadow: 0 0 22px rgba(0, 229, 255, 0.45);" />
+              <div>
+                <span class="badge" style="border-color: var(--cyan-zap); color: var(--cyan-zap); background: var(--cyan-zap-dim);">HIGH-VOLTAGE ARCADE ACTION</span>
+                <h3 style="font-size: 1.65rem; margin-top: 0.35rem;">Zappy Bird</h3>
+                <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">Official Release v1.0.0 &bull; Solo Play &amp; WiFi Versus</p>
+              </div>
+            </div>
+
+            <p style="color: var(--text-secondary); margin-bottom: 1.25rem;">
+              Tap to Zap through a high-voltage retro skyline! <strong>Zappy Bird</strong> supercharges classic arcade flyer mechanics with tactical 10-Tube Power-Ups, dynamic day/night cityscapes, and head-to-head local <strong>WiFi Versus</strong> multiplayer.
+            </p>
+
+            <ul style="list-style: none; display: grid; gap: 0.6rem; margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 0.92rem;">
+              <li><strong style="color: var(--cyan-zap);">&#9889; Every 10 Tubes Power-Up (+3 to +10):</strong> Unlock <strong>E-Bomb</strong>, <strong>Teleporter</strong>, and <strong>Super Jump</strong> with Auto-Use or Manual triggers.</li>
+              <li><strong style="color: var(--cyan-zap);">&#9889; Solo Play &amp; WiFi Versus:</strong> Chase personal high scores offline or battle friends locally over WiFi.</li>
+              <li><strong style="color: var(--cyan-zap);">&#9889; Pure Arcade Fun, Zero Spyware:</strong> Play Store authentication support with zero invasive ad trackers or data harvesting.</li>
+            </ul>
+          </div>
+
+          <div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.5rem;">
+              <img src="assets/images/zappy-menu.jpg" alt="Zappy Bird Main Menu" style="border-radius: 8px; cursor: pointer; border: 1px solid var(--border-subtle); max-height: 290px; width: 100%; object-fit: cover;" onclick="openLightbox('assets/images/zappy-menu.jpg', 'Zappy Bird v1.0.0 — Main Menu: Solo Play & WiFi Versus')" />
+              <img src="assets/images/zappy-gameplay.jpg" alt="Zappy Bird Gameplay" style="border-radius: 8px; cursor: pointer; border: 1px solid var(--border-subtle); max-height: 290px; width: 100%; object-fit: cover;" onclick="openLightbox('assets/images/zappy-gameplay.jpg', 'Zappy Bird v1.0.0 — Ready, Set, Zap! Night Skyline Gameplay')" />
+            </div>
+
+            <div class="btn-group" style="margin-top: 0;">
+              <a href="zappy-bird.html" class="btn btn-cyan" style="width: 100%;">Explore Zappy Bird &amp; Play Interactive Demo &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Linux & Security Utilities Section -->
+  <section>
+    <div class="container">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; margin-bottom: 3rem;">
+        <div>
+          <span class="eyebrow">Sovereign Linux Engineering</span>
+          <h2 class="section-title">Linux Distributions &amp; <span class="text-neon">Security Operations</span></h2>
+          <p class="lead">Beyond Android, Calyx Labs Inc. engineers privacy-hardened Linux environments, terminal emulators, and real-time operational security monitors.</p>
+        </div>
+        <a href="linux-tools.html" class="btn btn-secondary">Explore Full Linux Ecosystem &rarr;</a>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">01 // KODACHI-INSPIRED TELEMETRY &amp; OPSEC HUD</div>
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Calyx Security Operations Center (SOC)</h3>
+          <p style="color: var(--text-secondary); font-size: 0.93rem; margin-bottom: 1.25rem;">
+            A dedicated Security Operations Center for Linux modeled after the renowned Kodachi Linux SOC. Provides real-time visibility into VPN/Tor multi-hop routing, DNS leak prevention, MAC spoofing, emergency RAM panic wipe, and kernel hardening state.
+          </p>
+          <a href="linux-tools.html#calyx-soc" style="color: var(--neon-pink-bright); font-weight: 600; font-size: 0.9rem;">Launch Interactive SOC Preview &rarr;</a>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">02 // HARDENED OPERATING ENVIRONMENT</div>
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Calyx Linux</h3>
+          <p style="color: var(--text-secondary); font-size: 0.93rem; margin-bottom: 1.25rem;">
+            A custom Obsidian Black &amp; Neon Pink security-focused Linux distribution pre-configured with strict netfilter firewall rules, AppArmor/sysctl kernel lockdown, pre-installed OpenPGP key tools, and the integrated Calyx SOC dashboard.
+          </p>
+          <a href="linux-tools.html#calyx-linux" style="color: var(--neon-pink-bright); font-weight: 600; font-size: 0.9rem;">View Architecture &amp; Specs &rarr;</a>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">03 // COMMAND LINE &amp; INFRASTRUCTURE</div>
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Calyx Terminal &amp; Calyx Web Server</h3>
+          <p style="color: var(--text-secondary); font-size: 0.93rem; margin-bottom: 1.25rem;">
+            A distraction-free, security-focused terminal workspace paired with <strong>Calyx Web Server</strong>—a pure-Python, zero-dependency, hardened alternative to Nginx &amp; Apache with built-in systemd and HTTPS reverse-proxy support.
+          </p>
+          <a href="linux-tools.html#calyx-terminal" style="color: var(--neon-pink-bright); font-weight: 600; font-size: 0.9rem;">Explore CLI &amp; Server Tools &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zero-Data Privacy Banner -->
+  <section style="padding-top: 1rem;">
+    <div class="container">
+      <div class="card card-neon" style="padding: 3rem; background: radial-gradient(circle at right top, rgba(255,0,127,0.22), rgba(13,13,20,0.96) 65%);">
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <span class="eyebrow">Strict Zero-Telemetry Guarantee</span>
+            <h2 class="section-title" style="margin-bottom: 0.85rem;">We Collect <span class="text-neon">No Data Whatsoever</span>.</h2>
+            <p style="color: var(--text-secondary); font-size: 1.02rem; margin-bottom: 1.5rem;">
+              Every Calyx Labs Inc. application runs locally on your hardware. No analytics SDKs, no crash harvesting, no cloud key escrow, and no user profiling. Our plain-text Google Play Privacy Policy is hosted directly at the root of this repository for full transparency.
+            </p>
+            <div class="btn-group" style="margin-top: 0;">
+              <a href="google_play_privacy_policy.txt" class="btn btn-primary" target="_blank" rel="noopener">View google_play_privacy_policy.txt &rarr;</a>
+              <a href="privacy.html" class="btn btn-secondary">Read Full Privacy Breakdown</a>
+            </div>
+          </div>
+
+          <div class="code-box">
+            <div style="color: var(--neon-pink-bright); font-weight: 700; margin-bottom: 0.5rem;">$ curl -s https://calyxlabsinc.github.io/google_play_privacy_policy.txt</div>
+            <div style="color: #e2e2f0;">
+              CALYX LABS INC. - PRIVACY POLICY<br/>
+              ----------------------------------------<br/>
+              Policy: ZERO DATA COLLECTION<br/>
+              Telemetry SDKs: NONE (0)<br/>
+              Ad Networks: NONE (0)<br/>
+              Key Storage: 100% Local Hardware Keyring<br/>
+              Contact: calyxlabsinc@gmail.com
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Screenshot Lightbox Modal -->
+  <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close preview">&times;</button>
+      <img id="lightbox-img" src="assets/images/pgp-icon.png" alt="Screenshot preview" />
+      <p id="lightbox-caption" class="screenshot-caption" style="text-align:center; margin-top:0.85rem;"></p>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="brand-logo" style="margin-bottom: 1rem;">
+            <img src="assets/images/pgp-icon.png" alt="Calyx Labs Inc." />
+            <div class="brand-text">
+              CALYX <span class="neon">LABS INC.</span>
+              <span class="brand-sub">Engineered by Tristen Martinez (Calyxia)</span>
+            </div>
+          </a>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+            Independent software engineering laboratory in Cleveland, Ohio specializing in zero-telemetry Android applications, post-quantum cryptography, and hardened Linux security utilities.
+          </p>
+          <div class="badge-list">
+            <span class="badge pink">100% Zero Data Collection</span>
+            <span class="badge green">SHA-256 Verified Releases</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Android Releases</h4>
+          <ul class="footer-links">
+            <li><a href="pgp-client.html">Calyx PGP Client (v0.1.0-alpha)</a></li>
+            <li><a href="zappy-bird.html">Zappy Bird (v1.0.0 Official)</a></li>
+            <li><a href="google_play_privacy_policy.txt">Google Play Privacy Policy (.txt)</a></li>
+            <li><a href="privacy.html">Zero-Data Security Pledge</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Linux &amp; Utilities</h4>
+          <ul class="footer-links">
+            <li><a href="linux-tools.html#calyx-soc">Calyx Security Operations Center</a></li>
+            <li><a href="linux-tools.html#calyx-linux">Calyx Linux Distribution</a></li>
+            <li><a href="linux-tools.html#calyx-terminal">Calyx Terminal Emulator</a></li>
+            <li><a href="linux-tools.html#calyx-webserver">Calyx Web Server (Pure Python)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Direct Contact &amp; Signing</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:calyxlabsinc@gmail.com">calyxlabsinc@gmail.com</a></li>
+            <li><a href="contact.html">Interactive Email Composer</a></li>
+            <li><a href="about.html#signing-identity">Verify Signing Certificates</a></li>
+            <li><span style="color: var(--text-muted); font-size: 0.82rem;">Cleveland, Ohio 44105, USA</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Calyx Labs Inc. Created, Designed &amp; Engineered by <strong>Tristen Martinez (aka Calyxia)</strong>. All rights reserved.</div>
+        <div>
+          <a href="google_play_privacy_policy.txt" style="color: var(--neon-pink-bright); font-family: var(--font-mono);">/google_play_privacy_policy.txt</a>
+          &nbsp;&bull;&nbsp;
+          <a href="mailto:calyxlabsinc@gmail.com" style="color: var(--text-secondary);">calyxlabsinc@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  
+</body>
+</html>

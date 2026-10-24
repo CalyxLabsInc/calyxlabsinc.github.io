@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Calyx Labs Inc. & Tristen Martinez (Calyxia) | Calyx Labs Inc.</title>
+  <meta name="description" content="Calyx Labs Inc. — Post-Quantum Android Security Apps (Calyx PGP Client), Arcade Gaming (Zappy Bird), and Hardened Linux Utilities (Calyx Linux, Calyx Terminal, Calyx SOC) engineered by Tristen Martinez (Calyxia)." />
+  <link rel="icon" type="image/png" href="assets/images/pgp-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/pgp-icon.png" alt="Calyx Labs Inc. Logo" />
+        <div class="brand-text">
+          CALYX <span class="neon">LABS INC.</span>
+          <span class="brand-sub">Obsidian Security &bull; Android &amp; Linux</span>
+        </div>
+      </a>
+
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle Menu">&#9776;</button>
+
+      <ul id="nav-links" class="nav-links">
+          <li><a href="index.html" class="">Home</a></li>
+          <li><a href="pgp-client.html" class="">Calyx PGP Client</a></li>
+          <li><a href="zappy-bird.html" class="">Zappy Bird</a></li>
+          <li><a href="linux-tools.html" class="">Linux & SOC Suite</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="privacy.html" class="">Privacy Policy</a></li>
+          <li><a href="contact.html" class="nav-cta">Contact</a></li>
+          
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+  <section style="padding-top: 4rem;">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Transparent Authorship &bull; Cleveland, Ohio, USA</span>
+          <h1 class="hero-title">Built by <span class="text-neon">Calyx Labs Inc.</span></h1>
+          <p class="lead">
+            <strong>Calyx Labs Inc.</strong> is an independent cybersecurity, cryptography, and mobile software engineering organization founded and led by <strong>Tristen Martinez (aka Calyxia)</strong> in Cleveland, Ohio.
+          </p>
+          <p style="color: var(--text-secondary); margin-top: 1rem;">
+            Full credit for the vision, security architecture, post-quantum cryptographic policy, signature <strong>Obsidian Black &amp; Neon Pink</strong> visual identity, and software development across Android and Linux belongs to <strong>Tristen Martinez (aka Calyxia)</strong>, Founder &amp; Chief Executive Officer of Calyx Labs Inc.
+          </p>
+
+          <div class="btn-group">
+            <a href="contact.html" class="btn btn-primary">Contact Tristen Martinez (Calyxia) &rarr;</a>
+            <a href="google_play_privacy_policy.txt" class="btn btn-secondary">Read Zero-Data Policy (.txt)</a>
+          </div>
+        </div>
+
+        <div class="card card-neon" style="text-align: center;">
+          <img src="assets/images/pgp-credits.png" alt="Calyx Labs Credits & Authorship" style="max-height: 440px; margin: 0 auto; border-radius: 12px; border: 1px solid var(--neon-pink-border); cursor: pointer;" onclick="openLightbox('assets/images/pgp-credits.png', 'Built by Calyx Labs Inc. — Tristen Martinez / Calyxia')" />
+          <div class="screenshot-caption" style="margin-top: 1rem;">Official In-App Software Attribution &amp; Signing Identity</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Engineering Pillars -->
+  <section style="background: rgba(13, 13, 20, 0.65); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <span class="eyebrow">Engineering Philosophy</span>
+      <h2 class="section-title">Core Principles of <span class="text-neon">Calyx Labs Inc.</span></h2>
+
+      <div class="grid-3" style="margin-top: 2.5rem;">
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">PILLAR 01 // ZERO TELEMETRY</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.65rem;">Absolute User Sovereignty</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Your device belongs to you. We never embed analytics trackers, behavioral telemetry, or hidden network calls. Every cryptographic key and local file remains strictly under your hardware control.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">PILLAR 02 // POST-QUANTUM READY</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.65rem;">Next-Generation Cryptography</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            To defend against "harvest now, decrypt later" threats, Calyx PGP Client pioneers RFC 4880 / 9580 OpenPGP workflows paired with NIST-standardized <strong>ML-KEM-1024</strong> and <strong>ML-DSA-87</strong> algorithms.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-mono); color: var(--neon-pink-bright); font-size: 0.8rem; margin-bottom: 0.5rem;">PILLAR 03 // VERIFIABLE BUILDS</div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 0.65rem;">Cryptographic Attribution</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Every release from Calyx Labs Inc. publishes its full X.509 Distinguished Name, SHA-256 certificate digest, and OpenPGP v4/v6 fingerprint so users can verify authenticity independently.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Official Signing Identity Table -->
+  <section id="signing-identity">
+    <div class="container">
+      <div class="card card-neon" style="padding: 2.5rem;">
+        <span class="eyebrow">Cryptographic Verification Record</span>
+        <h2 style="font-size: 1.85rem; margin-bottom: 1.5rem;">Official <span class="text-neon">Signing &amp; Key Fingerprints</span></h2>
+
+        <div style="display: grid; gap: 1.25rem;">
+          <div class="code-box">
+            <div style="color: var(--text-muted);">FOUNDER &amp; LEAD DEVELOPER</div>
+            <div style="color: #fff; font-weight: 700;">Tristen Martinez (aka Calyxia) — Founder &amp; Chief Executive Officer, Calyx Labs Inc. (Cleveland, Ohio, USA)</div>
+          </div>
+
+          <div class="code-box">
+            <div style="color: var(--text-muted);">SIGNER SUBJECT DISTINGUISHED NAME (DN)</div>
+            <div>CN=Tristen Martinez (aka Calyxia), OU=Engineering, O=Calyx Labs Inc., L=Cleveland, ST=OH, postalCode=44105, C=US</div>
+          </div>
+
+          <div class="code-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+              <div>
+                <div style="color: var(--text-muted);">CERTIFICATE SHA-256 FINGERPRINT (ALIAS: CALYXLABS)</div>
+                <div>EB:24:7C:4D:82:C2:D1:22:CC:89:42:37:46:84:07:C6:E1:B6:59:51:D7:C7:4B:F3:7C:D5:94:8E:55:F6:7C:E3</div>
+              </div>
+              <button type="button" class="copy-btn" onclick="copyText('EB:24:7C:4D:82:C2:D1:22:CC:89:42:37:46:84:07:C6:E1:B6:59:51:D7:C7:4B:F3:7C:D5:94:8E:55:F6:7C:E3', 'SHA-256 Fingerprint')">Copy SHA-256</button>
+            </div>
+          </div>
+
+          <div class="code-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+              <div>
+                <div style="color: var(--text-muted);">CERTIFICATE SHA-1 FINGERPRINT</div>
+                <div>16:63:D3:55:EC:F5:9D:F9:1F:78:66:6C:1B:A0:39:09:CE:46:49:02</div>
+              </div>
+              <button type="button" class="copy-btn" onclick="copyText('16:63:D3:55:EC:F5:9D:F9:1F:78:66:6C:1B:A0:39:09:CE:46:49:02', 'SHA-1 Fingerprint')">Copy SHA-1</button>
+            </div>
+          </div>
+
+          <div class="code-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+              <div>
+                <div style="color: var(--text-muted);">OPENPGP V4/V6 PUBLIC KEY FINGERPRINT (KEY ID: AEDCB922D6AF39A5)</div>
+                <div>58E5 3B77 6935 2226 E942 9164 AEDC B922 D6AF 39A5</div>
+              </div>
+              <button type="button" class="copy-btn" onclick="copyText('58E5 3B77 6935 2226 E942 9164 AEDC B922 D6AF 39A5', 'OpenPGP Fingerprint')">Copy PGP Fingerprint</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Screenshot Lightbox Modal -->
+  <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close preview">&times;</button>
+      <img id="lightbox-img" src="assets/images/pgp-icon.png" alt="Screenshot preview" />
+      <p id="lightbox-caption" class="screenshot-caption" style="text-align:center; margin-top:0.85rem;"></p>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="brand-logo" style="margin-bottom: 1rem;">
+            <img src="assets/images/pgp-icon.png" alt="Calyx Labs Inc." />
+            <div class="brand-text">
+              CALYX <span class="neon">LABS INC.</span>
+              <span class="brand-sub">Engineered by Tristen Martinez (Calyxia)</span>
+            </div>
+          </a>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+            Independent software engineering laboratory in Cleveland, Ohio specializing in zero-telemetry Android applications, post-quantum cryptography, and hardened Linux security utilities.
+          </p>
+          <div class="badge-list">
+            <span class="badge pink">100% Zero Data Collection</span>
+            <span class="badge green">SHA-256 Verified Releases</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Android Releases</h4>
+          <ul class="footer-links">
+            <li><a href="pgp-client.html">Calyx PGP Client (v0.1.0-alpha)</a></li>
+            <li><a href="zappy-bird.html">Zappy Bird (v1.0.0 Official)</a></li>
+            <li><a href="google_play_privacy_policy.txt">Google Play Privacy Policy (.txt)</a></li>
+            <li><a href="privacy.html">Zero-Data Security Pledge</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Linux &amp; Utilities</h4>
+          <ul class="footer-links">
+            <li><a href="linux-tools.html#calyx-soc">Calyx Security Operations Center</a></li>
+            <li><a href="linux-tools.html#calyx-linux">Calyx Linux Distribution</a></li>
+            <li><a href="linux-tools.html#calyx-terminal">Calyx Terminal Emulator</a></li>
+            <li><a href="linux-tools.html#calyx-webserver">Calyx Web Server (Pure Python)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Direct Contact &amp; Signing</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:calyxlabsinc@gmail.com">calyxlabsinc@gmail.com</a></li>
+            <li><a href="contact.html">Interactive Email Composer</a></li>
+            <li><a href="about.html#signing-identity">Verify Signing Certificates</a></li>
+            <li><span style="color: var(--text-muted); font-size: 0.82rem;">Cleveland, Ohio 44105, USA</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Calyx Labs Inc. Created, Designed &amp; Engineered by <strong>Tristen Martinez (aka Calyxia)</strong>. All rights reserved.</div>
+        <div>
+          <a href="google_play_privacy_policy.txt" style="color: var(--neon-pink-bright); font-family: var(--font-mono);">/google_play_privacy_policy.txt</a>
+          &nbsp;&bull;&nbsp;
+          <a href="mailto:calyxlabsinc@gmail.com" style="color: var(--text-secondary);">calyxlabsinc@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  
+</body>
+</html>
