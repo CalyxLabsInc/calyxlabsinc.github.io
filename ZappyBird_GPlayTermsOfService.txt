@@ -1,0 +1,39 @@
+================================================================================
+TERMS OF SERVICE - ZAPPY BIRD
+================================================================================
+Effective Date: October 2026
+Developer / Publisher: Calyx Labs Inc. aka Calyxia aka Tristen Martinez
+Contact: support@calyxlabsinc.github.io
+
+1. INTRODUCTION
+Welcome to Zappy Bird. By downloading, installing, or using Zappy Bird (the "Application"), you agree to be bound by these Terms of Service. Please read them carefully before using the Application.
+
+2. DEVELOPER TRADER STATUS & IDENTIFICATION
+Zappy Bird is an independent mobile application developed, owned, and published by Tristen Micheal Martinez operating under the brand Calyx Labs Inc., an active developer entity publishing on the Google Play Store. As a personal developer and sole creator of Zappy Bird, I act as the sole trader responsible for the distribution, maintenance, and support of this software.
+
+3. LICENSE TO USE
+Calyx Labs Inc. grants you a personal, worldwide, royalty-free, non-assignable, and non-exclusive license to use Zappy Bird for personal, non-commercial entertainment purposes. You may not reverse engineer, decompile, extract source code, or redistribute the Application without explicit written authorization.
+
+4. USER DATA & PRIVACY
+Calyx Labs Inc. is fully committed to user privacy:
+- We do not collect, store, transmit, or process any personal information, telemetry, analytics, or device data from users of Zappy Bird.
+- Players may configure a local username for local multiplayer and high-score tracking purposes. This username is stored strictly on your local device storage and is never sent, broadcasted, or transmitted over any internet or external network connection.
+
+5. LOCAL MULTIPLAYER & CONNECTIVITY
+Zappy Bird features local Wi-Fi multiplayer functionality allowing direct peer-to-peer connection between devices on the same local network for lobby hosting and gameplay. No external servers or cloud databases are utilized to track, route, or log gameplay sessions.
+
+6. INTELLECTUAL PROPERTY
+All original software code, game assets, graphics, audio, UI designs, and branding associated with Zappy Bird and Calyx Labs Inc. are the exclusive intellectual property of the developer. 
+
+7. DISCLAIMER OF WARRANTIES
+The Application is provided on an "AS IS" and "AS AVAILABLE" basis, without warranties of any kind, either express or implied. Calyx Labs Inc. disclaims all warranties, including merchantability, fitness for a particular purpose, and non-infringement. We do not guarantee uninterrupted or error-free operation of the Application.
+
+8. LIMITATION OF LIABILITY
+To the maximum extent permitted by applicable law, Calyx Labs Inc. and its creator shall not be held liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use or inability to use Zappy Bird.
+
+9. CHANGES TO THESE TERMS
+Calyx Labs Inc. reserves the right to modify these Terms of Service at any time. Updated versions will be published directly on the official Calyx Labs Inc. GitHub Pages website. Continued use of the Application following any updates constitutes acceptance of the revised terms.
+
+10. CONTACT INFORMATION
+For any questions, support requests, or inquiries regarding these Terms of Service, please reach out via our official developer channels at calyxlabsinc.github.io.
+================================================================================
