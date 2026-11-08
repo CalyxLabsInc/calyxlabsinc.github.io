@@ -3,7 +3,7 @@ TERMS OF SERVICE - ZAPPY BIRD
 ================================================================================
 Effective Date: October 2026
 Developer / Publisher: Calyx Labs Inc. aka Calyxia aka Tristen Martinez
-Contact: support@calyxlabsinc.github.io
+Contact: calyxwireless@gmail.com
 
 1. INTRODUCTION
 Welcome to Zappy Bird. By downloading, installing, or using Zappy Bird (the "Application"), you agree to be bound by these Terms of Service. Please read them carefully before using the Application.
@@ -35,5 +35,5 @@ To the maximum extent permitted by applicable law, Calyx Labs Inc. and its creat
 Calyx Labs Inc. reserves the right to modify these Terms of Service at any time. Updated versions will be published directly on the official Calyx Labs Inc. GitHub Pages website. Continued use of the Application following any updates constitutes acceptance of the revised terms.
 
 10. CONTACT INFORMATION
-For any questions, support requests, or inquiries regarding these Terms of Service, please reach out via our official developer channels at calyxlabsinc.github.io.
+For any questions, support requests, or inquiries regarding these Terms of Service, please reach out via our official developer channels at calyxlabsinc.github.io or via email at calyxwireless@gmail.com
 ================================================================================
