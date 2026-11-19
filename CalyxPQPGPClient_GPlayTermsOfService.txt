@@ -1,0 +1,36 @@
+# Terms of Service for Calyx Post Quantum PGP Client
+
+**Effective Date:** November 10, 2026
+
+Welcome to Calyx Post Quantum PGP Client! These Terms of Service ("Terms") govern your use of the Calyx Post Quantum PGP Client mobile application (Version 1.0.0, the "App"), created, owned, and operated by Calyx Labs Inc. / Personal Developer Account ("Developer", "I", "me", or "my"). By downloading, installing, or using the App, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use the App.
+
+## 1. Trader Status & Developer Identification
+In compliance with applicable consumer protection laws and Google Play Console requirements, I declare my status as a **trader/developer** for this application:
+* **Developer Name / Entity:** Calyx Labs Inc. (Personal Developer Account)
+* **Contact Email:** support@calyxlabsinc.github.io
+* **Nature of App:** Calyx Post Quantum PGP Client is an advanced cryptography and security utility designed to support post-quantum cryptographic standards, hybrid key generation, and secure data encryption/decryption.
+
+## 2. Use of the App & Post-Quantum Cryptography
+* **License:** I grant you a personal, worldwide, royalty-free, non-assignable, and non-exclusive license to use the App provided to you as part of the services.
+* **Security & Experimental Standards Notice:** Post-quantum cryptography and lattice-based algorithms involve cutting-edge cryptographic science. While designed for enhanced future-proof security against quantum computing threats, you are solely responsible for safeguarding your private keys, seed phrases, and sensitive data. The Developer cannot recover lost private keys or corrupted/decrypted data under any circumstances.
+* **Restrictions:** You may not copy, modify, distribute, sell, or lease any part of the App or included software, nor may you reverse engineer or attempt to extract the source code, unless laws prohibit those restrictions or you have my written permission.
+
+## 3. User Data & Privacy
+* **Zero Data Collection:** Calyx Labs Inc. is fully committed to user privacy. We do not collect, store, transmit, or process any personal information, telemetry, analytics, encrypted messages, or post-quantum private keys.
+* **Local Operation:** All cryptographic computations, hybrid key generation, encapsulation, encryption, and decryption are performed entirely and exclusively on your local device storage. No keys, passwords, passphrases, or message contents are ever sent, broadcasted, or transmitted over any internet or external network connection.
+
+## 4. Intellectual Property
+All intellectual property rights in Calyx Post Quantum PGP Client (including but not limited to source code, graphics, user interface, and trademarks) are owned exclusively by the Developer. Unauthorized use or reproduction of the App's assets is strictly prohibited.
+
+## 5. Disclaimer of Warranties
+The App is provided on an "AS IS" and "AS AVAILABLE" basis, without warranties of any kind, either express or implied. The Developer disclaims all warranties, including merchantability, fitness for a particular purpose, and non-infringement. The Developer does not guarantee that the App will be uninterrupted, secure, or entirely error-free, nor does the Developer guarantee absolute security against evolving quantum or classical cryptographic breakthroughs and device-level compromises.
+
+## 6. Limitation of Liability
+To the maximum extent permitted by applicable law, the Developer shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of data, keys, or profits arising out of your use or inability to use the App.
+
+## 7. Changes to These Terms
+I reserve the right to modify or replace these Terms at any time. Notice of changes will be posted by updating the "Effective Date" at the top of this document. Your continued use of the App after any changes constitutes acceptance of the new Terms.
+
+## 8. Contact Information
+If you have any questions, concerns, or disputes regarding these Terms of Service or the App, please reach out via the website at:
+https://calyxlabsinc.github.io

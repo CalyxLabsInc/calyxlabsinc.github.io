@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenQPEP Beta Version 0.1.9 & Calyx QPEP Client | Calyx Labs Inc.</title>
+  <meta name="description" content="OpenQPEP (Calyx Quantum-Proof Encryption Protocol) Beta Version 0.1.9 featuring Calyx Hyper-Tesseract (QLX-16384 + QVS-1024) and Signature QLX-4096 + QVS-256." />
+  <link rel="canonical" href="https://calyxlabsinc.github.io/openqpep.html" />
+  <link rel="icon" type="image/png" href="assets/images/pgp-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/pgp-icon.png" alt="Calyx Labs Inc. Logo" />
+        <div class="brand-text">
+          CALYX <span class="neon">LABS INC.</span>
+          <span class="brand-sub">Backup Mirror • calyxlabsinc.github.io</span>
+        </div>
+      </a>
+
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle Menu">&#9776;</button>
+
+      <ul id="nav-links" class="nav-links">
+          <li><a href="index.html" class="">Home</a></li>
+          <li><a href="messenger.html" class="">Messenger</a></li>
+          <li><a href="openqpep.html" class="active">OpenQPEP</a></li>
+          <li><a href="pgp-client.html" class="">PGP Suite</a></li>
+          <li><a href="zappy-bird.html" class="">Games</a></li>
+          <li><a href="linux-tools.html" class="">Linux &amp; SOC</a></li>
+          <li><a href="about.html" class="">About</a></li>
+          <li><a href="privacy.html" class="">Privacy</a></li>
+          <li><a href="contact.html" class="nav-cta">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+  <!-- OpenQPEP Hero -->
+  <section style="padding-top: 4.5rem;">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Calyx Public Open Source License 1.0 (CPOSL-1.0)</span>
+          <h1 class="hero-title">
+            OpenQPEP <span class="text-neon">Beta Version 0.1.9</span>
+          </h1>
+          <p class="lead">
+            <strong>OpenQPEP (Calyx Quantum-Proof Encryption Protocol)</strong> is our sovereign post-quantum encryption, digital signature, and key-management ecosystem engineered by <strong>Tristen Martinez</strong> at <strong>Calyx Labs Inc.</strong>
+          </p>
+          <div class="btn-group">
+            <a href="https://github.com/CalyxLabsInc/OpenQPEP/" class="btn btn-primary" target="_blank" rel="noopener">OpenQPEP GitHub Repo &rarr;</a>
+            <a href="https://github.com/CalyxLabsInc/CalyxQPEP-Client/" class="btn btn-cyan" target="_blank" rel="noopener">Calyx QPEP Client (Android)</a>
+            <a href="https://qpepkeys.calyxlabsinc.org" class="btn btn-secondary" target="_blank" rel="noopener">Live Key Directory</a>
+          </div>
+        </div>
+
+        <div class="card card-neon" style="padding: 1.75rem;">
+          <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--neon-pink-bright); margin-bottom: 0.65rem;">FIVE-LAYER POST-QUANTUM ARCHITECTURE</div>
+          <ul style="list-style: none; display: grid; gap: 0.65rem; font-size: 0.9rem; color: var(--text-secondary);">
+            <li><strong style="color: var(--text-primary);">Layer 1 (QPKD-Argon):</strong> Mandatory 12+ char passphrase gate stretched with 256-bit salt &amp; <code>qSponge-512</code>.</li>
+            <li><strong style="color: var(--text-primary);">Layer 2 (QLX + HGC-448):</strong> Hybrid Module-LWE KEM over <code>Z_3329[X]/(X^256+1)</code> + ephemeral <code>X448</code>.</li>
+            <li><strong style="color: var(--text-primary);">Layer 3 (Calyx-Cascade-512):</strong> Dual-stream 64 KiB AEAD frames with multi-extension binary file preservation (165+ formats).</li>
+            <li><strong style="color: var(--text-primary);">Layer 4 (QVS + Ed448):</strong> Conjunctive Quantum Vector Signatures with Verify-Before-Emit Fault-Injection Guard.</li>
+            <li><strong style="color: var(--text-primary);">Layer 5 (.qpkrf Key Rings):</strong> Atomic, self-certified Key Ring files addressed by 64-character Key Hashes.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 Key Suites Table -->
+  <section style="background: rgba(13, 13, 20, 0.6); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div style="margin-bottom: 2.25rem;">
+        <span class="eyebrow cyan">Beta Version 0.1.9 Key Tiers</span>
+        <h2 class="section-title">Five Tiered <span class="text-neon">QLX + QVS</span> Cryptographic Suites</h2>
+      </div>
+
+      <div class="grid-3">
+        <div class="card card-cyan">
+          <span class="badge" style="border-color: #22C55E; color: #22C55E; background: rgba(34,197,94,0.12);">HIGH-TIER HARDWARE ONLY</span>
+          <h3 style="margin-top: 0.65rem;">Calyx Hyper-Tesseract</h3>
+          <p class="mono" style="font-size: 0.82rem; color: var(--cyan-zap); margin: 0.35rem 0 0.75rem;">QLX-16384 + QVS-1024 + CC-512</p>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            4-Manifold Coupled 16,384-Dim lattice (<code>k=64</code>, <code>pk=24,608 B</code>, <code>ct=23,168 B</code>) + <code>QVS-1024</code> (<code>16&times;14</code>, <code>sig=10,816 B</code>). Flagship 12 GB+ RAM devices &amp; high-spec PCs only.
+          </p>
+        </div>
+
+        <div class="card card-neon">
+          <span class="badge pink">DEFAULT APEX SUITE</span>
+          <h3 style="margin-top: 0.65rem;">Calyx Signature</h3>
+          <p class="mono" style="font-size: 0.82rem; color: var(--neon-pink-bright); margin: 0.35rem 0 0.75rem;">QLX-4096 + QVS-256 + CC-512</p>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            Default flagship 4,096-Dim Module-LWE KEM (<code>k=16</code>, <code>pk=6,176 B</code>, <code>ct=5,792 B</code>) paired with <code>QVS-256</code> (<code>k=8, l=7</code>, <code>sig=5,440 B</code>) + <code>HGC-448</code>.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="badge green">BALANCED &amp; MOBILE TIERS</span>
+          <h3 style="margin-top: 0.65rem;">Ultra-Grid, Hybrid &amp; Velocity</h3>
+          <p class="mono" style="font-size: 0.82rem; color: var(--text-primary); margin: 0.35rem 0 0.75rem;">QLX-2048 &bull; QLX-1024 &bull; QLX-768</p>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            <strong>Ultra-Grid</strong> (<code>QLX-2048 + QVS-128</code>), <strong>Sovereign Hybrid</strong> (<code>QLX-1024 + QVS-87</code>), and <strong>Velocity</strong> (<code>QLX-768 + QVS-65</code>) for archival and low-latency mobile deployments.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Screenshot Lightbox Modal -->
+  <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close preview">&times;</button>
+      <img id="lightbox-img" src="assets/images/pgp-icon.png" alt="Screenshot preview" />
+      <p id="lightbox-caption" class="screenshot-caption" style="text-align:center; margin-top:0.85rem;"></p>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="brand-logo" style="margin-bottom: 1rem;">
+            <img src="assets/images/pgp-icon.png" alt="Calyx Labs Inc." />
+            <div class="brand-text">
+              CALYX <span class="neon">LABS INC.</span>
+              <span class="brand-sub">Engineered by Tristen Martinez (Calyxia)</span>
+            </div>
+          </a>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+            Independent software engineering laboratory in Cleveland, Ohio specializing in OpenQPEP post-quantum cryptography, zero-telemetry Android &amp; iOS apps, arcade games, and hardened Linux security utilities.
+          </p>
+          <div class="badge-list">
+            <span class="badge pink">100% Zero Data Collection</span>
+            <span class="badge green">Secondary / Backup Site • calyxlabsinc.github.io</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">OpenQPEP &amp; Apps</h4>
+          <ul class="footer-links">
+            <li><a href="messenger.html">Calyx Encrypted Messenger (Android/iOS/Web)</a></li>
+            <li><a href="openqpep.html">OpenQPEP Beta v0.1.9 &amp; QPEP Client</a></li>
+            <li><a href="pgp-client.html">Calyx PGP &amp; Post-Quantum PGP Suite</a></li>
+            <li><a href="zappy-bird.html">Zappy Bird &amp; Calyxia Space Shooter</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Linux, SOC &amp; Policies</h4>
+          <ul class="footer-links">
+            <li><a href="linux-tools.html#calyx-soc">Calyx SOC v2.4.0 &amp; Calyx Linux</a></li>
+            <li><a href="linux-tools.html#calyx-terminal">Calyx Terminal, Web Server &amp; Doc Editor</a></li>
+            <li><a href="google_play_privacy_policy.txt">Google Play Privacy Policy (.txt)</a></li>
+            <li><a href="CalyxQPEM_TermsOfService.txt">Calyx Messenger Terms of Service (.txt)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Network &amp; Contact</h4>
+          <ul class="footer-links">
+            <li><a href="https://calyxlabsinc.org/" target="_blank" rel="noopener" style="color: var(--cyan-zap);">Primary Website (calyxlabsinc.org)</a></li>
+            <li><a href="https://messenger.calyxlabsinc.org" target="_blank" rel="noopener">Calyx Messenger Web App</a></li>
+            <li><a href="https://qpepkeys.calyxlabsinc.org" target="_blank" rel="noopener">OpenQPEP Key Directory</a></li>
+            <li><a href="mailto:calyxlabsinc@gmail.com">calyxlabsinc@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Calyx Labs Inc. Created, Designed &amp; Engineered by <strong>Tristen Martinez (aka Calyxia)</strong>. All rights reserved.</div>
+        <div>
+          <a href="https://calyxlabsinc.org" style="color: var(--neon-pink-bright); font-family: var(--font-mono);">calyxlabsinc.org</a>
+          &nbsp;&bull;&nbsp;
+          <a href="https://calyxlabsinc.github.io" style="color: var(--cyan-zap); font-family: var(--font-mono);">calyxlabsinc.github.io</a>
+          &nbsp;&bull;&nbsp;
+          <a href="google_play_privacy_policy.txt" style="color: var(--text-secondary); font-family: var(--font-mono);">/google_play_privacy_policy.txt</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

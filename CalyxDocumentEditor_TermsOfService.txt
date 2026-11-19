@@ -1,0 +1,99 @@
+TERMS OF SERVICE AND END USER LICENSE AGREEMENT (EULA)
+CALYX DOCUMENT EDITOR (com.calyxlabs.doceditor)
+
+Effective Date: November 17, 2026
+Last Updated: November 17, 2026
+
+
+1. TRADER STATUS AND DEVELOPER DISCLOSURE (GOOGLE PLAY STORE & EU DSA COMPLIANCE)
+
+In accordance with Google Play Store Developer Distribution requirements and European Union Digital Services Act (DSA) trader verification rules, the developer and trader responsible for Calyx Document Editor is:
+
+Legal Entity / Trader Name: Calyx Labs Inc.
+Founder & Authorized Representative: Tristen Martinez
+Application Name: Calyx Document Editor
+Package Identifier: com.calyxlabs.doceditor
+Business Address: Cleveland, OH 44105, United States
+Support & Legal Contact Email: support@calyxlabs.com
+
+Calyx Labs Inc. certifies that it acts as a commercial trader in offering Calyx Document Editor on the Google Play Store and commits to complying with all applicable consumer protection, product safety, and digital distribution laws.
+
+
+2. ACCEPTANCE OF TERMS
+
+By purchasing, downloading, installing, accessing, or using Calyx Document Editor ("the Application"), you ("User" or "you") agree to be bound by these Terms of Service and End User License Agreement ("Terms"). If you do not agree to these Terms, do not purchase, download, install, or use the Application.
+
+
+3. APPLICATION OVERVIEW AND SUPPORTED FORMATS
+
+Calyx Document Editor is a local-first document creation, viewing, formatting, annotation, signing, and editing application developed by Calyx Labs Inc. for Android devices running Android 10 (API Level 29) through Android 17 (API Level 37).
+
+The Application supports opening, editing, formatting, and exporting across twenty-five (25) document file extensions:
+.doc, .docx, .docm, .dot, .dotx, .odt, .pdf, .rtf, .txt, .tex, .wpd, .wps, .pages, .epub, .mobi, .azw, .azw3, .djvu, .oxps, .xps, .md, .markdown, .log, .msg, and .eml.
+
+The Application also includes over one hundred (100) built-in document fonts and supports importing custom user font files across eleven (11) font extensions:
+.otf, .otc, .ttf, .ttc, .woff2, .woff, .pfm, .afm, .pfb, .eot, and .shx.
+
+
+4. LICENSE GRANT AND RESTRICTIONS
+
+Subject to your purchase of the Application and compliance with these Terms, Calyx Labs Inc. grants you a personal, non-exclusive, non-transferable, non-sublicensable, revocable license to download, install, and use Calyx Document Editor on Android devices that you own or control, strictly for your personal or internal business document editing purposes.
+
+You agree that you shall not:
+(a) Copy, modify, adapt, translate, or create derivative works of the Application or its user interface;
+(b) Reverse engineer, decompile, disassemble, or attempt to extract the source code or compiled bytecode of the Application, except to the extent such restriction is expressly prohibited by applicable law;
+(c) Redistribute, sell, rent, lease, lend, or sublicense the Application or repackage its APK/AAB binaries for third-party distribution;
+(d) Remove, alter, or obscure any copyright, trademark, or proprietary notices of Calyx Labs Inc.
+
+
+5. PRICING, PAYMENTS, AND REFUNDS ($9.99 USD ONE-TIME PURCHASE)
+
+(a) Purchase Price: Calyx Document Editor is offered as a paid application on the Google Play Store for a one-time purchase price of $9.99 USD (or the equivalent local currency price displayed in the Google Play Store at checkout), plus any applicable taxes.
+(b) No Subscriptions or Hidden Fees: All document editing tools, format parsers, font imports, signature pads, and export features are included in the $9.99 USD purchase price. There are no recurring subscriptions, in-app purchases, or paywalled features.
+(c) Billing and Refunds: All payment processing is handled directly by Google Play. Refund requests, billing inquiries, and statutory withdrawal rights (including European Union / United Kingdom cooling-off rights where applicable to digital content downloads) are governed by the Google Play Refund Policy (https://support.google.com/googleplay/answer/2479637). You may also contact Calyx Labs Inc. at support@calyxlabsinc.org for order assistance.
+
+
+6. LOCAL-FIRST PROCESSING, USER CONTENT, AND PRIVACY
+
+(a) Ownership of Documents: You retain full ownership and intellectual property rights in all documents, forms, signatures, text, and custom font files ("User Content") that you create, import, edit, or export using Calyx Document Editor.
+(b) Local On-Device Storage: Calyx Document Editor operates as an offline, local-first application. Your documents, edits, signatures, and imported fonts are processed and stored locally on your Android device. Calyx Labs Inc. does not operate cloud storage servers for your documents and does not upload, view, collect, sell, or transmit the contents of your files to external servers.
+(c) User Responsibility for Backups and Font Licensing: Because all files reside on your device, you are solely responsible for maintaining backup copies of your important documents and ensuring that you hold the necessary rights or licenses for any custom fonts or documents you import into the Application.
+
+
+7. ELECTRONIC SIGNATURES AND TAX / LEGAL FORMS NOTICE
+
+Calyx Document Editor provides a Fill & Sign tool and coordinate-based text overlay tools that allow you to fill out and sign PDF forms (such as tax forms, certificates, and agreements). Calyx Labs Inc. is a software provider, not a law firm, accounting firm, or certification authority. You are solely responsible for verifying the accuracy of any information entered into legal, financial, or tax forms and for confirming whether a recipient, agency, or jurisdiction accepts self-drawn electronic signatures.
+
+
+8. DISCLAIMER OF WARRANTIES
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, CALYX DOCUMENT EDITOR IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING WITHOUT LIMITATION IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, ACCURACY OF FILE RENDERING, AND NON-INFRINGEMENT. CALYX LABS INC. DOES NOT WARRANT THAT THE APPLICATION WILL BE ERROR-FREE OR THAT EVERY THIRD-PARTY OR LEGACY FILE VARIANT WILL RENDER IDENTICALLY TO PROPRIETARY DESKTOP SOFTWARE.
+
+Nothing in these Terms affects any statutory consumer rights that cannot be waived or limited under the laws of your jurisdiction (including mandatory consumer guarantees under EU, UK, Australian, or US state law).
+
+
+9. LIMITATION OF LIABILITY
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL CALYX LABS INC., ITS FOUNDER (TRISTEN MARTINEZ), OFFICERS, EMPLOYEES, OR AFFILIATES BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA, LOSS OF DOCUMENTS, LOSS OF PROFITS, OR BUSINESS INTERRUPTION ARISING OUT OF OR RELATED TO YOUR USE OF OR INABILITY TO USE THE APPLICATION, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+IN NO EVENT SHALL THE TOTAL AGGREGATE LIABILITY OF CALYX LABS INC. FOR ALL CLAIMS RELATING TO THE APPLICATION EXCEED THE AMOUNT YOU ACTUALLY PAID FOR THE APPLICATION ($9.99 USD OR EQUIVALENT LOCAL CURRENCY).
+
+
+10. GOVERNING LAW AND DISPUTE RESOLUTION
+
+These Terms shall be governed by and construed in accordance with the laws of the State of Ohio and the federal laws of the United States of America, without regard to conflict-of-law principles. Any legal suit, action, or proceeding arising out of or related to these Terms or the Application shall be instituted in the state or federal courts located in Cuyahoga County or Summit County, Ohio, unless mandatory consumer protection laws in your country of residence require otherwise.
+
+
+11. CHANGES TO THESE TERMS
+
+Calyx Labs Inc. may update these Terms from time to time in connection with application updates or legal requirements. Updated Terms will be published with a revised "Last Updated" date. Continued use of the Application after an update constitutes acceptance of the revised Terms.
+
+
+12. CONTACT INFORMATION
+
+For customer support, technical inquiries, trader verification questions, or legal notices regarding Calyx Document Editor (com.calyxlabs.doceditor), please contact:
+
+Calyx Labs Inc.
+Attn: Tristen Martinez, Founder
+Cleveland, OH 44105, United States
+Email: support@calyxlabs.com

@@ -1,0 +1,81 @@
+========================================================================
+CALYX LABS INC. — OFFICIAL GOOGLE PLAY TERMS OF SERVICE
+Application: Calyx Encrypted Messenger (com.calyxlabs.qpem) — v1.0.0
+Protocol: OpenQPEP / Calyx QPEP (Beta Version 0.1.6)
+========================================================================
+Effective Date: November 16, 2026
+Publisher / Developer: Calyx Labs Inc. (Created & Engineered by Tristen Martinez)
+Official Websites: https://calyxlabsinc.org | https://calyxlabsinc.github.io
+Messenger Relay & Directory Endpoint: https://messenger.calyxlabsinc.org
+Protocol Repository: https://github.com/CalyxLabsInc/OpenQPEP/
+Contact: support@calyxlabsinc.org | calyxlabsinc@gmail.com
+
+1. ACCEPTANCE OF TERMS
+By downloading, installing, accessing, or using Calyx Encrypted Messenger
+(package name: "com.calyxlabs.qpem", hereinafter "the Application"), you agree
+to be bound by these Terms of Service and the Calyx Public Open Source License
+1.0 (CPOSL-1.0). If you do not agree to these Terms, do not install or use the
+Application.
+
+2. QPEP KEY ACCOUNTS & SOVEREIGN ON-DEVICE CRYPTOGRAPHY
+In Calyx Encrypted Messenger, self-certified OpenQPEP Quantum-Proof Key Rings
+(.qpkrf) operate as user accounts:
+  * Account Creation & Key Ring Binding: Creating an account generates a
+    post-quantum OpenQPEP key pair (QLX-768 + QVS-65 Velocity, QLX-1024 + QVS-87
+    Sovereign Hybrid, or QLX-2048 + QVS-128 Ultra-Grid) bound to your chosen Key
+    Name (username), Email address, and unique 64-character hex Key Hash.
+  * Mandatory QPKD-Argon Passphrase Gate: Before any private key is generated,
+    unlocked, imported, exported, or used to sign or decrypt messages, the
+    Application enforces the mandatory Calyx QPEP Passphrase Policy (minimum 12
+    characters, at least 2 digits 0-9, at least 4 special characters, at least 2
+    uppercase letters A-Z, and at least 4 lowercase letters a-z) stretched with
+    a 256-bit salt and 24-round Keccak-f[1600] qSponge-512.
+  * Local Private Key Isolation & Export: Your Private Key Ring (.qpkrf) and
+    passphrase remain strictly on your local device. Calyx Labs Inc. never
+    receives, escrows, or stores your private keys or passphrases. You may
+    export your Public or Private .qpkrf Key Ring files at any time through the
+    Application and are solely responsible for backing up your exported keys and
+    passphrase. Losing your QPKD-Argon passphrase permanently prevents unlocking
+    or exporting your Private Key Ring.
+
+3. END-TO-END ENCRYPTED MESSAGING & KEY HASH DIRECTORY
+  * End-to-End Encryption (E2EE): All messages transmitted through the
+    Application are encapsulated on-device using Hybrid Quantum Lattice Key
+    Encapsulation (QLX + HGC-448), encrypted under Cascaded Dual-Stream Matrix
+    Payload Encryption (Calyx-Cascade-512 / CC-512), and signed with Conjunctive
+    Quantum Vector Digital Signatures (QVS + qSponge-512) prior to transmission.
+    Plaintext message contents are unreadable by Calyx Labs Inc. or any
+    intermediary server.
+  * Key Hash Discovery & Relay (messenger.calyxlabsinc.org): To enable users to
+    search and message each other by their unique 64-character Key Hash, the
+    Application registers only your public key ring metadata (Key Name, Email,
+    64-character Key Hash, and self-certified Public .qpkrf Key Ring) and relays
+    end-to-end encrypted .qpep packets via https://messenger.calyxlabsinc.org.
+  * Zero Telemetry & Zero Third-Party Tracking: The Application contains zero
+    advertising SDKs, zero analytics trackers, and zero user profiling.
+
+4. USER CONDUCT, LAWFUL USE & ACCOUNT DELETION
+  * Lawful Use: Calyx Encrypted Messenger is a lawful privacy and post-quantum
+    cybersecurity communications tool. You agree not to use the Application to
+    violate any applicable local, state, national, or international law, or to
+    transmit malware, spam, or unlawful material.
+  * Data & Account Deletion Requests: You may delete your local key rings and
+    chat history at any time directly on your device, and may request removal of
+    your published Public .qpkrf Key Ring from messenger.calyxlabsinc.org by
+    contacting support@calyxlabsinc.org or calyxlabsinc@gmail.com.
+
+5. DISCLAIMER OF WARRANTIES & LIMITATION OF LIABILITY
+THE APPLICATION AND OPENQPEP PROTOCOL ARE PROVIDED "AS IS" AND "AS AVAILABLE",
+WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+NONINFRINGEMENT. IN NO EVENT SHALL CALYX LABS INC. OR TRISTEN MARTINEZ BE LIABLE
+FOR ANY CLAIM, DAMAGES, DATA LOSS, LOST PASSPHRASES, OR OTHER LIABILITY ARISING
+FROM THE USE OF OR INABILITY TO USE THE APPLICATION.
+
+6. CONTACT INFORMATION
+Company: Calyx Labs Inc.
+Founder & Lead Developer: Tristen Martinez (aka Calyxia)
+Location: Cleveland / Lakewood, Ohio, United States
+Email: support@calyxlabsinc.org | calyxlabsinc@gmail.com
+Web: https://calyxlabsinc.org | https://calyxlabsinc.github.io
+========================================================================

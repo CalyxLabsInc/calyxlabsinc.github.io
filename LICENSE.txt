@@ -1,0 +1,10 @@
+========================================================================
+CALYX PUBLIC OPEN SOURCE LICENSE 1.0 (CPOSL-1.0)
+Copyright (c) 2026 Tristen Martinez & Calyx Labs Inc. All rights reserved.
+Project: OpenQPEP by Calyx Labs Inc. (Beta Version 0.1.9)
+========================================================================
+
+Permission is hereby granted to view, audit, compile, and use the OpenQPEP
+protocol reference implementation, CLI, and documentation provided that attribution
+to Tristen Martinez and Calyx Labs Inc. is preserved intact in all copies and
+derivative works.
