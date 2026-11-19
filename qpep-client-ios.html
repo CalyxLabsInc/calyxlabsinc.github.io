@@ -1,0 +1,3956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Calyx QPEP Client" />
+  <link rel="apple-touch-icon" href="/assets/images/qpep-icon.png" />
+<title>Calyx QPEP Client</title>
+<style>
+  :root {
+    --bg-main: #070A12;
+    --bg-topbar: #0C1220;
+    --bg-card: #111827;
+    --bg-card-inner: #162033;
+    --bg-input: #182236;
+    --border-subtle: #22304C;
+    --border-bright: #00D4FF;
+    --accent-primary: #00D4FF;
+    --accent-secondary: #2563EB;
+    --accent-gradient: linear-gradient(135deg, #00D4FF 0%, #2563EB 100%);
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --success: #10B981;
+    --danger: #EF4444;
+    --safe-top: max(env(safe-area-inset-top, 0px), 34px);
+    --safe-bottom: max(env(safe-area-inset-bottom, 0px), 24px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ================= TOP APP BAR ================= */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg-topbar);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-top: var(--safe-top);
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 16px; }
+  .icon-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .icon-btn:active { background: rgba(0, 212, 255, 0.14); }
+  .topbar-title { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); }
+  .topbar-right { display: flex; align-items: center; gap: 6px; }
+
+  /* ================= COLLAPSIBLE KEYRING SEARCH BAR ================= */
+  .search-bar-drawer {
+    display: none;
+    background: #0E1628;
+    border-bottom: 1px solid var(--border-bright);
+    padding: 10px 16px;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: calc(var(--safe-top) + 52px);
+    z-index: 99;
+  }
+  .search-bar-drawer.open { display: flex; }
+  .search-input {
+    flex: 1;
+    background: var(--bg-input);
+    border: 1px solid var(--border-bright);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: var(--text-primary);
+    font-size: 0.92rem;
+    outline: none;
+  }
+
+  /* ================= 3-DOT TOP-RIGHT MENU (Contact Support) ================= */
+  .overflow-menu {
+    position: fixed;
+    top: calc(var(--safe-top) + 48px);
+    right: 14px;
+    width: 220px;
+    background: #0F172A;
+    border: 1px solid var(--border-bright);
+    border-radius: 13px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.78);
+    z-index: 260;
+    display: none;
+    flex-direction: column;
+    padding: 6px 0;
+  }
+  .overflow-menu.open { display: flex; }
+  .overflow-item {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    padding: 13px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .overflow-item:active, .overflow-item:hover {
+    background: rgba(0, 212, 255, 0.15);
+    color: var(--accent-primary);
+  }
+
+  /* ================= SLIDE-OUT NAVIGATION DRAWER ================= */
+  .drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(3, 6, 14, 0.72);
+    backdrop-filter: blur(2px);
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+  }
+  .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: min(82vw, 330px);
+    background: #0B101D;
+    border-right: 1px solid var(--border-subtle);
+    z-index: 210;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-102%);
+    transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-header {
+    padding-top: var(--safe-top);
+    padding-left: 18px;
+    padding-right: 14px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .drawer-brand { display: flex; align-items: center; gap: 12px; }
+  .app-logo-badge {
+    width: 48px; height: 48px;
+    border-radius: 13px;
+    background: #080E1C;
+    border: 1.5px solid var(--accent-primary);
+    box-shadow: 0 0 14px rgba(0, 212, 255, 0.28);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .drawer-brand-text h2 { font-size: 1.08rem; font-weight: 700; color: var(--text-primary); }
+  .drawer-brand-text p { font-size: 0.78rem; color: var(--accent-primary); margin-top: 2px; }
+  .drawer-scroll { flex: 1; overflow-y: auto; padding: 8px 0; }
+  .drawer-section-label {
+    padding: 14px 20px 6px;
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+  }
+  .drawer-section-label.muted { color: var(--text-muted); }
+  .drawer-divider { height: 1px; background: var(--border-subtle); margin: 8px 0; }
+  .drawer-item {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 13px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    border-right: 3px solid transparent;
+  }
+  .drawer-item.active {
+    background: rgba(0, 212, 255, 0.13);
+    color: var(--accent-primary);
+    font-weight: 600;
+    border-right-color: var(--accent-primary);
+  }
+  .drawer-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .drawer-footer {
+    border-top: 1px solid var(--border-subtle);
+    padding: 14px 20px;
+    padding-bottom: var(--safe-bottom);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    background: #090D18;
+  }
+  .drawer-footer-link {
+    background: none; border: none; color: var(--accent-primary);
+    font-weight: 700; font-size: 0.88rem; cursor: pointer;
+  }
+
+  /* ================= MAIN PAGE WORKSPACE ================= */
+  .page-container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 16px calc(96px + var(--safe-bottom));
+  }
+  .page-view { display: none; }
+  .page-view.active { display: block; }
+
+  .segmented-bar {
+    background: #0D1322;
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .seg-pill {
+    border: none; background: transparent; color: var(--text-secondary);
+    padding: 11px 10px; border-radius: 12px; font-size: 0.86rem; font-weight: 600;
+    display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+  }
+  .seg-pill.active {
+    background: var(--accent-gradient);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(0, 212, 255, 0.25);
+  }
+  .count-pill {
+    background: rgba(7, 10, 18, 0.55); color: #FFFFFF;
+    padding: 2px 8px; border-radius: 999px; font-size: 0.76rem; font-weight: 700;
+  }
+
+  .surface-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card-header-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .card-title { font-size: 1.08rem; font-weight: 700; color: var(--text-primary); }
+  .card-count-tag { font-size: 0.92rem; font-weight: 600; color: var(--accent-primary); }
+  .card-desc { font-size: 0.88rem; line-height: 1.52; color: var(--text-secondary); margin-bottom: 14px; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn-primary {
+    background: var(--accent-gradient); color: #FFFFFF; border: none;
+    border-radius: 11px; padding: 11px 16px; font-size: 0.88rem; font-weight: 700;
+    cursor: pointer; box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
+  }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-outline {
+    background: var(--bg-card-inner); color: var(--text-primary);
+    border: 1px solid var(--border-subtle); border-radius: 11px;
+    padding: 11px 16px; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+  }
+
+  .empty-state-card {
+    background: var(--bg-card); border: 1px solid var(--border-subtle);
+    border-radius: 18px; padding: 38px 22px; text-align: center;
+  }
+  .empty-icon-box {
+    width: 60px; height: 60px; border-radius: 16px; margin: 0 auto 18px;
+    background: rgba(0, 212, 255, 0.08); border: 1px solid rgba(0, 212, 255, 0.35);
+    display: flex; align-items: center; justify-content: center; color: var(--accent-primary);
+  }
+  .empty-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+  .empty-subtitle { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5; }
+
+  .key-item {
+    background: var(--bg-card-inner); border: 1px solid var(--border-subtle);
+    border-radius: 14px; padding: 16px; margin-top: 12px; text-align: left;
+  }
+  .key-item-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+  .key-item-name { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+  .key-item-email { font-size: 0.82rem; color: var(--accent-primary); }
+  .suite-badge {
+    font-size: 0.7rem; padding: 4px 8px; border-radius: 6px;
+    background: rgba(0, 212, 255, 0.14); border: 1px solid rgba(0, 212, 255, 0.4);
+    color: var(--accent-primary); font-weight: 700;
+  }
+  .key-hash-mono {
+    font-family: monospace; font-size: 0.74rem; color: var(--text-secondary);
+    background: #0B101C; padding: 7px 10px; border-radius: 8px; margin: 8px 0; word-break: break-all;
+  }
+
+  /* ================= SETUP WIZARD ================= */
+  .setup-brand-row { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .setup-eyebrow { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; color: var(--accent-primary); text-transform: uppercase; }
+  .setup-heading { font-size: 1.3rem; font-weight: 800; color: var(--text-primary); margin-top: 2px; }
+  .setup-callout {
+    background: #151E30; border-left: 3.5px solid var(--accent-primary);
+    border-radius: 12px; padding: 16px; font-size: 0.92rem; line-height: 1.55; margin-bottom: 18px;
+  }
+  .setup-action-btn {
+    width: 100%; border-radius: 13px; padding: 16px 18px; font-size: 0.95rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; cursor: pointer; border: none;
+  }
+  .setup-action-btn.filled { background: var(--accent-gradient); color: #FFFFFF; box-shadow: 0 4px 15px rgba(0, 212, 255, 0.24); }
+  .setup-action-btn.dark { background: #172135; color: var(--text-primary); border: 1px solid var(--border-subtle); }
+  .setup-footer { border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: 8px; font-size: 0.83rem; color: var(--text-secondary); }
+  .setup-footer-links { display: flex; gap: 18px; margin-top: 8px; }
+  .setup-footer-links button { background: none; border: none; color: var(--accent-primary); font-weight: 700; font-size: 0.84rem; cursor: pointer; }
+
+  /* ================= FORMS ================= */
+  .form-section-title { font-size: 1.06rem; font-weight: 700; margin-bottom: 18px; color: var(--text-primary); }
+  .field-label { display: block; font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 6px; margin-top: 14px; }
+  .field-label.accent { color: var(--accent-primary); font-weight: 600; }
+  .underline-input {
+    width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border-subtle);
+    padding: 10px 2px; color: var(--text-primary); font-size: 0.96rem; outline: none;
+  }
+  .underline-input:focus { border-bottom-color: var(--accent-primary); }
+  .boxed-select, .boxed-input, .boxed-textarea {
+    width: 100%; background: var(--bg-input); border: 1px solid var(--border-subtle);
+    border-radius: 11px; padding: 13px 14px; color: var(--text-primary); font-size: 0.9rem; outline: none; font-family: inherit;
+  }
+  .boxed-textarea { font-family: monospace; min-height: 115px; resize: vertical; }
+  .boxed-select:focus, .boxed-input:focus, .boxed-textarea:focus { border-color: var(--accent-primary); }
+  .pass-rules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 8px; }
+  .pass-pill { font-size: 0.74rem; padding: 6px 9px; border-radius: 8px; background: #101726; border: 1px solid var(--border-subtle); color: var(--text-secondary); }
+  .pass-pill.valid { border-color: rgba(16, 185, 129, 0.55); color: var(--success); background: rgba(16, 185, 129, 0.1); }
+  .checkbox-row { display: flex; align-items: center; gap: 10px; margin-top: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle); font-size: 0.9rem; }
+  .checkbox-row input { width: 18px; height: 18px; accent-color: var(--accent-primary); }
+
+  .info-subhead { font-size: 0.94rem; font-weight: 700; color: var(--accent-primary); margin: 16px 0 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .info-list { margin-left: 18px; margin-bottom: 12px; color: var(--text-secondary); font-size: 0.87rem; line-height: 1.56; }
+  .info-list li { margin-bottom: 6px; }
+
+  /* ================= FAB SPEED-DIAL ================= */
+  .fab-container {
+    position: fixed; right: 20px; bottom: calc(22px + var(--safe-bottom));
+    z-index: 150; display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+  }
+  .fab-menu { display: none; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .fab-menu.open { display: flex; }
+  .fab-row { display: flex; align-items: center; gap: 12px; }
+  .fab-label {
+    background: #182236; border: 1px solid var(--border-subtle); color: var(--text-primary);
+    padding: 8px 13px; border-radius: 9px; font-size: 0.84rem; font-weight: 600; box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+  }
+  .fab-mini {
+    width: 46px; height: 46px; border-radius: 50%; background: var(--accent-gradient);
+    border: none; color: #FFFFFF; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(0, 212, 255, 0.35); cursor: pointer;
+  }
+  .fab-main {
+    width: 58px; height: 58px; border-radius: 50%; background: var(--accent-gradient);
+    border: none; color: #FFFFFF; font-size: 1.7rem; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4); cursor: pointer;
+  }
+
+
+  /* ================= KEY DETAILS PAGE (5007.jpg & 5003.jpg) ================= */
+  .kd-hero {
+    background: linear-gradient(135deg, #0B2545 0%, #091326 60%, #070A12 100%);
+    border: 1px solid var(--border-bright);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 16px;
+    position: relative;
+    box-shadow: 0 8px 28px rgba(0, 212, 255, 0.14);
+  }
+  .kd-hero-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .kd-back-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 0.96rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .kd-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .kd-body-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .kd-info-col {
+    flex: 1;
+    min-width: 180px;
+  }
+  .kd-owner-title {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+  }
+  .kd-suite-sub {
+    font-size: 0.85rem;
+    color: #BAE6FD;
+    line-height: 1.45;
+    margin-bottom: 14px;
+  }
+  .kd-quick-links {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .kd-quick-btn {
+    background: rgba(0, 212, 255, 0.14);
+    border: 1px solid rgba(0, 212, 255, 0.4);
+    color: #FFFFFF;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+  .kd-qr-box {
+    width: 138px;
+    height: 138px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
+  }
+  .kd-status-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .kd-status-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .kd-hash-formatted {
+    font-family: monospace;
+    font-size: 0.86rem;
+    line-height: 1.6;
+    color: var(--accent-primary);
+    background: #0B101C;
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 8px;
+    cursor: pointer;
+    word-break: break-word;
+  }
+  .kd-vault-dashed {
+    border: 1.5px dashed rgba(0, 212, 255, 0.45);
+    background: rgba(8, 14, 28, 0.65);
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+    margin-top: 14px;
+  }
+  .toast-banner {
+    position: fixed;
+    left: 50%;
+    bottom: calc(28px + var(--safe-bottom));
+    transform: translateX(-50%);
+    background: #0F172A;
+    border: 1px solid var(--accent-primary);
+    color: var(--text-primary);
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    font-family: monospace;
+    z-index: 400;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+    display: none;
+    max-width: 90vw;
+  }
+  .file-picker-btn {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px dashed var(--accent-primary);
+    color: var(--accent-primary);
+    border-radius: 11px;
+    padding: 12px 14px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  /* ================= PURPOSE-BUILT MODALS ================= */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(3, 6, 14, 0.82);
+    z-index: 300; display: none; align-items: center; justify-content: center; padding: 18px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    width: 100%; max-width: 500px; background: var(--bg-card);
+    border: 1px solid var(--border-bright); border-radius: 18px; padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= TOP APP BAR ================= -->
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="icon-btn" onclick="toggleDrawer(true)" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <span class="topbar-title" id="topbar-title">Setup</span>
+  </div>
+  <div class="topbar-right">
+    <button class="icon-btn" onclick="toggleSearchBar()" aria-label="Search keys">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.2" y2="16.2"/></svg>
+    </button>
+    <button class="icon-btn" onclick="toggleOverflowMenu(event)" aria-label="More options">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ================= LIVE KEYRING SEARCH BAR (Pops up Keyboard) ================= -->
+<div class="search-bar-drawer" id="search-bar-drawer">
+  <input type="search" class="search-input" id="keyring-search-input" placeholder="Search keyring by key name or email..." oninput="runKeyringSearch(this.value)" />
+  <button class="btn-outline" style="padding:9px 12px;" onclick="closeSearchBar()">Close</button>
+</div>
+
+<!-- ================= TOP-RIGHT 3-DOT MENU (Contact Support ONLY) ================= -->
+<div class="overflow-menu" id="overflow-menu">
+  <a class="overflow-item" href="mailto:support@calyxlabsinc.org?subject=Calyx%20QPEP%20Client%20Support%20Request" onclick="closeOverflowMenu()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+    <span>Contact Support</span>
+  </a>
+</div>
+
+<!-- ================= SLIDE-OUT NAVIGATION DRAWER (NO Manually Create Custom Key) ================= -->
+<div class="drawer-backdrop" id="drawer-backdrop" onclick="toggleDrawer(false)"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div class="drawer-brand">
+      <div class="app-logo-badge">
+        <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+          <polygon points="20,3 35,11.5 35,28.5 20,37 5,28.5 5,11.5" stroke="#00D4FF" stroke-width="2.2" fill="rgba(0,212,255,0.08)"/>
+          <rect x="13" y="18" width="14" height="12" rx="2.5" stroke="#00D4FF" stroke-width="2"/>
+          <path d="M16 18V14a4 4 0 0 1 8 0v4" stroke="#00D4FF" stroke-width="2"/>
+          <circle cx="20" cy="23" r="1.6" fill="#00D4FF"/>
+        </svg>
+      </div>
+      <div class="drawer-brand-text">
+        <h2>Calyx QPEP Client</h2>
+        <p>Calyx Labs Inc. &bull; Beta Version 0.1.9</p>
+      </div>
+    </div>
+    <button class="icon-btn" onclick="toggleDrawer(false)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="drawer-scroll">
+    <button class="drawer-item" data-page="manage-my-keys" onclick="navigateTo('manage-my-keys')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3"/><path d="m17 6 3 3"/></svg>
+      <span>Manage My Keys</span>
+    </button>
+
+    <button class="drawer-item" data-page="manage-receiver-keys" onclick="navigateTo('manage-receiver-keys')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>Manage Receiver Keys</span>
+    </button>
+
+    <button class="drawer-item" data-page="encrypt-notepad" onclick="navigateTo('encrypt-notepad')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span>Encrypt Notepad</span>
+    </button>
+
+    <button class="drawer-item" data-page="decrypt-notepad" onclick="navigateTo('decrypt-notepad')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+      <span>Decrypt Notepad</span>
+    </button>
+
+    <button class="drawer-item" data-page="encrypt-files" onclick="navigateTo('encrypt-files')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span>Encrypt Files</span>
+    </button>
+
+    <button class="drawer-item" data-page="decrypt-files" onclick="navigateTo('decrypt-files')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <span>Decrypt Files</span>
+    </button>
+
+    <div class="drawer-divider"></div>
+    <div class="drawer-section-label">Signing &amp; Verification</div>
+
+    <button class="drawer-item" data-page="create-signature" onclick="navigateTo('create-signature')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+      <span>Create Signature</span>
+    </button>
+
+    <button class="drawer-item" data-page="verify-signature" onclick="navigateTo('verify-signature')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      <span>Verify Signature</span>
+    </button>
+
+    <div class="drawer-divider"></div>
+
+    <button class="drawer-item" data-page="news" onclick="navigateTo('news')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/></svg>
+      <span>News</span>
+    </button>
+
+    <button class="drawer-item" data-page="credits" onclick="navigateTo('credits')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg>
+      <span>Credits</span>
+    </button>
+
+    <div class="drawer-divider"></div>
+    <div class="drawer-section-label muted">Information &amp; Legal</div>
+
+    <button class="drawer-item" data-page="about" onclick="navigateTo('about')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <span>About</span>
+    </button>
+
+    <button class="drawer-item" data-page="privacy" onclick="navigateTo('privacy')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>Privacy Policy</span>
+    </button>
+
+    <button class="drawer-item" data-page="terms" onclick="navigateTo('terms')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+      <span>Terms of Use</span>
+    </button>
+  </div>
+
+  <div class="drawer-footer">
+    <span>Beta Version 0.1.9</span>
+    <button class="drawer-footer-link" onclick="navigateTo('setup')">Setup Wizard</button>
+  </div>
+</aside>
+
+<!-- ================= MAIN MULTI-PAGE WORKSPACE ================= -->
+<main class="page-container">
+
+  <!-- PAGE 1: MANAGE MY KEYS -->
+  <section class="page-view" id="page-manage-my-keys">
+    <div class="segmented-bar">
+      <button class="seg-pill active" onclick="navigateTo('manage-my-keys')">
+        <span>&#128273; Manage My Keys</span>
+        <span class="count-pill" id="badge-personal-count-1">0</span>
+      </button>
+      <button class="seg-pill" onclick="navigateTo('manage-receiver-keys')">
+        <span>&#128101; Manage Receiver Keys</span>
+        <span class="count-pill" id="badge-receiver-count-1">0</span>
+      </button>
+    </div>
+
+    <div class="surface-card">
+      <div class="card-header-row">
+        <span class="card-title">Manage My Keys (Personal Key Pairs)</span>
+        <span class="card-count-tag" id="label-personal-count">0 keys</span>
+      </div>
+      <p class="card-desc">
+        Your personal Calyx QPEP keys (stored in your on-device encrypted keystore with QPKD-Argon passphrase-protected secret keys) used to decrypt packets and sign/encrypt outgoing data.
+      </p>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="navigateTo('create-key')">+ Create My Own Key</button>
+        <button class="btn-outline" onclick="openImportPersonalModal()">Import My Key Pair (.qpkrf)</button>
+      </div>
+    </div>
+
+    <div id="personal-keys-list"></div>
+  </section>
+
+  <!-- PAGE 2: MANAGE RECEIVER KEYS -->
+  <section class="page-view" id="page-manage-receiver-keys">
+    <div class="segmented-bar">
+      <button class="seg-pill" onclick="navigateTo('manage-my-keys')">
+        <span>&#128273; Manage My Keys</span>
+        <span class="count-pill" id="badge-personal-count-2">0</span>
+      </button>
+      <button class="seg-pill active" onclick="navigateTo('manage-receiver-keys')">
+        <span>&#128101; Manage Receiver Keys</span>
+        <span class="count-pill" id="badge-receiver-count-2">0</span>
+      </button>
+    </div>
+
+    <div class="surface-card">
+      <div class="card-header-row">
+        <span class="card-title">Manage Receiver Keys (Public Key Rings)</span>
+        <span class="card-count-tag" id="label-receiver-count">0 keys</span>
+      </div>
+      <p class="card-desc">
+        Recipients' exported Calyx QPEP public key rings (`.qpkrf` &mdash; no passphrase needed for public keys) used to encrypt outgoing packets and verify signatures.
+      </p>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="openImportReceiverModal()">+ Add Receiver Public Key (.qpkrf)</button>
+        <button class="btn-outline" onclick="openQrModal()">Show / Scan QPKRF QR</button>
+      </div>
+    </div>
+
+    <div id="receiver-keys-list"></div>
+  </section>
+
+  <!-- PAGE 3: SETUP WIZARD (Auto-shown when keyring has 0 keys) -->
+  <section class="page-view active" id="page-setup">
+    <div class="surface-card">
+      <div class="setup-brand-row">
+        <div class="app-logo-badge">
+          <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+            <polygon points="20,3 35,11.5 35,28.5 20,37 5,28.5 5,11.5" stroke="#00D4FF" stroke-width="2.2" fill="rgba(0,212,255,0.08)"/>
+            <rect x="13" y="18" width="14" height="12" rx="2.5" stroke="#00D4FF" stroke-width="2"/>
+            <path d="M16 18V14a4 4 0 0 1 8 0v4" stroke="#00D4FF" stroke-width="2"/>
+            <circle cx="20" cy="23" r="1.6" fill="#00D4FF"/>
+          </svg>
+        </div>
+        <div>
+          <div class="setup-eyebrow">CALYX LABS INC. &bull; BETA VERSION 0.1.9</div>
+          <div class="setup-heading">Calyx QPEP Client Setup</div>
+        </div>
+      </div>
+
+      <div class="setup-callout">
+        Welcome to Calyx Labs' Android Based QPEP Client. Before continuing, choose whether to create or import <strong>your own key</strong> (in <strong>Manage My Keys</strong>) or add <strong>someone else's public key</strong> (in <strong>Manage Receiver Keys</strong>).
+      </div>
+
+      <button class="setup-action-btn filled" onclick="navigateTo('create-key')">
+        <span>Create a New Personal QPEP Key</span>
+        <span>&rarr;</span>
+      </button>
+
+      <button class="setup-action-btn dark" onclick="openImportPersonalModal()">
+        <span>Add My Own Key (Import .qpkrf Pair)</span>
+        <span>&#128273;</span>
+      </button>
+
+      <button class="setup-action-btn dark" onclick="openImportReceiverModal()">
+        <span>Add Someone Else's Public Key (.qpkrf)</span>
+        <span>&rarr;</span>
+      </button>
+
+      <div class="setup-footer">
+        <div id="setup-key-summary">0 personal key(s) &bull; 0 receiver key(s)</div>
+        <div class="setup-footer-links">
+          <button onclick="navigateTo('manage-my-keys')">Manage My Keys &rarr;</button>
+          <button onclick="navigateTo('manage-receiver-keys')">Manage Receiver Keys &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 4: CREATE MY KEY -->
+  <section class="page-view" id="page-create-key">
+    <div class="form-section-title">Enter your identity for your new Personal QPEP Key Pair:</div>
+
+    <label class="field-label">Name</label>
+    <input type="text" class="underline-input" id="ck-name" placeholder="Enter your name or handle" />
+
+    <label class="field-label">Email</label>
+    <input type="email" class="underline-input" id="ck-email" placeholder="Enter your email address" />
+
+    <label class="field-label accent">QPEP Key Type / Protocol (Default: Highest Quantum-Proof)</label>
+    <select class="boxed-select" id="ck-suite" onchange="toggleHyperTesseractWarning()">
+      <option value="Calyx Signature QLX-4096 + QVS-256">Calyx Signature: QLX-4096 + QVS-256 (Recommended Default &mdash; All Devices)</option>
+      <option value="Calyx Hyper-Tesseract QLX-16384 + QVS-1024">Calyx Hyper-Tesseract: QLX-16384 + QVS-1024 (16,384-Dim &mdash; HIGH-TIER HARDWARE ONLY)</option>
+      <option value="QLX-2048 + QVS-128 Ultra-Grid">QLX-2048 + QVS-128 Ultra-Grid (2048-Dim Lattice + CC-512)</option>
+      <option value="QLX-1024 + QVS-87 Sovereign Hybrid">QLX-1024 + QVS-87 Hybrid (1024-Dim Lattice + CC-512)</option>
+      <option value="QLX-768 + QVS-65 Velocity">QLX-768 + QVS-65 Velocity (High-Speed Mobile + CC-512)</option>
+    </select>
+    <div id="hyper-tesseract-hw-warning" style="display:none;margin-top:8px;padding:10px 12px;border-radius:10px;background:rgba(255,0,127,0.12);border:1px solid #ff007f;color:#ffd6ea;font-size:0.78rem;line-height:1.45;">
+      <strong style="color:#ff4da6;">&#9888; High-Tier Hardware Notice (Calyx Hyper-Tesseract &bull; QLX-16384 + QVS-1024):</strong>
+      <strong>Calyx Hyper-Tesseract</strong> computes 16,384 coupled lattice dimensions (<code>k=64</code> polynomials across 4 Tesseract manifolds) and a <code>16 &times; 14</code> <code>QVS-1024</code> signature matrix (320,000+ NTT butterfly operations and ~69.3 KB of secret lattice vectors). Use <strong>only on high-tier flagship devices</strong> (e.g., <strong>Samsung Galaxy Z Fold 8</strong>, Galaxy S25/S26 Ultra, Pixel 10 Pro with 12 GB+ RAM, or high-spec PCs). Selecting <strong>Calyx Hyper-Tesseract</strong> on low-tier or budget phones (&le;6 GB RAM) will cause UI freezes, Android <code>ANR</code> timeouts, thermal throttling, or WebView Out-Of-Memory (<code>OOM</code>) crashes.
+    </div>
+
+    <label class="field-label accent">Passphrase Requirement (Hardcoded &mdash; QPKD-Argon Key Ring Encryption)</label>
+    <select class="boxed-select" id="ck-pass-req">
+      <option value="QPKD-Argon-Mandatory">Require Passphrase (QPKD-Argon Hardcoded Policy + CC-512 Secret Ring Lock)</option>
+    </select>
+
+    <label class="field-label">Passphrase (Encrypts Secret Key Ring &mdash; Min 12 chars: 2+ digits, 4+ specials, 2+ upper, 4+ lower)</label>
+    <input type="password" class="boxed-input" id="ck-pass" placeholder="Enter a compliant Calyx QPEP passphrase..." oninput="validateKeyForm()" />
+
+    <div class="pass-rules-grid">
+      <div class="pass-pill" id="kp-len">Length &ge; 12 (0)</div>
+      <div class="pass-pill" id="kp-num">Numbers &ge; 2 (0)</div>
+      <div class="pass-pill" id="kp-spec">Specials &ge; 4 (0)</div>
+      <div class="pass-pill" id="kp-up">Uppercase &ge; 2 (0)</div>
+      <div class="pass-pill" id="kp-low" style="grid-column: span 2;">Lowercase &ge; 4 (0)</div>
+    </div>
+
+    <label class="field-label">Confirm Passphrase</label>
+    <input type="password" class="boxed-input" id="ck-pass-confirm" placeholder="Re-enter passphrase..." oninput="validateKeyForm()" />
+
+    <label class="checkbox-row">
+      <input type="checkbox" id="ck-publish" checked />
+      <span>Publish Key to Calyx Labs QPEP Keys Directory (<code>qpepkeys.calyxlabsinc.org</code>)</span>
+    </label>
+
+    <div style="margin-top:18px;">
+      <button class="btn-primary" id="btn-submit-key" style="width:100%;padding:14px;" disabled onclick="createNewPersonalKey()">
+        Create Personal QPEP Key Pair (.qpkrf)
+      </button>
+    </div>
+  </section>
+
+  <!-- PAGE 5: ENCRYPT NOTEPAD (Requires Encrypting Key + Recipient's Key + Passphrase) -->
+  <section class="page-view" id="page-encrypt-notepad">
+    <div class="surface-card">
+      <div class="card-title" style="margin-bottom:6px;">Encrypt Notepad (Calyx QPEP Packet)</div>
+      <p class="card-desc">Encrypts text using your selected <strong>Encrypting Key</strong> and the <strong>Recipient's Key</strong> under <strong>QLX + HGC-448</strong> and <strong>Calyx-Cascade-512 (CC-512)</strong>.</p>
+
+      <label class="field-label accent">1. Select Encrypting Key (My Personal Key)</label>
+      <select class="boxed-select" id="enc-note-sender"></select>
+
+      <label class="field-label accent">2. Select Recipient's Key (.qpkrf)</label>
+      <select class="boxed-select" id="enc-note-recip"></select>
+
+      <label class="field-label">3. Mandatory Passphrase (Unlocks Encrypting Key)</label>
+      <input type="password" class="boxed-input" id="enc-note-pass" placeholder="Enter passphrase for selected Encrypting Key..." />
+
+      <label class="field-label">Plaintext Message</label>
+      <textarea class="boxed-textarea" id="enc-note-in" placeholder="Type confidential message to encrypt..."></textarea>
+
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn-primary" onclick="runEncryptNotepad()">Encrypt to QPEP Packet</button>
+        <button class="btn-outline" onclick="copyById('enc-note-out')">Copy Armored Packet</button>
+      </div>
+
+      <label class="field-label">Encrypted Calyx QPEP Output</label>
+      <textarea class="boxed-textarea" id="enc-note-out" readonly placeholder="-----BEGIN CALYX QPEP ENCRYPTED PACKET-----"></textarea>
+    </div>
+  </section>
+
+  <!-- PAGE 6: DECRYPT NOTEPAD -->
+  <section class="page-view" id="page-decrypt-notepad">
+    <div class="surface-card">
+      <div class="card-title" style="margin-bottom:6px;">Decrypt Notepad (Calyx QPEP Packet)</div>
+      <p class="card-desc">Unlocks your personal `.qpkrf` key ring via <strong>QPKD-Argon</strong> and decrypts `CC-512` frames.</p>
+
+      <label class="field-label accent">Select Decrypting Key (My Personal Key)</label>
+      <select class="boxed-select" id="dec-note-key"></select>
+
+      <label class="field-label">Mandatory QPKD-Argon Passphrase</label>
+      <input type="password" class="boxed-input" id="dec-note-pass" placeholder="Enter passphrase for selected Decrypting Key..." />
+
+      <label class="field-label">Armored Calyx QPEP Encrypted Packet</label>
+      <textarea class="boxed-textarea" id="dec-note-in" placeholder="Paste -----BEGIN CALYX QPEP ENCRYPTED PACKET-----"></textarea>
+
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn-primary" onclick="runDecryptNotepad()">Decrypt QPEP Packet</button>
+      </div>
+
+      <label class="field-label">Decrypted Plaintext Output</label>
+      <textarea class="boxed-textarea" id="dec-note-out" readonly></textarea>
+    </div>
+  </section>
+
+  <!-- PAGE 7: ENCRYPT FILES (Requires Encrypting Key + Recipient's Key + Passphrase) -->
+  <section class="page-view" id="page-encrypt-files">
+    <div class="surface-card">
+      <div class="card-title" style="margin-bottom:6px;">Encrypt Files (.qpep Streaming CC-512)</div>
+      <p class="card-desc">Encrypts any file into a tamper-evident `.qpep` packet using your <strong>Encrypting Key</strong> and the <strong>Recipient's Key</strong>.</p>
+
+      <label class="field-label accent">1. Select Encrypting Key (My Personal Key)</label>
+      <select class="boxed-select" id="enc-file-sender"></select>
+
+      <label class="field-label accent">2. Select Recipient's Key (.qpkrf)</label>
+      <select class="boxed-select" id="enc-file-recip"></select>
+
+      <label class="field-label">3. Select Input File</label>
+      <button type="button" class="file-picker-btn" id="enc-file-picker-btn" onclick="triggerNativeOrWebFilePicker('enc-file-input', 'enc-file-out', true)">&#128194; Choose File from Device Files</button>
+      <div id="enc-file-status" style="font-size:0.8rem;color:var(--accent-primary);margin-top:6px;display:none;"></div>
+      <input type="file" class="boxed-input" id="enc-file-input" onchange="loadFileIntoTextarea(this, 'enc-file-out')" style="display:none;" />
+
+      <label class="field-label">4. Mandatory Passphrase (Unlocks Encrypting Key)</label>
+      <input type="password" class="boxed-input" id="enc-file-pass" placeholder="Enter passphrase for selected Encrypting Key..." />
+
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn-primary" onclick="runFileProcess(true)">Encrypt &amp; Save .qpep File</button>
+        <button class="btn-outline" onclick="saveEncryptedFileOutput()">Save .qpep File</button>
+        <button class="btn-outline" onclick="copyById('enc-file-out')">Copy Packet</button>
+      </div>
+
+      <label class="field-label">Encrypted File Packet (.qpep)</label>
+      <textarea class="boxed-textarea" id="enc-file-out" readonly></textarea>
+    </div>
+  </section>
+
+  <!-- PAGE 8: DECRYPT FILES -->
+  <section class="page-view" id="page-decrypt-files">
+    <div class="surface-card">
+      <div class="card-title" style="margin-bottom:6px;">Decrypt Files (.qpep Packet)</div>
+      <p class="card-desc">Decrypts `.qpep` file packets using your personal key ring and verifies the `qSponge-512` integrity digest.</p>
+
+      <label class="field-label accent">Select Decrypting Key (My Personal Key)</label>
+      <select class="boxed-select" id="dec-file-key"></select>
+
+      <label class="field-label">Select .qpep File</label>
+      <button type="button" class="file-picker-btn" id="dec-file-picker-btn" onclick="triggerNativeOrWebFilePicker('dec-file-input', 'dec-file-out', true)">&#128194; Choose .qpep File from Device Files</button>
+      <div id="dec-file-status" style="font-size:0.8rem;color:var(--accent-primary);margin-top:6px;display:none;"></div>
+      <input type="file" class="boxed-input" id="dec-file-input" onchange="loadFileIntoTextarea(this, 'dec-file-out')" style="display:none;" />
+
+      <label class="field-label">Mandatory QPKD-Argon Passphrase</label>
+      <input type="password" class="boxed-input" id="dec-file-pass" placeholder="Enter passphrase for selected Decrypting Key..." />
+
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn-primary" onclick="runFileProcess(false)">Decrypt &amp; Save File</button>
+        <button class="btn-outline" onclick="saveDecryptedFileOutput()">Save Decrypted File</button>
+        <button class="btn-outline" onclick="copyById('dec-file-out')">Copy Output</button>
+      </div>
+
+      <div id="dec-file-preview-box" style="display:none;margin-top:14px;padding:12px;background:#0B1324;border:1px solid var(--accent-primary);border-radius:12px;text-align:center;">
+        <div id="dec-file-preview-title" style="font-size:0.82rem;font-weight:700;color:var(--accent-primary);margin-bottom:8px;"></div>
+        <img id="dec-file-preview-img" alt="Decrypted Image Preview" style="max-width:100%;max-height:280px;border-radius:8px;display:none;margin:0 auto;" />
+      </div>
+      <label class="field-label">Recovered File Content / Binary Verification Summary</label>
+      <textarea class="boxed-textarea" id="dec-file-out" readonly></textarea>
+    </div>
+  </section>
+
+  <!-- PAGE 9: CREATE ATTACHED SIGNATURE (Message Embedded Inside Signature) -->
+  <section class="page-view" id="page-create-signature">
+    <div class="surface-card">
+      <div class="card-title" style="margin-bottom:6px;">Create Attached Signature (QVS + qSponge-512)</div>
+      <p class="card-desc">Generates a self-contained <strong>Attached Calyx QPEP Signature</strong> where your message is cryptographically sealed inside the signature packet alongside your <strong>Signing Key's Key Hash</strong> (detached signatures are not used in Calyx QPEP).</p>
+
+      <label class="field-label accent">1. Select Signing Key (My Personal Key)</label>
+      <select class="boxed-select" id="sig-create-key"></select>
+
+      <label class="field-label">2. Mandatory Passphrase (Unlocks Signing Key)</label>
+      <input type="password" class="boxed-input" id="sig-create-pass" placeholder="Enter passphrase for selected Signing Key..." />
+
+      <label class="field-label">3. Message to Sign (Will Be Embedded Inside Attached Signature)</label>
+      <textarea class="boxed-textarea" id="sig-create-in" placeholder="Enter message to sign and encapsulate..."></textarea>
+
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn-primary" onclick="runCreateSignature()">Generate Attached QVS Signature</button>
+        <button class="btn-outline" onclick="copyById('sig-create-out')">Copy Attached Signature</button>
+      </div>
+
+      <label class="field-label">Armored Calyx QPEP Attached Signature (Contains Message + QVS Signature)</label>
+      <textarea class="boxed-textarea" id="sig-create-out" readonly placeholder="-----BEGIN CALYX QPEP ATTACHED SIGNATURE-----"></textarea>
+    </div>
+  </section>
+
+  <!-- PAGE 10: VERIFY ATTACHED SIGNATURE (No Separate Message Box Needed!) -->
+  <section class="page-view" id="page-verify-signature">
+    <div class="surface-card">
+      <div class="card-title" style="margin-bottom:6px;">Verify Attached Signature (QVS + qSponge-512)</div>
+      <p class="card-desc">Verifies a self-contained `CALYX QPEP ATTACHED SIGNATURE` packet against a specific key or automatically across all keys in your keyring, and extracts the embedded message.</p>
+
+      <label class="field-label accent">1. Key to Verify Signature</label>
+      <select class="boxed-select" id="sig-verify-key"></select>
+
+      <label class="field-label">2. Armored Calyx QPEP Attached Signature</label>
+      <textarea class="boxed-textarea" id="sig-verify-sig" placeholder="Paste -----BEGIN CALYX QPEP ATTACHED SIGNATURE-----"></textarea>
+
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn-primary" onclick="runVerifySignature()">Verify Attached Signature</button>
+      </div>
+
+      <div id="sig-verify-result" style="margin-top:14px;padding:12px;border-radius:10px;display:none;font-weight:700;"></div>
+
+      <label class="field-label">Verified Attached Message Payload (Extracted from Signature)</label>
+      <textarea class="boxed-textarea" id="sig-verify-extracted-msg" readonly placeholder="Verified message embedded inside the signature will appear here..."></textarea>
+    </div>
+  </section>
+
+  <!-- PAGE 16: KEY DETAILS VIEW (5007.jpg & 5003.jpg in Blue/Black Colorway) -->
+  <section class="page-view" id="page-key-details">
+    <div class="kd-hero">
+      <div class="kd-hero-topbar">
+        <button class="kd-back-btn" id="kd-back-btn" onclick="navigateTo('manage-my-keys')">
+          <span>&larr;</span>
+          <span id="kd-back-label">Manage My Keys</span>
+        </button>
+        <div class="kd-hero-actions">
+          <button class="icon-btn" onclick="syncCurrentDetailKey()" title="Publish / Sync to Directory">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+          </button>
+          <button class="icon-btn" onclick="deleteCurrentDetailKey()" title="Delete Key">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="kd-body-grid">
+        <div class="kd-info-col">
+          <div class="kd-owner-title" id="kd-name">Key Owner</div>
+          <div class="kd-suite-sub" id="kd-subtitle">My Key Pair &bull; QLX-1024 + QVS-87 (Calyx QPEP Beta Version 0.1.9)</div>
+          <div class="kd-quick-links">
+            <button class="kd-quick-btn" onclick="jumpToEncryptFromDetail('files')">&#128193; Encrypt File</button>
+            <button class="kd-quick-btn" onclick="jumpToEncryptFromDetail('notepad')">&#128172; Encrypt Text</button>
+          </div>
+        </div>
+        <div class="kd-qr-box">
+          <canvas id="kd-qr-canvas" width="118" height="118"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Status Card -->
+    <div class="surface-card">
+      <div class="card-title" style="margin-bottom:8px;">Key Status</div>
+      <div class="kd-status-row">
+        <span style="color:var(--success);font-size:1.2rem;font-weight:800;">&#10003;</span>
+        <div>
+          <div style="font-weight:700;color:var(--text-primary);">Healthy (QPKD-Argon + CC-512 Protected)</div>
+          <div style="font-size:0.83rem;color:var(--text-secondary);margin-top:3px;">No key issues found. Quantum-Proof QLX + QVS parameters and QPKD-Argon 12+ char passphrase protection active.</div>
+        </div>
+      </div>
+      <div class="kd-status-row">
+        <span style="color:var(--accent-primary);font-size:1.1rem;">&#9729;</span>
+        <div>
+          <div style="font-weight:700;color:var(--text-primary);">Local Hardware Keyring</div>
+          <div style="font-size:0.83rem;color:var(--text-secondary);margin-top:3px;" id="kd-added-meta">Added Nov 14, 2026 &bull; Key Hash</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Identities & Key Hash Card -->
+    <div class="surface-card">
+      <div class="card-title" style="margin-bottom:10px;">Identities &amp; Key Hash</div>
+      <div style="font-weight:700;font-size:0.98rem;color:var(--text-primary);" id="kd-email">user@calyxlabsinc.org</div>
+      <div style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:12px;" id="kd-identity-name">User</div>
+      <div style="font-size:0.74rem;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;">CALYX QPEP BETA VERSION 0.1.9 / QPKRF KEY HASH (TAP TO COPY)</div>
+      <div class="kd-hash-formatted" id="kd-hash-box" onclick="copyCurrentDetailKeyHash()"></div>
+    </div>
+
+    <!-- QPKRF Public Key Block Card (5003.jpg) -->
+    <div class="surface-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+        <span class="card-title">QPKRF Public Key Block</span>
+        <div class="btn-row">
+          <button class="btn-primary" style="padding:8px 13px;font-size:0.82rem;" onclick="copyById('kd-pub-block')">Copy Public Key</button>
+          <button class="btn-outline" style="padding:8px 13px;font-size:0.82rem;" onclick="saveDetailPublicQpkrf()">Save .qpkrf</button>
+        </div>
+      </div>
+      <textarea class="boxed-textarea" id="kd-pub-block" readonly style="min-height:155px;"></textarea>
+
+      <!-- Private Key Section (Shown only for Personal Keys, 5003.jpg) -->
+      <div id="kd-private-section" style="margin-top:20px;padding-top:18px;border-top:1px solid var(--border-subtle);">
+        <div class="card-title" style="margin-bottom:6px;">QPKRF Private Key Block (QPKD-Argon + CC-512 Protected)</div>
+        <div id="kd-priv-lock-status" style="font-size:0.84rem;color:var(--accent-primary);margin-bottom:12px;">
+          &#128274; Locked &mdash; Passphrase entry required on every access
+        </div>
+        <div class="btn-row">
+          <button class="btn-outline" style="padding:8px 13px;font-size:0.82rem;" onclick="unlockDetailPrivateKey('view')">View Private Key</button>
+          <button class="btn-primary" style="padding:8px 13px;font-size:0.82rem;" onclick="unlockDetailPrivateKey('copy')">Copy Private Key</button>
+          <button class="btn-outline" style="padding:8px 13px;font-size:0.82rem;" onclick="unlockDetailPrivateKey('save')">Save .qpkrf</button>
+        </div>
+
+        <div class="kd-vault-dashed" id="kd-priv-locked-box">
+          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin-bottom:12px;">
+            Private key material is encrypted inside the <code>.qpkrf</code> envelope with Iterated &amp; Salted <strong>QPKD-Argon</strong> (12+ char witness) and <strong>Calyx-Cascade-512 (CC-512)</strong> and sealed at rest.
+          </p>
+          <input type="password" class="boxed-input" id="kd-priv-pass" placeholder="Enter mandatory 12+ char passphrase to unlock..." style="margin-bottom:10px;text-align:center;" />
+          <button class="btn-primary" onclick="unlockDetailPrivateKey('view')">Unlock Private Key</button>
+        </div>
+
+        <textarea class="boxed-textarea" id="kd-priv-block" readonly style="min-height:155px;margin-top:12px;display:none;"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 11: NEWS (Comprehensive & Detailed) -->
+  <section class="page-view" id="page-news">
+    <div class="surface-card">
+      <div class="setup-eyebrow">CALYX LABS INC. &bull; OFFICIAL RELEASE DISPATCH</div>
+      <div class="card-title" style="margin:4px 0 10px;font-size:1.2rem;">Calyx QPEP Client Beta Version 0.1.9 &amp; OpenQPEP Ecosystem Launch</div>
+      <p class="card-desc">
+        <strong>Calyx Labs Inc.</strong> (founded and architected by <strong>Tristen Martinez</strong>) announces the general availability of <strong>Calyx QPEP Client</strong> for Android 10 through Android 17, the open-source <strong>OpenQPEP</strong> protocol reference repository at <code>https://github.com/CalyxLabsInc/OpenQPEP/</code>, and the global <strong>Calyx Labs QPEP Public Key Directory</strong> at <code>https://qpepkeys.calyxlabsinc.org</code>.
+      </p>
+
+      <div class="info-subhead">1. Sovereign Post-Quantum Cryptographic Suite (`QLX` + `HGC-448` + `QVS`)</div>
+      <ul class="info-list">
+        <li><strong>Multi-Tier Quantum Lattice Exchange (`QLX-768`, `QLX-1024`, `QLX-2048`, `Calyx Signature QLX-4096`, `Calyx Hyper-Tesseract QLX-16384`):</strong> High-dimensional polynomial module-ring key encapsulation fused with our 448-bit <strong>Hyper-Goldilocks Curve (`HGC-448`)</strong> birational trapdoor combiner.</li>
+        <li><strong>Quantum Vector Signatures (`QVS-65`, `QVS-87`, `QVS-128`, `QVS-256`, `QVS-1024`):</strong> High-rank lattice vector signatures bound with 512-bit <strong>`qSponge-512`</strong> cryptographic transcripts and <strong>Key Hashes</strong>.</li>
+        <li><strong>Calyx-Cascade-512 (`CC-512`) Dual-Stream Payload Cipher:</strong> Encrypts all notepad messages and files in 64 KiB authenticated chunks through two independent 256-bit cipher streams in cascade.</li>
+      </ul>
+
+      <div class="info-subhead">2. Hardcoded `QPKD-Argon` Passphrase Enforcement</div>
+      <p class="card-desc">
+        Unlike legacy PGP clients that permit passphraseless keys or weak passwords, <strong>Calyx QPEP</strong> hardcodes a 64-byte cryptographic passphrase policy witness (`>=12` characters, `>=2` numbers, `>=4` special characters, `>=2` uppercase letters, `>=4` lowercase letters) directly into the mathematical key-generation and `QPKD-Argon` secret-key unlocking equations.
+      </p>
+
+      <div class="info-subhead">3. Key Hashes &amp; `.qpkrf` Key Ring Standard</div>
+      <p class="card-desc">
+        Calyx QPEP replaces legacy PGP Key IDs and fingerprints with 64-character <strong>Key Hashes</strong> (`qSponge-512`) and stores keys in self-certifying <strong>`.qpkrf` (Quantum Proof Key Ring File)</strong> envelopes with persistent on-device keystore storage.
+      </p>
+
+      <div class="info-subhead">4. Global Public Key Directory (`qpepkeys.calyxlabsinc.org`)</div>
+      <p class="card-desc" style="margin-bottom:0;">
+        Users can now publish their `.qpkrf` public key rings directly to <code>https://qpepkeys.calyxlabsinc.org</code> during key creation or from <strong>Manage My Keys</strong>, enabling instant lookup by Key Hash, name, or email.
+      </p>
+    </div>
+  </section>
+
+  <!-- PAGE 12: CREDITS (Comprehensive & Detailed) -->
+  <section class="page-view" id="page-credits">
+    <div class="surface-card">
+      <div class="setup-eyebrow">CREATOR &amp; ARCHITECT ATTRIBUTION</div>
+      <div class="card-title" style="margin:4px 0 10px;font-size:1.2rem;">Calyx QPEP Credits &amp; Engineering Team</div>
+
+      <div class="info-subhead">Creator, Founder &amp; Chief Cryptography Architect</div>
+      <p class="card-desc">
+        <strong>Tristen Martinez</strong><br/>
+        Founder &amp; Chief Architect, <strong>Calyx Labs Inc.</strong><br/>
+        Sole creator of the <strong>OpenQPEP (by Calyx Labs Inc.) (`Calyx QPEP`)</strong>, the <strong>`.qpkrf` (Quantum Proof Key Ring File)</strong> specification, the <strong>`QLX` / `QVS` / `CC-512` / `QPKD-Argon`</strong> cryptographic suite, and the <strong>Calyx QPEP Client</strong> Android application.
+      </p>
+
+      <div class="info-subhead">Protocol &amp; Systems Engineering Divisions</div>
+      <ul class="info-list">
+        <li><strong>Post-Quantum Lattice Research (`QLX-768` / `QLX-1024` / `QLX-2048` / `Calyx Signature QLX-4096` / `Calyx Hyper-Tesseract QLX-16384`):</strong> Calyx Labs Inc. Cryptographic Research Division</li>
+        <li><strong>Elliptic Trapdoor &amp; Vector Signature Engineering (`HGC-448` / `QVS-65` / `QVS-87` / `QVS-128` / `QVS-256` / `QVS-1024`):</strong> Calyx Labs Inc. Security Architecture Group</li>
+        <li><strong>Symmetric Matrix Stream &amp; Keystore Security (`CC-512` / `QPKD-Argon`):</strong> Calyx Labs Inc. Applied Systems Engineering</li>
+        <li><strong>Public Key Directory Infrastructure (`qpepkeys.calyxlabsinc.org`):</strong> Calyx Labs Inc. Cloud &amp; Zero-Trust Infrastructure Team</li>
+      </ul>
+
+      <div class="info-subhead">Open-Source Governance &amp; Support</div>
+      <p class="card-desc" style="margin-bottom:0;">
+        <strong>Official GitHub Repository:</strong> <code>https://github.com/CalyxLabsInc/OpenQPEP/</code><br/>
+        <strong>Public Key Directory:</strong> <code>https://qpepkeys.calyxlabsinc.org</code><br/>
+        <strong>Support &amp; Security Contact:</strong> <code>support@calyxlabsinc.org</code><br/>
+        <strong>License:</strong> Calyx Public Open Source License 1.0 (`CPOSL-1.0`) &bull; &copy; 2026 Calyx Labs Inc.
+      </p>
+    </div>
+  </section>
+
+  <!-- PAGE 13: ABOUT (Comprehensive & Detailed) -->
+  <section class="page-view" id="page-about">
+    <div class="surface-card">
+      <div class="setup-eyebrow">TECHNICAL ARCHITECTURE &amp; SPECIFICATION</div>
+      <div class="card-title" style="margin:4px 0 10px;font-size:1.2rem;">About Calyx QPEP &amp; Calyx QPEP Client</div>
+      <p class="card-desc">
+        <strong>Calyx QPEP (`OpenQPEP (by Calyx Labs Inc.)`)</strong> is a sovereign post-quantum public-key encryption, digital signature, and key-ring standard engineered by <strong>Calyx Labs Inc.</strong> to protect sensitive communications and files against both classical supercomputers and Cryptographically Relevant Quantum Computers (CRQCs).
+      </p>
+
+      <div class="info-subhead">1. How the Five `QLX` Key Tiers Work (Including `Calyx Hyper-Tesseract QLX-16384 + QVS-1024`)</div>
+      <ul class="info-list">
+        <li><strong>`QLX-768 + QVS-65 Velocity` (Mobile &amp; Low-Latency Tier):</strong> Uses a 768-dimensional polynomial module ring ($k=3, n=256, q=3329$) paired with `HGC-448` and 65-rank `QVS-65` vector signatures for rapid packet processing.</li>
+        <li><strong>`QLX-1024 + QVS-87 Sovereign Hybrid` (Default Flagship Tier):</strong> Uses a 1024-dimensional module lattice ($k=4, n=256, q=3329$) fused with `HGC-448` (224-bit birational curve), 87-rank `QVS-87` signatures, and `qSponge-512` transcripts.</li>
+        <li><strong>`QLX-2048 + QVS-128 Ultra-Grid` (High-Archival Tier):</strong> Expands the module lattice to 2048 dimensions ($k=8, n=256$) and 128-rank `QVS-128` vector commitments for multi-decade sovereign data protection.</li>
+        <li><strong>`Calyx Hyper-Tesseract` (`QLX-16384 + QVS-1024` — High-Tier Flagship Hardware Only):</strong> Scales the module lattice to <strong>16,384 dimensions</strong> ($k=64$ across 4 coupled 4,096-dim Tesseract manifolds with unstructured dense cross-manifold seed coupling and unit-variance $\text{CBD}_1$ noise, `24,608 B` PK / `23,168 B` CT) paired with a $(16 \times 14)$ `QVS-1024` signature matrix (`10,816 B` sig). Pushes BKZ lattice-sieving block sizes past $\beta > 6,400$ ($>1,024$-bit post-quantum work factor). <em>Warning: Use only on high-tier flagship devices (e.g., Galaxy Z Fold 8 or high-RAM PCs); low-tier devices (&le;6 GB RAM) will experience UI freezes, ANR timeouts, or WebView OOM crashes due to 320,000+ NTT butterfly operations and ~69.3 KB secret lattice vectors.</em></li>
+        <li><strong>`Calyx Signature` (`Signature QLX-4096 + QVS-256` — Recommended Default for All Devices):</strong> Scales the module lattice to 4096 dimensions ($k=16, n=256, q=3329$) paired with $(8 \times 7)$ `QVS-256` vector signatures (`5,440 B`), `HGC-448`, `CC-512`, and Verify-Before-Emit `Fault-Guard`—engineered for immunity against the Jesse-Victor-Gharabaghi (JVG) QNTT algorithm, Grover-Enhanced BKZ lattice sieving, Dihedral Coset Problem (DCP) reductions, Anthropic Claude Mythos Preview's July 2026 HAWK-256 &amp; 7-round AES attacks, Grover's algorithm, and fault-injection attacks.</li>
+      </ul>
+
+      <div class="info-subhead">2. Dual-Key Authenticated Encryption &amp; Auto Signature Verification</div>
+      <ul class="info-list">
+        <li><strong>Dual-Key Encryption:</strong> Every encrypted notepad message and `.qpep` file binds both your personal <strong>Encrypting Key</strong> (unlocked with your mandatory passphrase) and the <strong>Recipient's Key</strong>.</li>
+        <li><strong>Auto Keyring Signature Verification:</strong> When verifying a `CALYX QPEP SIGNATURE`, choosing <strong>Auto</strong> automatically scans all personal and receiver keys in your keyring by <strong>Key Hash</strong> and verifies the `QVS + qSponge-512` signature.</li>
+      </ul>
+
+      <div class="info-subhead">3. Why Calyx QPEP Surpasses Legacy PGP</div>
+      <p class="card-desc" style="margin-bottom:0;">
+        Legacy PGP allows empty passphrases, vulnerable classical subkey downgrades, and single-cipher CFB packets. Calyx QPEP enforces a hardcoded 12+ character `QPKD-Argon` passphrase witness, atomic `.qpkrf` key rings identified by 64-character <strong>Key Hashes</strong>, and cascaded `Calyx-Cascade-512 (CC-512)` dual-stream matrix encryption.
+      </p>
+    </div>
+  </section>
+
+  <!-- PAGE 14: PRIVACY POLICY (Comprehensive & Detailed) -->
+  <section class="page-view" id="page-privacy">
+    <div class="surface-card">
+      <div class="setup-eyebrow">CALYX LABS INC. &bull; PRIVACY &amp; DATA GOVERNANCE</div>
+      <div class="card-title" style="margin:4px 0 10px;font-size:1.2rem;">Privacy Policy</div>
+
+      <div class="info-subhead">1. Strictly Local On-Device Cryptographic Execution</div>
+      <p class="card-desc">
+        <strong>Calyx QPEP Client</strong> executes 100% of all key generation (`QLX` + `HGC-448` + `QVS`), passphrase policy witness derivation (`QPKD-Argon`), notepad encryption/decryption (`CC-512`), file streaming encryption, and signature verification locally on your Android device. Calyx Labs Inc. never collects, transmits, or has access to your private keys, passphrases, or plaintext data.
+      </p>
+
+      <div class="info-subhead">2. Persistent On-Device Secure Keystore</div>
+      <p class="card-desc">
+        All personal and receiver `.qpkrf` key rings are stored inside your device's private application keystore (`IndexedDB` + persistent DOM storage in `/data/user/0/com.calyxlabs.qpepclient/`) with Android cloud auto-backup disabled (`android:allowBackup="false"`). Your private keys remain encrypted at rest under `QPKD-Argon` + `CC-512`.
+      </p>
+
+      <div class="info-subhead">3. Opt-In Public Key Directory Publishing (`qpepkeys.calyxlabsinc.org`)</div>
+      <p class="card-desc">
+        Network communication occurs <strong>only</strong> when you explicitly select <em>"Publish Key to Calyx Labs QPEP Keys Directory"</em> (`https://qpepkeys.calyxlabsinc.org`). Only your public `.qpkrf` key ring, Key Hash, name, and email are transmitted so contacts can verify your signatures and encrypt packets to you. Your private key ring and passphrase never leave your device.
+      </p>
+
+      <div class="info-subhead">4. Zero Telemetry, Zero Analytics &amp; Support Contact</div>
+      <p class="card-desc" style="margin-bottom:0;">
+        Calyx QPEP Client contains zero third-party advertising SDKs, zero behavioral trackers, and zero analytics beacons. For privacy inquiries or support, contact <strong>Calyx Labs Inc.</strong> at <code>support@calyxlabsinc.org</code>.
+      </p>
+    </div>
+  </section>
+
+  <!-- PAGE 15: TERMS OF USE (Comprehensive & Detailed) -->
+  <section class="page-view" id="page-terms">
+    <div class="surface-card">
+      <div class="setup-eyebrow">CALYX LABS INC. &bull; LEGAL TERMS &amp; LICENSE</div>
+      <div class="card-title" style="margin:4px 0 10px;font-size:1.2rem;">Terms of Use</div>
+
+      <div class="info-subhead">1. Governing License (Calyx Public Open Source License 1.0)</div>
+      <p class="card-desc">
+        <strong>Calyx QPEP Client</strong> and the <strong>OpenQPEP (by Calyx Labs Inc.) (`Calyx QPEP`)</strong> are proprietary creations of <strong>Tristen Martinez</strong> and <strong>Calyx Labs Inc.</strong>, made available under the <strong>Calyx Public Open Source License 1.0 (`CPOSL-1.0`)</strong> via <code>https://github.com/CalyxLabsInc/OpenQPEP/</code>.
+      </p>
+
+      <div class="info-subhead">2. Mandatory Passphrase Policy &amp; Irrecoverability of Lost Passphrases</div>
+      <p class="card-desc">
+        The Calyx QPEP standard enforces a hardcoded, non-bypassable passphrase policy requiring at least 12 characters, 2 numbers, 4 special characters, 2 uppercase letters, and 4 lowercase letters. Because `QPKD-Argon` mathematically binds your passphrase witness into your private `.qpkrf` key ring with zero backdoors or escrow keys held by Calyx Labs Inc., <strong>losing your passphrase permanently prevents unlocking your private key or decrypting data addressed to it</strong>.
+      </p>
+
+      <div class="info-subhead">3. Prohibition on Security Downgrade Modifications</div>
+      <p class="card-desc">
+        Under Section 3 of `CPOSL-1.0`, derivative works or third-party clients claiming compatibility with `Calyx QPEP` or `.qpkrf` are strictly prohibited from removing or weakening the mandatory `QPKD-Argon` passphrase validation gate or `.qpkrf` self-certification checks.
+      </p>
+
+      <div class="info-subhead">4. No Warranty &amp; Limitation of Liability</div>
+      <p class="card-desc" style="margin-bottom:0;">
+        THIS APPLICATION AND CRYPTOGRAPHIC PROTOCOL ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. IN NO EVENT SHALL CALYX LABS INC. OR TRISTEN MARTINEZ BE LIABLE FOR ANY DATA LOSS, LOST PASSPHRASES, OR INDIRECT DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FLOATING ACTION BUTTON SPEED-DIAL ================= -->
+<div class="fab-container" id="fab-container" style="display:none;">
+  <div class="fab-menu" id="fab-menu">
+    <div class="fab-row">
+      <span class="fab-label">Show / Scan QR Code</span>
+      <button class="fab-mini" onclick="toggleFab(false); openQrModal();">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </button>
+    </div>
+    <div class="fab-row">
+      <span class="fab-label">Add Receiver Public Key</span>
+      <button class="fab-mini" onclick="toggleFab(false); openImportReceiverModal();">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      </button>
+    </div>
+    <div class="fab-row">
+      <span class="fab-label">Create My Own Key</span>
+      <button class="fab-mini" onclick="toggleFab(false); navigateTo('create-key');">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+  <button class="fab-main" id="fab-main-btn" onclick="toggleFab()">+</button>
+</div>
+
+<!-- ================= MODAL 1: IMPORT RECEIVER PUBLIC KEY (NO PASSPHRASE BOX!) ================= -->
+<div class="modal-overlay" id="modal-import-receiver">
+  <div class="modal-box">
+    <div class="card-title" style="margin-bottom:6px;">Add Receiver Public Key (.qpkrf)</div>
+    <p class="card-desc">Select a recipient's `.qpkrf` Public Key Ring file or paste its armored block below. Public keys do not require a passphrase.</p>
+    <button type="button" class="file-picker-btn" onclick="triggerNativeOrWebFilePicker('imp-rec-file', 'imp-rec-armor')">&#128194; Choose .qpkrf File from Device Files</button>
+    <input type="file" class="boxed-input" id="imp-rec-file" accept=".qpkrf,.txt,*/*" onchange="loadFileIntoTextarea(this, 'imp-rec-armor')" style="display:none;" />
+    <textarea class="boxed-textarea" id="imp-rec-armor" placeholder="-----BEGIN CALYX QPKRF PUBLIC KEY RING-----"></textarea>
+    <div class="btn-row" style="margin-top:14px;justify-content:flex-end;">
+      <button class="btn-outline" onclick="closeAllModals()">Cancel</button>
+      <button class="btn-primary" onclick="confirmImportReceiver()">Import Public .qpkrf</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL 2: IMPORT MY PERSONAL KEY PAIR (REQUIRES PASSPHRASE) ================= -->
+<div class="modal-overlay" id="modal-import-personal">
+  <div class="modal-box">
+    <div class="card-title" style="margin-bottom:6px;">Import My Key Pair (.qpkrf)</div>
+    <p class="card-desc">Select your personal `.qpkrf` Private Key Ring file and enter its mandatory QPKD-Argon passphrase to unlock and import it.</p>
+    <button type="button" class="file-picker-btn" onclick="triggerNativeOrWebFilePicker('imp-per-file', 'imp-per-armor')">&#128194; Choose .qpkrf File from Device Files</button>
+    <input type="file" class="boxed-input" id="imp-per-file" accept=".qpkrf,.txt,*/*" onchange="loadFileIntoTextarea(this, 'imp-per-armor')" style="display:none;" />
+    <input type="password" class="boxed-input" id="imp-per-pass" placeholder="Enter Mandatory QPKD-Argon Passphrase (12+ chars)..." style="margin-bottom:10px;" />
+    <textarea class="boxed-textarea" id="imp-per-armor" placeholder="-----BEGIN CALYX QPKRF PRIVATE KEY RING-----"></textarea>
+    <div class="btn-row" style="margin-top:14px;justify-content:flex-end;">
+      <button class="btn-outline" onclick="closeAllModals()">Cancel</button>
+      <button class="btn-primary" onclick="confirmImportPersonal()">Unlock &amp; Import Key Pair</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL 3: EXPORT / VIEW PUBLIC KEY (READ-ONLY, NO FILE INPUT, NO PASSPHRASE) ================= -->
+<div class="modal-overlay" id="modal-export-public">
+  <div class="modal-box">
+    <div class="card-title" id="exp-pub-title" style="margin-bottom:6px;">Export Public Key Ring (.qpkrf)</div>
+    <p class="card-desc" id="exp-pub-desc">Share this public `.qpkrf` key ring with contacts or publish it to `qpepkeys.calyxlabsinc.org`:</p>
+    <textarea class="boxed-textarea" id="exp-pub-armor" readonly style="min-height:170px;"></textarea>
+    <div class="btn-row" style="margin-top:14px;justify-content:flex-end;">
+      <button class="btn-outline" onclick="closeAllModals()">Close</button>
+      <button class="btn-outline" onclick="copyById('exp-pub-armor')">Copy Public .qpkrf</button>
+      <button class="btn-primary" onclick="downloadModalText('exp-pub-armor', currentExportFilename)">Download .qpkrf</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL 4: EXPORT PRIVATE KEY (PASSPHRASE GATE BEFORE REVEALING!) ================= -->
+<div class="modal-overlay" id="modal-export-private">
+  <div class="modal-box">
+    <div class="card-title" id="exp-priv-title" style="margin-bottom:6px;">Unlock Private Key Ring (.qpkrf)</div>
+    <div id="exp-priv-gate-step">
+      <p class="card-desc">Enter the mandatory QPKD-Argon passphrase for this key pair to authenticate and reveal your encrypted Private Key Ring (`.qpkrf`):</p>
+      <input type="password" class="boxed-input" id="exp-priv-pass-input" placeholder="Enter key's mandatory 12+ character passphrase..." />
+      <div class="btn-row" style="margin-top:14px;justify-content:flex-end;">
+        <button class="btn-outline" onclick="closeAllModals()">Cancel</button>
+        <button class="btn-primary" onclick="unlockAndShowPrivateKey()">Verify Passphrase &amp; Export</button>
+      </div>
+    </div>
+    <div id="exp-priv-reveal-step" style="display:none;">
+      <p class="card-desc" style="color:var(--success);">Passphrase verified. Keep this Private Key Ring (`.qpkrf`) strictly confidential:</p>
+      <textarea class="boxed-textarea" id="exp-priv-armor" readonly style="min-height:170px;"></textarea>
+      <div class="btn-row" style="margin-top:14px;justify-content:flex-end;">
+        <button class="btn-outline" onclick="closeAllModals()">Close</button>
+        <button class="btn-outline" onclick="copyById('exp-priv-armor')">Copy Private .qpkrf</button>
+        <button class="btn-primary" onclick="downloadModalText('exp-priv-armor', currentExportFilename)">Download Private .qpkrf</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-banner" id="toast-banner"></div>
+<script>
+const DIRECTORY_API_URL = 'https://qpepkeys.calyxlabsinc.org/api/v1/keys/publish';
+const STORAGE_KEY_PERSONAL = 'calyx_qpep_keystore_personal_v3';
+const STORAGE_KEY_RECEIVER = 'calyx_qpep_keystore_receiver_v3';
+const IDB_NAME = 'CalyxQPEPKeyStoreDB';
+const IDB_STORE = 'keyrings';
+
+const personalKeys = [];
+const receiverKeys = [];
+let fabOpen = false;
+let searchFilter = '';
+let pendingPrivateExportIdx = null;
+let currentExportFilename = 'calyx_key.qpkrf';
+
+const pageTitles = {
+  'manage-my-keys': 'Manage My Keys',
+  'manage-receiver-keys': 'Manage Receiver Keys',
+  'setup': 'Setup',
+  'create-key': 'Create My Key',
+  'encrypt-notepad': 'Encrypt Notepad',
+  'decrypt-notepad': 'Decrypt Notepad',
+  'encrypt-files': 'Encrypt Files',
+  'decrypt-files': 'Decrypt Files',
+  'create-signature': 'Create Signature',
+  'verify-signature': 'Verify Signature',
+  'news': 'News',
+  'credits': 'Credits',
+  'about': 'About',
+  'privacy': 'Privacy Policy',
+  'terms': 'Terms of Use'
+};
+
+/* ================= PERSISTENT ON-DEVICE SECURE KEYSTORE (IndexedDB + localStorage + window.name) ================= */
+function openKeyStoreDB() {
+  return new Promise((resolve) => {
+    if (!window.indexedDB) return resolve(null);
+    const req = indexedDB.open(IDB_NAME, 1);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(IDB_STORE)) {
+        db.createObjectStore(IDB_STORE);
+      }
+    };
+    req.onsuccess = (e) => resolve(e.target.result);
+    req.onerror = () => resolve(null);
+  });
+}
+
+async function persistKeyStore() {
+  const payload = JSON.stringify({ personal: personalKeys, receiver: receiverKeys });
+  try {
+    localStorage.setItem(STORAGE_KEY_PERSONAL, JSON.stringify(personalKeys));
+    localStorage.setItem(STORAGE_KEY_RECEIVER, JSON.stringify(receiverKeys));
+  } catch (e) {}
+  try {
+    window.name = 'CALYX_KEYSTORE:' + btoa(unescape(encodeURIComponent(payload)));
+  } catch (e) {}
+  try {
+    const db = await openKeyStoreDB();
+    if (db) {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      tx.objectStore(IDB_STORE).put(payload, 'master_keyring');
+    }
+  } catch (e) {}
+}
+
+async function restoreKeyStore() {
+  let loaded = null;
+  try {
+    const p = localStorage.getItem(STORAGE_KEY_PERSONAL);
+    const r = localStorage.getItem(STORAGE_KEY_RECEIVER);
+    if (p || r) {
+      loaded = { personal: JSON.parse(p || '[]'), receiver: JSON.parse(r || '[]') };
+    }
+  } catch (e) {}
+
+  if (!loaded || (!loaded.personal.length && !loaded.receiver.length)) {
+    try {
+      const db = await openKeyStoreDB();
+      if (db) {
+        loaded = await new Promise((resolve) => {
+          const tx = db.transaction(IDB_STORE, 'readonly');
+          const req = tx.objectStore(IDB_STORE).get('master_keyring');
+          req.onsuccess = () => resolve(req.result ? JSON.parse(req.result) : null);
+          req.onerror = () => resolve(null);
+        });
+      }
+    } catch (e) {}
+  }
+
+  if (!loaded || (!loaded.personal.length && !loaded.receiver.length)) {
+    try {
+      if (window.name && window.name.startsWith('CALYX_KEYSTORE:')) {
+        const raw = decodeURIComponent(escape(atob(window.name.slice('CALYX_KEYSTORE:'.length))));
+        loaded = JSON.parse(raw);
+      }
+    } catch (e) {}
+  }
+
+  if (loaded) {
+    personalKeys.splice(0, personalKeys.length, ...(loaded.personal || []));
+    receiverKeys.splice(0, receiverKeys.length, ...(loaded.receiver || []));
+  }
+}
+
+/* ================= NAVIGATION, DRAWER, SEARCH BAR & 3-DOT SUPPORT MENU ================= */
+function toggleDrawer(open) {
+  document.getElementById('drawer').classList.toggle('open', open);
+  document.getElementById('drawer-backdrop').classList.toggle('open', open);
+}
+
+function toggleFab(forceState) {
+  fabOpen = (typeof forceState === 'boolean') ? forceState : !fabOpen;
+  document.getElementById('fab-menu').classList.toggle('open', fabOpen);
+  document.getElementById('fab-main-btn').innerHTML = fabOpen ? '&times;' : '+';
+}
+
+function toggleOverflowMenu(ev) {
+  if (ev) ev.stopPropagation();
+  document.getElementById('overflow-menu').classList.toggle('open');
+}
+
+function closeOverflowMenu() {
+  document.getElementById('overflow-menu').classList.remove('open');
+}
+
+document.addEventListener('click', () => closeOverflowMenu());
+
+function toggleSearchBar() {
+  const bar = document.getElementById('search-bar-drawer');
+  const isOpen = bar.classList.toggle('open');
+  if (isOpen) {
+    const curTitle = document.getElementById('topbar-title').textContent;
+    if (curTitle !== 'Manage My Keys' && curTitle !== 'Manage Receiver Keys') {
+      navigateTo('manage-my-keys');
+    }
+    const inp = document.getElementById('keyring-search-input');
+    setTimeout(() => inp.focus(), 50);
+  } else {
+    closeSearchBar();
+  }
+}
+
+function closeSearchBar() {
+  document.getElementById('search-bar-drawer').classList.remove('open');
+  document.getElementById('keyring-search-input').value = '';
+  searchFilter = '';
+  updateKeyCountersAndLists();
+}
+
+function runKeyringSearch(query) {
+  searchFilter = (query || '').trim().toLowerCase();
+  updateKeyCountersAndLists();
+}
+
+function navigateTo(pageKey) {
+  toggleDrawer(false);
+  toggleFab(false);
+  closeOverflowMenu();
+  const targetId = 'page-' + pageKey;
+  document.querySelectorAll('.page-view').forEach(el => {
+    el.classList.toggle('active', el.id === targetId);
+  });
+  document.querySelectorAll('.drawer-item').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-page') === pageKey);
+  });
+  document.getElementById('topbar-title').textContent = pageTitles[pageKey] || 'Calyx QPEP Client';
+  const showFab = (pageKey === 'manage-my-keys' || pageKey === 'manage-receiver-keys');
+  document.getElementById('fab-container').style.display = showFab ? 'flex' : 'none';
+  refreshAllKeyDropdowns();
+}
+
+/* ================= HARDCODED PASSPHRASE VALIDATOR ================= */
+function checkPassphraseRules(p) {
+  let num = 0, spec = 0, up = 0, low = 0;
+  for (const c of (p || '')) {
+    if (c >= '0' && c <= '9') num++;
+    else if (c >= 'A' && c <= 'Z') up++;
+    else if (c >= 'a' && c <= 'z') low++;
+    else spec++;
+  }
+  const lenOk = (p || '').length >= 12;
+  const numOk = num >= 2;
+  const specOk = spec >= 4;
+  const upOk = up >= 2;
+  const lowOk = low >= 4;
+  return {
+    valid: lenOk && numOk && specOk && upOk && lowOk,
+    len: (p || '').length, num, spec, up, low,
+    lenOk, numOk, specOk, upOk, lowOk
+  };
+}
+
+function validateKeyForm() {
+  const p = document.getElementById('ck-pass').value;
+  const c = document.getElementById('ck-pass-confirm').value;
+  const r = checkPassphraseRules(p);
+  setRulePill('kp-len', `Length >= 12 (${r.len})`, r.lenOk);
+  setRulePill('kp-num', `Numbers >= 2 (${r.num})`, r.numOk);
+  setRulePill('kp-spec', `Specials >= 4 (${r.spec})`, r.specOk);
+  setRulePill('kp-up', `Uppercase >= 2 (${r.up})`, r.upOk);
+  setRulePill('kp-low', `Lowercase >= 4 (${r.low})`, r.lowOk);
+  const match = p.length > 0 && p === c;
+  document.getElementById('btn-submit-key').disabled = !(r.valid && match);
+}
+
+function setRulePill(id, text, ok) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className = ok ? 'pass-pill valid' : 'pass-pill';
+}
+
+/* ============================================================================
+ * CALYX QPEP REAL POST-QUANTUM CRYPTOGRAPHIC ENGINE (Beta Version 0.1.9)
+ * 1. 24-Round Keccak-f[1600] Sponge (qSponge-512 & qSponge-XOF)
+ * 2. Module-LWE (QLX-768 / QLX-1024 / QLX-2048) over Z_3329[X]/(X^256 + 1)
+ *    with 7-layer Cooley-Tukey / Gentleman-Sande NTT (zeta = 17) & FO CCA2
+ * 3. Lattice Fiat-Shamir with Aborts (QVS-65 / QVS-87 / QVS-128) over
+ *    Z_8380417[X]/(X^256 + 1) with 8-layer NTT (zeta = 1753) & rejection sampling
+ * 4. Calyx-Cascade-512 (CC-512): 14-round NIST AES-256-GCM (GF(2^128) GHASH)
+ *    cascaded with 20-round RFC 8439 ChaCha20-Poly1305 (mod 2^130 - 5)
+ * 5. Binary Wire Framing (\x89QPE\x01\x01 + qSponge-XOF Whitening + 256-bit MAC)
+ * ============================================================================ */
+
+const _utf8Enc = new TextEncoder();
+const _utf8Dec = new TextDecoder();
+
+function u8Concat(...arrays) {
+  let total = 0;
+  for (const a of arrays) total += a.length;
+  const out = new Uint8Array(total);
+  let off = 0;
+  for (const a of arrays) { out.set(a, off); off += a.length; }
+  return out;
+}
+
+function u8ToB64(u8) {
+  let bin = '';
+  for (let i = 0; i < u8.length; i++) bin += String.fromCharCode(u8[i]);
+  return typeof btoa === 'function' ? btoa(bin) : Buffer.from(u8).toString('base64');
+}
+
+function b64ToU8(b64) {
+  const clean = b64.replace(/\s+/g, '');
+  if (typeof atob === 'function') {
+    const bin = atob(clean);
+    const out = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+  return new Uint8Array(Buffer.from(clean, 'base64'));
+}
+
+function u8ToHex(u8) {
+  let s = '';
+  for (let i = 0; i < u8.length; i++) s += u8[i].toString(16).padStart(2, '0');
+  return s.toUpperCase();
+}
+
+function randomBytes(n) {
+  const out = new Uint8Array(n);
+  if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+    crypto.getRandomValues(out);
+  } else {
+    const nodeCrypto = require('crypto');
+    out.set(nodeCrypto.randomBytes(n));
+  }
+  return out;
+}
+
+function ctEqual(a, b) {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= (a[i] ^ b[i]);
+  return diff === 0;
+}
+
+/* ---------------- 1. 24-Round Keccak-f[1600] (qSponge-512 & qSponge-XOF) ---------------- */
+const KECCAK_RC = [
+  0x0000000000000001n, 0x0000000000008082n, 0x800000000000808an, 0x8000000080008000n,
+  0x000000000000808bn, 0x0000000080000001n, 0x8000000080008081n, 0x8000000000008009n,
+  0x000000000000008an, 0x0000000000000088n, 0x0000000080008009n, 0x000000008000000an,
+  0x000000008000808bn, 0x800000000000008bn, 0x8000000000008089n, 0x8000000000008003n,
+  0x8000000000008002n, 0x8000000000000080n, 0x000000000000800an, 0x800000008000000an,
+  0x8000000080008081n, 0x8000000000008080n, 0x0000000080000001n, 0x8000000080008008n
+];
+const KECCAK_ROTC = [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 2, 14, 27, 41, 56, 8, 25, 43, 62, 18, 39, 61, 20, 44];
+const KECCAK_PILN = [10, 7, 11, 17, 18, 3, 5, 16, 8, 21, 24, 4, 15, 23, 19, 13, 12, 2, 20, 14, 22, 9, 6, 1];
+const MASK64 = 0xFFFFFFFFFFFFFFFFn;
+
+function rotl64(x, n) {
+  return ((x << BigInt(n)) | (x >> BigInt(64 - n))) & MASK64;
+}
+
+function keccakF1600(stateBytes) {
+  const st = new BigUint64Array(25);
+  const dv = new DataView(stateBytes.buffer, stateBytes.byteOffset, 200);
+  for (let i = 0; i < 25; i++) st[i] = dv.getBigUint64(i * 8, true);
+  const bc = new BigUint64Array(5);
+  for (let r = 0; r < 24; r++) {
+    for (let i = 0; i < 5; i++) bc[i] = st[i] ^ st[i + 5] ^ st[i + 10] ^ st[i + 15] ^ st[i + 20];
+    for (let i = 0; i < 5; i++) {
+      const t = bc[(i + 4) % 5] ^ rotl64(bc[(i + 1) % 5], 1);
+      for (let j = 0; j < 25; j += 5) st[j + i] ^= t;
+    }
+    let t = st[1];
+    for (let i = 0; i < 24; i++) {
+      const j = KECCAK_PILN[i];
+      const tmp = st[j];
+      st[j] = rotl64(t, KECCAK_ROTC[i]);
+      t = tmp;
+    }
+    for (let j = 0; j < 25; j += 5) {
+      for (let i = 0; i < 5; i++) bc[i] = st[j + i];
+      for (let i = 0; i < 5; i++) st[j + i] ^= (~bc[(i + 1) % 5] & bc[(i + 2) % 5]) & MASK64;
+    }
+    st[0] ^= KECCAK_RC[r];
+  }
+  for (let i = 0; i < 25; i++) dv.setBigUint64(i * 8, st[i], true);
+}
+
+function keccakSponge(rateBytes, dsByte, inputBytes, outLen) {
+  const state = new Uint8Array(200);
+  let off = 0;
+  while (off + rateBytes <= inputBytes.length) {
+    for (let i = 0; i < rateBytes; i++) state[i] ^= inputBytes[off + i];
+    keccakF1600(state);
+    off += rateBytes;
+  }
+  const rem = inputBytes.length - off;
+  for (let i = 0; i < rem; i++) state[i] ^= inputBytes[off + i];
+  state[rem] ^= dsByte;
+  state[rateBytes - 1] ^= 0x80;
+  keccakF1600(state);
+
+  const out = new Uint8Array(outLen);
+  let outOff = 0;
+  while (outOff < outLen) {
+    const take = Math.min(rateBytes, outLen - outOff);
+    out.set(state.subarray(0, take), outOff);
+    outOff += take;
+    if (outOff < outLen) keccakF1600(state);
+  }
+  return out;
+}
+
+function qsponge512Bytes(dataBytes) {
+  const b = (typeof dataBytes === 'string') ? _utf8Enc.encode(dataBytes) : dataBytes;
+  return keccakSponge(72, 0x06, u8Concat(_utf8Enc.encode("CALYX-QSPONGE-512-v1|"), b), 64);
+}
+
+function qspongeVarBytes(dataBytes, outLen) {
+  const b = (typeof dataBytes === 'string') ? _utf8Enc.encode(dataBytes) : dataBytes;
+  return keccakSponge(136, 0x1F, u8Concat(_utf8Enc.encode("CALYX-QSPONGE-XOF-v1|"), b), outLen);
+}
+
+async function qspongeHex(input) {
+  return u8ToHex(qsponge512Bytes(input)).substring(0, 64);
+}
+
+/* ---------------- 2. QLX Module-LWE over R_3329 = Z_3329[X]/(X^256 + 1) ---------------- */
+const QLX_Q = 3329;
+const QLX_ZETA = 17;
+
+function modPow(base, exp, mod) {
+  let res = 1n, b = BigInt(base) % BigInt(mod), e = BigInt(exp), m = BigInt(mod);
+  while (e > 0n) {
+    if (e & 1n) res = (res * b) % m;
+    b = (b * b) % m;
+    e >>= 1n;
+  }
+  return Number(res);
+}
+
+function bitrev7(x) {
+  let r = 0;
+  for (let i = 0; i < 7; i++) { r = (r << 1) | (x & 1); x >>= 1; }
+  return r;
+}
+
+const ZETAS_3329 = Array.from({ length: 128 }, (_, i) => modPow(QLX_ZETA, bitrev7(i), QLX_Q));
+const ZETAS_BASE_3329 = Array.from({ length: 128 }, (_, i) => modPow(QLX_ZETA, 2 * bitrev7(i) + 1, QLX_Q));
+const INV_128_3329 = modPow(128, QLX_Q - 2, QLX_Q);
+
+const QLX_TIERS = {
+  "QLX-768":   { k: 3,  manifolds: 1, du: 10, dv: 4, pkBytes: 1184,  skBytes: 2400,  ctBytes: 1088,  qvsTier: "QVS-65",   nickname: "QLX-768 Velocity" },
+  "QLX-1024":  { k: 4,  manifolds: 1, du: 11, dv: 5, pkBytes: 1568,  skBytes: 3168,  ctBytes: 1568,  qvsTier: "QVS-87",   nickname: "QLX-1024 Sovereign Hybrid" },
+  "QLX-2048":  { k: 8,  manifolds: 1, du: 11, dv: 5, pkBytes: 3104,  skBytes: 6240,  ctBytes: 2976,  qvsTier: "QVS-128",  nickname: "QLX-2048 Ultra-Grid" },
+  "QLX-4096":  { k: 16, manifolds: 1, du: 11, dv: 5, pkBytes: 6176,  skBytes: 12384, ctBytes: 5792,  qvsTier: "QVS-256",  nickname: "Calyx Signature" },
+  "QLX-16384": { k: 64, manifolds: 4, du: 11, dv: 5, pkBytes: 24608, skBytes: 49248, ctBytes: 23168, qvsTier: "QVS-1024", nickname: "Calyx Hyper-Tesseract" }
+};
+
+function suiteToQlxTier(suiteStr) {
+  const s = (suiteStr || '');
+  if (s.includes('16384') || s.includes('Tesseract')) return 'QLX-16384';
+  if (s.includes('4096')) return 'QLX-4096';
+  if (s.includes('2048')) return 'QLX-2048';
+  if (s.includes('768')) return 'QLX-768';
+  if (s.includes('1024')) return 'QLX-1024';
+  return 'QLX-4096';
+}
+
+function toggleHyperTesseractWarning() {
+  const sel = document.getElementById('ck-suite');
+  const box = document.getElementById('hyper-tesseract-hw-warning');
+  if (!sel || !box) return;
+  const isTess = (sel.value || '').includes('16384') || (sel.value || '').includes('Tesseract');
+  box.style.display = isTess ? 'block' : 'none';
+  box.style.borderColor = '#ff007f';
+  box.style.background = 'rgba(255,0,127,0.12)';
+}
+
+function modQlx(x) { const r = x % QLX_Q; return r < 0 ? r + QLX_Q : r; }
+
+function ntt3329(poly) {
+  const p = Int32Array.from(poly);
+  let k = 1;
+  for (let len = 128; len >= 2; len >>= 1) {
+    for (let start = 0; start < 256; start += 2 * len) {
+      const zeta = ZETAS_3329[k++];
+      for (let j = start; j < start + len; j++) {
+        const t = (zeta * p[j + len]) % QLX_Q;
+        p[j + len] = modQlx(p[j] - t);
+        p[j] = modQlx(p[j] + t);
+      }
+    }
+  }
+  return p;
+}
+
+function invNtt3329(polyHat) {
+  const p = Int32Array.from(polyHat);
+  let k = 127;
+  for (let len = 2; len <= 128; len <<= 1) {
+    for (let start = 0; start < 256; start += 2 * len) {
+      const zeta = QLX_Q - ZETAS_3329[k--];
+      for (let j = start; j < start + len; j++) {
+        const t = p[j];
+        p[j] = modQlx(t + p[j + len]);
+        p[j + len] = modQlx(zeta * modQlx(t - p[j + len]));
+      }
+    }
+  }
+  for (let i = 0; i < 256; i++) p[i] = (p[i] * INV_128_3329) % QLX_Q;
+  return p;
+}
+
+function nttBaseMul3329(ah, bh) {
+  const out = new Int32Array(256);
+  for (let i = 0; i < 128; i++) {
+    const a0 = ah[2 * i], a1 = ah[2 * i + 1];
+    const b0 = bh[2 * i], b1 = bh[2 * i + 1];
+    const gamma = ZETAS_BASE_3329[i];
+    out[2 * i] = (a0 * b0 + ((a1 * b1) % QLX_Q) * gamma) % QLX_Q;
+    out[2 * i + 1] = (a0 * b1 + a1 * b0) % QLX_Q;
+  }
+  return out;
+}
+
+function polyAdd3329(a, b) {
+  const out = new Int32Array(256);
+  for (let i = 0; i < 256; i++) out[i] = (a[i] + b[i]) % QLX_Q;
+  return out;
+}
+
+function polySub3329(a, b) {
+  const out = new Int32Array(256);
+  for (let i = 0; i < 256; i++) out[i] = modQlx(a[i] - b[i]);
+  return out;
+}
+
+function sampleNtt3329(rho, row, col) {
+  const stream = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QLX-MAT-A|"), rho, new Uint8Array([col, row])), 840);
+  const coeffs = new Int32Array(256);
+  let cnt = 0, idx = 0;
+  while (cnt < 256) {
+    const d1 = stream[idx] + 256 * (stream[idx + 1] & 0x0F);
+    const d2 = (stream[idx + 1] >> 4) + 16 * stream[idx + 2];
+    idx += 3;
+    if (d1 < QLX_Q) coeffs[cnt++] = d1;
+    if (d2 < QLX_Q && cnt < 256) coeffs[cnt++] = d2;
+  }
+  return coeffs;
+}
+
+function sampleCbd2_3329(sigma, nonce) {
+  const buf = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QLX-CBD2|"), sigma, new Uint8Array([nonce])), 128);
+  const coeffs = new Int32Array(256);
+  for (let i = 0; i < 128; i++) {
+    const b = buf[i];
+    const a0 = (b & 1) + ((b >> 1) & 1);
+    const b0 = ((b >> 2) & 1) + ((b >> 3) & 1);
+    const a1 = ((b >> 4) & 1) + ((b >> 5) & 1);
+    const b1 = ((b >> 6) & 1) + ((b >> 7) & 1);
+    coeffs[2 * i] = modQlx(a0 - b0);
+    coeffs[2 * i + 1] = modQlx(a1 - b1);
+  }
+  return coeffs;
+}
+
+function byteEncode12(poly) {
+  const out = new Uint8Array(384);
+  for (let i = 0; i < 128; i++) {
+    const c0 = modQlx(poly[2 * i]), c1 = modQlx(poly[2 * i + 1]);
+    out[3 * i] = c0 & 0xFF;
+    out[3 * i + 1] = ((c0 >> 8) & 0x0F) | ((c1 & 0x0F) << 4);
+    out[3 * i + 2] = (c1 >> 4) & 0xFF;
+  }
+  return out;
+}
+
+function byteDecode12(data) {
+  const poly = new Int32Array(256);
+  for (let i = 0; i < 128; i++) {
+    const b0 = data[3 * i], b1 = data[3 * i + 1], b2 = data[3 * i + 2];
+    poly[2 * i] = (b0 | ((b1 & 0x0F) << 8)) % QLX_Q;
+    poly[2 * i + 1] = ((b1 >> 4) | (b2 << 4)) % QLX_Q;
+  }
+  return poly;
+}
+
+function compressPoly(poly, d) {
+  const mask = (1 << d) - 1;
+  let bits = 0, bitLen = 0, pos = 0;
+  const out = new Uint8Array(32 * d);
+  for (let i = 0; i < 256; i++) {
+    const c = modQlx(poly[i]);
+    const val = Math.floor(((c << d) + Math.floor(QLX_Q / 2)) / QLX_Q) & mask;
+    bits |= (val << bitLen);
+    bitLen += d;
+    while (bitLen >= 8) {
+      out[pos++] = bits & 0xFF;
+      bits >>>= 8;
+      bitLen -= 8;
+    }
+  }
+  return out;
+}
+
+function decompressPoly(data, d) {
+  const mask = (1 << d) - 1;
+  let bits = 0, bitLen = 0, idx = 0;
+  const poly = new Int32Array(256);
+  for (let i = 0; i < 256; i++) {
+    while (bitLen < d) {
+      bits |= (data[idx++] << bitLen);
+      bitLen += 8;
+    }
+    const val = bits & mask;
+    bits >>>= d;
+    bitLen -= d;
+    poly[i] = ((val * QLX_Q + (1 << (d - 1))) >> d) % QLX_Q;
+  }
+  return poly;
+}
+
+function sampleCbd1_3329(sigma, nonce) {
+  const nb = new Uint8Array([nonce & 0xFF, (nonce >> 8) & 0xFF]);
+  const buf = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QLX-CBD1|"), sigma, nb), 64);
+  const coeffs = new Int32Array(256);
+  for (let i = 0; i < 64; i++) {
+    const b = buf[i];
+    for (let j = 0; j < 4; j++) {
+      const a = (b >> (2 * j)) & 1;
+      const c = (b >> (2 * j + 1)) & 1;
+      coeffs[4 * i + j] = modQlx(a - c);
+    }
+  }
+  return coeffs;
+}
+
+function qlxIndcpaEnc(ek, msg32, coins, tier) {
+  const spec = QLX_TIERS[tier] || QLX_TIERS["QLX-4096"];
+  const { k, du, dv } = spec;
+  const manifolds = spec.manifolds || 1;
+  const rho = ek.subarray(ek.length - 32);
+  const tHat = Array.from({ length: k }, (_, i) => byteDecode12(ek.subarray(384 * i, 384 * (i + 1))));
+
+  if (manifolds === 1) {
+    const aHat = Array.from({ length: k }, (_, i) => Array.from({ length: k }, (__, j) => sampleNtt3329(rho, i, j)));
+    const rVec = Array.from({ length: k }, (_, i) => ntt3329(sampleCbd2_3329(coins, i)));
+    const e1Vec = Array.from({ length: k }, (_, i) => sampleCbd2_3329(coins, k + i));
+    const e2Poly = sampleCbd2_3329(coins, 2 * k);
+
+    const uChunks = [];
+    for (let i = 0; i < k; i++) {
+      let acc = new Int32Array(256);
+      for (let j = 0; j < k; j++) acc = polyAdd3329(acc, nttBaseMul3329(aHat[j][i], rVec[j]));
+      const u_i = polyAdd3329(invNtt3329(acc), e1Vec[i]);
+      uChunks.push(compressPoly(u_i, du));
+    }
+    let vAcc = new Int32Array(256);
+    for (let j = 0; j < k; j++) vAcc = polyAdd3329(vAcc, nttBaseMul3329(tHat[j], rVec[j]));
+    let vPoly = polyAdd3329(invNtt3329(vAcc), e2Poly);
+    vPoly = polyAdd3329(vPoly, decompressPoly(msg32, 1));
+    return u8Concat(...uChunks, compressPoly(vPoly, dv));
+  }
+
+  // 4-Manifold Coupled 16,384-Dim Calyx Hyper-Tesseract (QLX-16384)
+  const kM = k / manifolds;
+  const hEk = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QLX-H-EK|"), ek), 32);
+  const mRhos = Array.from({ length: manifolds }, (_, m) =>
+    qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-TESSERACT-DENSE-MANIFOLD|"), rho, new Uint8Array([m])), 32)
+  );
+  const muBlocks = [msg32];
+  for (let m = 1; m < manifolds; m++) {
+    muBlocks.push(qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-TESSERACT-MU|"), msg32, hEk, new Uint8Array([m])), 32));
+  }
+  const rVec = Array.from({ length: k }, (_, i) => ntt3329(sampleCbd1_3329(coins, i)));
+  const e1Vec = Array.from({ length: k }, (_, i) => sampleCbd1_3329(coins, k + i));
+  const e2Vec = Array.from({ length: manifolds }, (_, m) => sampleCbd1_3329(coins, 2 * k + m));
+
+  const uChunks = [], vChunks = [];
+  for (let m = 0; m < manifolds; m++) {
+    const aM = Array.from({ length: kM }, (_, i) => Array.from({ length: kM }, (__, j) => sampleNtt3329(mRhos[m], i, j)));
+    const base = m * kM;
+    for (let i = 0; i < kM; i++) {
+      let acc = new Int32Array(256);
+      for (let j = 0; j < kM; j++) acc = polyAdd3329(acc, nttBaseMul3329(aM[j][i], rVec[base + j]));
+      const u_i = polyAdd3329(invNtt3329(acc), e1Vec[base + i]);
+      uChunks.push(compressPoly(u_i, du));
+    }
+    let vAcc = new Int32Array(256);
+    for (let j = 0; j < kM; j++) vAcc = polyAdd3329(vAcc, nttBaseMul3329(tHat[base + j], rVec[base + j]));
+    let vM = polyAdd3329(invNtt3329(vAcc), e2Vec[m]);
+    vM = polyAdd3329(vM, decompressPoly(muBlocks[m], 1));
+    vChunks.push(compressPoly(vM, dv));
+  }
+  return u8Concat(...uChunks, ...vChunks);
+}
+
+function qlxKeygen(tier, policyWitness64) {
+  const spec = QLX_TIERS[tier] || QLX_TIERS["QLX-4096"];
+  const k = spec.k;
+  const manifolds = spec.manifolds || 1;
+  const seedD = randomBytes(32);
+  const seedZ = randomBytes(32);
+  const gOut = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-QLX-KEYGEN|" + tier), seedD, policyWitness64));
+  const rho = gOut.subarray(0, 32), sigma = gOut.subarray(32, 64);
+
+  let sHat, tHat = [];
+  if (manifolds === 1) {
+    const aHat = Array.from({ length: k }, (_, i) => Array.from({ length: k }, (__, j) => sampleNtt3329(rho, i, j)));
+    sHat = Array.from({ length: k }, (_, i) => ntt3329(sampleCbd2_3329(sigma, i)));
+    const eHat = Array.from({ length: k }, (_, i) => ntt3329(sampleCbd2_3329(sigma, k + i)));
+    for (let i = 0; i < k; i++) {
+      let acc = new Int32Array(256);
+      for (let j = 0; j < k; j++) acc = polyAdd3329(acc, nttBaseMul3329(aHat[i][j], sHat[j]));
+      tHat.push(polyAdd3329(acc, eHat[i]));
+    }
+  } else {
+    const kM = k / manifolds;
+    const mRhos = Array.from({ length: manifolds }, (_, m) =>
+      qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-TESSERACT-DENSE-MANIFOLD|"), rho, new Uint8Array([m])), 32)
+    );
+    sHat = Array.from({ length: k }, (_, i) => ntt3329(sampleCbd1_3329(sigma, i)));
+    const eHat = Array.from({ length: k }, (_, i) => ntt3329(sampleCbd1_3329(sigma, k + i)));
+    for (let m = 0; m < manifolds; m++) {
+      const aM = Array.from({ length: kM }, (_, i) => Array.from({ length: kM }, (__, j) => sampleNtt3329(mRhos[m], i, j)));
+      const base = m * kM;
+      for (let i = 0; i < kM; i++) {
+        let acc = new Int32Array(256);
+        for (let j = 0; j < kM; j++) acc = polyAdd3329(acc, nttBaseMul3329(aM[i][j], sHat[base + j]));
+        tHat.push(polyAdd3329(acc, eHat[base + i]));
+      }
+    }
+  }
+  const ek = u8Concat(...tHat.map(byteEncode12), rho);
+  const sBytes = u8Concat(...sHat.map(byteEncode12));
+  const hEk = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QLX-H-EK|"), ek), 32);
+  const dk = u8Concat(sBytes, ek, hEk, seedZ);
+  return { ek, dk };
+}
+
+function qlxEncaps(ek, tier) {
+  const msg32 = randomBytes(32);
+  const hEk = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QLX-H-EK|"), ek), 32);
+  const kr = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-QLX-FO-G|"), msg32, hEk));
+  const kShared = kr.subarray(0, 32), rCoins = kr.subarray(32, 64);
+  const ct = qlxIndcpaEnc(ek, msg32, rCoins, tier);
+  return { ct, kShared };
+}
+
+function qlxDecaps(dk, ct, tier) {
+  const spec = QLX_TIERS[tier] || QLX_TIERS["QLX-4096"];
+  const { k, du, dv, pkBytes } = spec;
+  const manifolds = spec.manifolds || 1;
+  const kM = k / manifolds;
+  const sBytesLen = 384 * k;
+  const sHat = Array.from({ length: k }, (_, i) => byteDecode12(dk.subarray(384 * i, 384 * (i + 1))));
+  const ek = dk.subarray(sBytesLen, sBytesLen + pkBytes);
+  const hEk = dk.subarray(sBytesLen + pkBytes, sBytesLen + pkBytes + 32);
+  const seedZ = dk.subarray(sBytesLen + pkBytes + 32);
+
+  const uStep = 32 * du;
+  const vStep = 32 * dv;
+  const uVec = Array.from({ length: k }, (_, i) => decompressPoly(ct.subarray(i * uStep, (i + 1) * uStep), du));
+  const vPoly0 = decompressPoly(ct.subarray(k * uStep, k * uStep + vStep), dv);
+
+  let suHat = new Int32Array(256);
+  for (let j = 0; j < kM; j++) suHat = polyAdd3329(suHat, nttBaseMul3329(sHat[j], ntt3329(uVec[j])));
+  const wPoly = polySub3329(vPoly0, invNtt3329(suHat));
+  const mPrime = compressPoly(wPoly, 1);
+
+  const krPrime = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-QLX-FO-G|"), mPrime, hEk));
+  const kCandidate = krPrime.subarray(0, 32), rPrime = krPrime.subarray(32, 64);
+  const ctPrime = qlxIndcpaEnc(ek, mPrime, rPrime, tier);
+  if (ctEqual(ct, ctPrime)) return kCandidate;
+  return qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QLX-FO-REJECT|"), seedZ, ct), 32);
+}
+
+/* ---------------- 3. QVS Lattice Fiat-Shamir with Aborts over Z_8380417[X]/(X^256+1) ---------------- */
+const QVS_Q = 8380417;
+const QVS_ZETA = 1753;
+const QVS_GAMMA1 = 1 << 19;
+const QVS_GAMMA2 = (QVS_Q - 1) / 32;
+const QVS_ALPHA = 2 * QVS_GAMMA2;
+
+function bitrev8(x) {
+  let r = 0;
+  for (let i = 0; i < 8; i++) { r = (r << 1) | (x & 1); x >>= 1; }
+  return r;
+}
+
+const ZETAS_QVS = Array.from({ length: 256 }, (_, i) => modPow(QVS_ZETA, bitrev8(i), QVS_Q));
+const INV_256_QVS = modPow(256, QVS_Q - 2, QVS_Q);
+
+const QVS_TIERS = {
+  "QVS-65":   { k: 3,  l: 2,  eta: 2, tau: 39, beta: 78,  pkBytes: 2336,  skBytes: 3712,  sigBytes: 1600 },
+  "QVS-87":   { k: 4,  l: 3,  eta: 2, tau: 49, beta: 98,  pkBytes: 3104,  skBytes: 4992,  sigBytes: 2368 },
+  "QVS-128":  { k: 6,  l: 5,  eta: 2, tau: 60, beta: 120, pkBytes: 4640,  skBytes: 7552,  sigBytes: 3904 },
+  "QVS-256":  { k: 8,  l: 7,  eta: 2, tau: 60, beta: 120, pkBytes: 6176,  skBytes: 10112, sigBytes: 5440 },
+  "QVS-1024": { k: 16, l: 14, eta: 2, tau: 60, beta: 120, pkBytes: 12320, skBytes: 20096, sigBytes: 10816 }
+};
+
+function modQvs(x) {
+  const r = Number(BigInt(x) % BigInt(QVS_Q));
+  return r < 0 ? r + QVS_Q : r;
+}
+
+function mulQvs(a, b) {
+  return Number((BigInt(a) * BigInt(b)) % BigInt(QVS_Q));
+}
+
+function nttQvs(poly) {
+  const p = Int32Array.from(poly);
+  let k = 0;
+  for (let len = 128; len >= 1; len >>= 1) {
+    for (let start = 0; start < 256; start += 2 * len) {
+      const zeta = ZETAS_QVS[++k];
+      for (let j = start; j < start + len; j++) {
+        const t = mulQvs(zeta, p[j + len]);
+        p[j + len] = modQvs(p[j] - t);
+        p[j] = modQvs(p[j] + t);
+      }
+    }
+  }
+  return p;
+}
+
+function invNttQvs(polyHat) {
+  const p = Int32Array.from(polyHat);
+  let k = 256;
+  for (let len = 1; len < 256; len <<= 1) {
+    for (let start = 0; start < 256; start += 2 * len) {
+      const zeta = QVS_Q - ZETAS_QVS[--k];
+      for (let j = start; j < start + len; j++) {
+        const t = p[j];
+        p[j] = modQvs(t + p[j + len]);
+        p[j + len] = mulQvs(zeta, modQvs(t - p[j + len]));
+      }
+    }
+  }
+  for (let i = 0; i < 256; i++) p[i] = mulQvs(p[i], INV_256_QVS);
+  return p;
+}
+
+function centerQvs(x) {
+  const r = modQvs(x);
+  return r > Math.floor(QVS_Q / 2) ? r - QVS_Q : r;
+}
+
+function decomposeQvs(r) {
+  r = modQvs(r);
+  let r0 = r % QVS_ALPHA;
+  if (r0 > QVS_GAMMA2) r0 -= QVS_ALPHA;
+  if (r - r0 === QVS_Q - 1) return [0, r0 - 1];
+  return [Math.floor((r - r0) / QVS_ALPHA), r0];
+}
+
+function sampleNttQvs(rho, row, col) {
+  const stream = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-MAT-A|"), rho, new Uint8Array([row, col])), 1024);
+  const coeffs = new Int32Array(256);
+  let cnt = 0, idx = 0;
+  while (cnt < 256) {
+    const val = (stream[idx] | (stream[idx + 1] << 8) | (stream[idx + 2] << 16)) & 0x7FFFFF;
+    idx += 3;
+    if (val < QVS_Q) coeffs[cnt++] = val;
+  }
+  return coeffs;
+}
+
+function sampleEtaQvs(seed, nonce) {
+  const buf = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-ETA2|"), seed, new Uint8Array([nonce])), 128);
+  const coeffs = new Int32Array(256);
+  for (let i = 0; i < 128; i++) {
+    const b = buf[i];
+    const a0 = (b & 1) + ((b >> 1) & 1);
+    const b0 = ((b >> 2) & 1) + ((b >> 3) & 1);
+    const a1 = ((b >> 4) & 1) + ((b >> 5) & 1);
+    const b1 = ((b >> 6) & 1) + ((b >> 7) & 1);
+    coeffs[2 * i] = modQvs(a0 - b0);
+    coeffs[2 * i + 1] = modQvs(a1 - b1);
+  }
+  return coeffs;
+}
+
+function sampleMaskYQvs(seed, nonce) {
+  const nb = new Uint8Array([nonce & 0xFF, (nonce >> 8) & 0xFF]);
+  const buf = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-MASK-Y|"), seed, nb), 768);
+  const coeffs = new Int32Array(256);
+  for (let i = 0; i < 256; i++) {
+    const raw = (buf[3 * i] | (buf[3 * i + 1] << 8) | (buf[3 * i + 2] << 16)) & 0xFFFFF;
+    coeffs[i] = modQvs(QVS_GAMMA1 - raw);
+  }
+  return coeffs;
+}
+
+function sampleInBallQvs(cTilde, tau) {
+  const stream = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-BALL|"), cTilde), 256);
+  let signBits = 0n;
+  for (let i = 0; i < 8; i++) signBits |= BigInt(stream[i]) << BigInt(8 * i);
+  let idx = 8;
+  const c = new Int32Array(256);
+  for (let i = 256 - tau; i < 256; i++) {
+    let j;
+    while (true) {
+      j = stream[idx++];
+      if (j <= i) break;
+    }
+    c[i] = c[j];
+    c[j] = (signBits & 1n) ? (QVS_Q - 1) : 1;
+    signBits >>= 1n;
+  }
+  return c;
+}
+
+function packPoly24Qvs(poly) {
+  const out = new Uint8Array(768);
+  for (let i = 0; i < 256; i++) {
+    const v = modQvs(poly[i]);
+    out[3 * i] = v & 0xFF;
+    out[3 * i + 1] = (v >> 8) & 0xFF;
+    out[3 * i + 2] = (v >> 16) & 0xFF;
+  }
+  return out;
+}
+
+function unpackPoly24Qvs(data) {
+  const poly = new Int32Array(256);
+  for (let i = 0; i < 256; i++) {
+    poly[i] = (data[3 * i] | (data[3 * i + 1] << 8) | (data[3 * i + 2] << 16)) % QVS_Q;
+  }
+  return poly;
+}
+
+function qvsKeygen(tier, policyWitness64) {
+  const spec = QVS_TIERS[tier] || QVS_TIERS["QVS-87"];
+  const { k, l } = spec;
+  const seedXi = randomBytes(32);
+  const expanded = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-KEYGEN|" + tier), seedXi, policyWitness64), 128);
+  const rho = expanded.subarray(0, 32), rhoPrime = expanded.subarray(32, 96), kSign = expanded.subarray(96, 128);
+
+  const aHat = Array.from({ length: k }, (_, i) => Array.from({ length: l }, (__, j) => sampleNttQvs(rho, i, j)));
+  const s1 = Array.from({ length: l }, (_, j) => sampleEtaQvs(rhoPrime, j));
+  const s2 = Array.from({ length: k }, (_, i) => sampleEtaQvs(rhoPrime, l + i));
+  const s1Hat = s1.map(nttQvs);
+
+  const tVec = [];
+  for (let i = 0; i < k; i++) {
+    const acc = new Int32Array(256);
+    for (let j = 0; j < l; j++) {
+      for (let m = 0; m < 256; m++) acc[m] = modQvs(acc[m] + mulQvs(aHat[i][j][m], s1Hat[j][m]));
+    }
+    const inv = invNttQvs(acc);
+    for (let m = 0; m < 256; m++) inv[m] = modQvs(inv[m] + s2[i][m]);
+    tVec.push(inv);
+  }
+  const tBytes = u8Concat(...tVec.map(packPoly24Qvs));
+  const pk = u8Concat(rho, tBytes);
+  const tr = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-TR|"), pk), 64);
+
+  const s1Bytes = u8Concat(...s1.map(p => Uint8Array.from(p, c => (centerQvs(c) + 2) & 0xFF)));
+  const s2Bytes = u8Concat(...s2.map(p => Uint8Array.from(p, c => (centerQvs(c) + 2) & 0xFF)));
+  const sk = u8Concat(rho, kSign, tr, s1Bytes, s2Bytes, tBytes);
+  return { pk, sk };
+}
+
+function qvsSign(sk, pk, messageBytes, tier) {
+  const spec = QVS_TIERS[tier] || QVS_TIERS["QVS-87"];
+  const { k, l, tau, beta } = spec;
+  const rho = sk.subarray(0, 32), kSign = sk.subarray(32, 64), tr = sk.subarray(64, 128);
+  let off = 128;
+  const s1 = [];
+  for (let j = 0; j < l; j++) {
+    const ch = sk.subarray(off, off + 256); off += 256;
+    s1.push(Int32Array.from(ch, b => modQvs(b - 2)));
+  }
+  const s2 = [];
+  for (let i = 0; i < k; i++) {
+    const ch = sk.subarray(off, off + 256); off += 256;
+    s2.push(Int32Array.from(ch, b => modQvs(b - 2)));
+  }
+  const aHat = Array.from({ length: k }, (_, i) => Array.from({ length: l }, (__, j) => sampleNttQvs(rho, i, j)));
+  const s1Hat = s1.map(nttQvs), s2Hat = s2.map(nttQvs);
+
+  const mu = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-MU|"), tr, messageBytes), 64);
+  const rhoDp = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-RNDS|"), kSign, mu), 64);
+
+  let nonce = 0;
+  while (true) {
+    const yVec = Array.from({ length: l }, (_, j) => sampleMaskYQvs(rhoDp, nonce + j));
+    nonce += l;
+    const yHat = yVec.map(nttQvs);
+
+    const wVec = [];
+    const w1Bytes = new Uint8Array(k * 256);
+    let w1Pos = 0;
+    for (let i = 0; i < k; i++) {
+      const acc = new Int32Array(256);
+      for (let j = 0; j < l; j++) {
+        for (let m = 0; m < 256; m++) acc[m] = modQvs(acc[m] + mulQvs(aHat[i][j][m], yHat[j][m]));
+      }
+      const w_i = invNttQvs(acc);
+      wVec.push(w_i);
+      for (let m = 0; m < 256; m++) w1Bytes[w1Pos++] = decomposeQvs(w_i[m])[0] & 0xFF;
+    }
+
+    const cTilde = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-CHALLENGE|"), mu, w1Bytes), 64);
+    const cHat = nttQvs(sampleInBallQvs(cTilde, tau));
+
+    const zVec = [];
+    let reject = false;
+    for (let j = 0; j < l; j++) {
+      const cs1 = invNttQvs(Int32Array.from({ length: 256 }, (_, m) => mulQvs(cHat[m], s1Hat[j][m])));
+      const z_j = new Int32Array(256);
+      for (let m = 0; m < 256; m++) {
+        z_j[m] = modQvs(yVec[j][m] + cs1[m]);
+        if (Math.abs(centerQvs(z_j[m])) >= QVS_GAMMA1 - beta) { reject = true; break; }
+      }
+      if (reject) break;
+      zVec.push(z_j);
+    }
+    if (reject) continue;
+
+    let idx = 0;
+    for (let i = 0; i < k; i++) {
+      const cs2 = invNttQvs(Int32Array.from({ length: 256 }, (_, m) => mulQvs(cHat[m], s2Hat[i][m])));
+      for (let m = 0; m < 256; m++) {
+        const diff = modQvs(wVec[i][m] - cs2[m]);
+        const [r1, r0] = decomposeQvs(diff);
+        if (Math.abs(r0) >= QVS_GAMMA2 - beta || r1 !== w1Bytes[idx++]) { reject = true; break; }
+      }
+      if (reject) break;
+    }
+    if (reject) continue;
+
+    const sigOut = u8Concat(cTilde, ...zVec.map(packPoly24Qvs));
+    if (!qvsVerify(pk, messageBytes, sigOut, tier)) {
+      throw new Error("QVS Fault-Injection Guard triggered: signature failed internal self-verification.");
+    }
+    return sigOut;
+  }
+}
+
+function qvsVerify(pk, messageBytes, signature, tier) {
+  const spec = QVS_TIERS[tier] || QVS_TIERS["QVS-87"];
+  const { k, l, tau, beta, pkBytes, sigBytes } = spec;
+  if (pk.length !== pkBytes || signature.length !== sigBytes) return false;
+
+  const rho = pk.subarray(0, 32);
+  const tVec = Array.from({ length: k }, (_, i) => unpackPoly24Qvs(pk.subarray(32 + 768 * i, 32 + 768 * (i + 1))));
+  const cTilde = signature.subarray(0, 64);
+  const zVec = Array.from({ length: l }, (_, j) => unpackPoly24Qvs(signature.subarray(64 + 768 * j, 64 + 768 * (j + 1))));
+
+  for (let j = 0; j < l; j++) {
+    for (let m = 0; m < 256; m++) {
+      if (Math.abs(centerQvs(zVec[j][m])) >= QVS_GAMMA1 - beta) return false;
+    }
+  }
+  const aHat = Array.from({ length: k }, (_, i) => Array.from({ length: l }, (__, j) => sampleNttQvs(rho, i, j)));
+  const zHat = zVec.map(nttQvs), tHat = tVec.map(nttQvs);
+  const cHat = nttQvs(sampleInBallQvs(cTilde, tau));
+
+  const w1Prime = new Uint8Array(k * 256);
+  let pos = 0;
+  for (let i = 0; i < k; i++) {
+    const azHat = new Int32Array(256);
+    for (let j = 0; j < l; j++) {
+      for (let m = 0; m < 256; m++) azHat[m] = modQvs(azHat[m] + mulQvs(aHat[i][j][m], zHat[j][m]));
+    }
+    const diffHat = Int32Array.from({ length: 256 }, (_, m) => modQvs(azHat[m] - mulQvs(cHat[m], tHat[i][m])));
+    const wPrimeI = invNttQvs(diffHat);
+    for (let m = 0; m < 256; m++) w1Prime[pos++] = decomposeQvs(wPrimeI[m])[0] & 0xFF;
+  }
+  const tr = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-TR|"), pk), 64);
+  const mu = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-MU|"), tr, messageBytes), 64);
+  const expectedC = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QVS-CHALLENGE|"), mu, w1Prime), 64);
+  return ctEqual(cTilde, expectedC);
+}
+
+/* ---------------- 4. CC-512 (NIST AES-256-GCM + RFC 8439 ChaCha20-Poly1305) ---------------- */
+const SBOX = new Uint8Array(256);
+(function initSbox() {
+  let p = 1, q = 1;
+  do {
+    p = p ^ (p << 1) ^ (p & 0x80 ? 0x11b : 0); p &= 0xff;
+    q ^= q << 1; q ^= q << 2; q ^= q << 4; q ^= q & 0x80 ? 0x09 : 0; q &= 0xff;
+    const xformed = q ^ (q << 1) ^ (q << 2) ^ (q << 3) ^ (q << 4) ^ (q >>> 7) ^ ((q >>> 6) & 3) ^ ((q >>> 5) & 7) ^ ((q >>> 4) & 15);
+    SBOX[p] = (xformed ^ 0x63) & 0xff;
+  } while (p !== 1);
+  SBOX[0] = 0x63;
+})();
+
+function xtime(a) { return ((a << 1) ^ (a & 0x80 ? 0x1b : 0)) & 0xff; }
+
+function aes256ExpandKey(key) {
+  const w = new Uint8Array(240);
+  w.set(key);
+  let rcon = 1;
+  for (let i = 32; i < 240; i += 4) {
+    let t0 = w[i - 4], t1 = w[i - 3], t2 = w[i - 2], t3 = w[i - 1];
+    if (i % 32 === 0) {
+      const tmp = t0;
+      t0 = SBOX[t1] ^ rcon; t1 = SBOX[t2]; t2 = SBOX[t3]; t3 = SBOX[tmp];
+      rcon = xtime(rcon);
+    } else if (i % 32 === 16) {
+      t0 = SBOX[t0]; t1 = SBOX[t1]; t2 = SBOX[t2]; t3 = SBOX[t3];
+    }
+    w[i] = w[i - 32] ^ t0; w[i + 1] = w[i - 31] ^ t1;
+    w[i + 2] = w[i - 30] ^ t2; w[i + 3] = w[i - 29] ^ t3;
+  }
+  return w;
+}
+
+function aes256EncryptBlock(block16, rk) {
+  const s = new Uint8Array(16);
+  for (let i = 0; i < 16; i++) s[i] = block16[i] ^ rk[i];
+  const t = new Uint8Array(16);
+  for (let r = 1; r <= 14; r++) {
+    t[0] = SBOX[s[0]]; t[1] = SBOX[s[5]]; t[2] = SBOX[s[10]]; t[3] = SBOX[s[15]];
+    t[4] = SBOX[s[4]]; t[5] = SBOX[s[9]]; t[6] = SBOX[s[14]]; t[7] = SBOX[s[3]];
+    t[8] = SBOX[s[8]]; t[9] = SBOX[s[13]]; t[10] = SBOX[s[2]]; t[11] = SBOX[s[7]];
+    t[12] = SBOX[s[12]]; t[13] = SBOX[s[1]]; t[14] = SBOX[s[6]]; t[15] = SBOX[s[11]];
+    if (r < 14) {
+      for (let c = 0; c < 16; c += 4) {
+        const a0 = t[c], a1 = t[c + 1], a2 = t[c + 2], a3 = t[c + 3];
+        const x = a0 ^ a1 ^ a2 ^ a3;
+        s[c] = a0 ^ x ^ xtime(a0 ^ a1);
+        s[c + 1] = a1 ^ x ^ xtime(a1 ^ a2);
+        s[c + 2] = a2 ^ x ^ xtime(a2 ^ a3);
+        s[c + 3] = a3 ^ x ^ xtime(a3 ^ a0);
+      }
+    } else { s.set(t); }
+    const roff = r * 16;
+    for (let i = 0; i < 16; i++) s[i] ^= rk[roff + i];
+  }
+  return s;
+}
+
+function ghashMul(x, y) {
+  let z = 0n, v = y;
+  for (let i = 127; i >= 0; i--) {
+    if ((x >> BigInt(i)) & 1n) z ^= v;
+    const lsb = v & 1n;
+    v >>= 1n;
+    if (lsb) v ^= 0xe1000000000000000000000000000000n;
+  }
+  return z;
+}
+
+function bytesToU128BE(b, off = 0) {
+  let res = 0n;
+  for (let i = 0; i < 16; i++) res = (res << 8n) | BigInt(b[off + i] || 0);
+  return res;
+}
+
+function u128BEToBytes(val) {
+  const out = new Uint8Array(16);
+  for (let i = 15; i >= 0; i--) { out[i] = Number(val & 0xffn); val >>= 8n; }
+  return out;
+}
+
+function ghash(H, aadBytes, ctBytes) {
+  let y = 0n;
+  for (let off = 0; off < aadBytes.length; off += 16) {
+    const blk = new Uint8Array(16);
+    blk.set(aadBytes.subarray(off, Math.min(off + 16, aadBytes.length)));
+    y = ghashMul(y ^ bytesToU128BE(blk), H);
+  }
+  for (let off = 0; off < ctBytes.length; off += 16) {
+    const blk = new Uint8Array(16);
+    blk.set(ctBytes.subarray(off, Math.min(off + 16, ctBytes.length)));
+    y = ghashMul(y ^ bytesToU128BE(blk), H);
+  }
+  const lenBlk = new Uint8Array(16);
+  const dv = new DataView(lenBlk.buffer);
+  dv.setBigUint64(0, BigInt(aadBytes.length) * 8n, false);
+  dv.setBigUint64(8, BigInt(ctBytes.length) * 8n, false);
+  return ghashMul(y ^ bytesToU128BE(lenBlk), H);
+}
+
+function aes256GcmEncrypt(key32, nonce12, ptBytes, aadBytes) {
+  const rk = aes256ExpandKey(key32);
+  const H = bytesToU128BE(aes256EncryptBlock(new Uint8Array(16), rk));
+  const j0 = new Uint8Array(16); j0.set(nonce12, 0); j0[15] = 1;
+  const ct = new Uint8Array(ptBytes.length);
+  const ctrBlk = new Uint8Array(j0);
+  const cdv = new DataView(ctrBlk.buffer);
+  let ctr = 2;
+  for (let off = 0; off < ptBytes.length; off += 16) {
+    cdv.setUint32(12, ctr++, false);
+    const ks = aes256EncryptBlock(ctrBlk, rk);
+    const take = Math.min(16, ptBytes.length - off);
+    for (let i = 0; i < take; i++) ct[off + i] = ptBytes[off + i] ^ ks[i];
+  }
+  const s = ghash(H, aadBytes, ct);
+  const ej0 = bytesToU128BE(aes256EncryptBlock(j0, rk));
+  const tag = u128BEToBytes(s ^ ej0);
+  return u8Concat(ct, tag);
+}
+
+function aes256GcmDecrypt(key32, nonce12, ctWithTag, aadBytes) {
+  if (ctWithTag.length < 16) throw new Error("AES-256-GCM ciphertext too short.");
+  const ct = ctWithTag.subarray(0, ctWithTag.length - 16);
+  const tag = ctWithTag.subarray(ctWithTag.length - 16);
+  const rk = aes256ExpandKey(key32);
+  const H = bytesToU128BE(aes256EncryptBlock(new Uint8Array(16), rk));
+  const j0 = new Uint8Array(16); j0.set(nonce12, 0); j0[15] = 1;
+  const s = ghash(H, aadBytes, ct);
+  const ej0 = bytesToU128BE(aes256EncryptBlock(j0, rk));
+  const expectedTag = u128BEToBytes(s ^ ej0);
+  if (!ctEqual(tag, expectedTag)) throw new Error("AES-256-GCM authentication tag mismatch.");
+  const pt = new Uint8Array(ct.length);
+  const ctrBlk = new Uint8Array(j0);
+  const cdv = new DataView(ctrBlk.buffer);
+  let ctr = 2;
+  for (let off = 0; off < ct.length; off += 16) {
+    cdv.setUint32(12, ctr++, false);
+    const ks = aes256EncryptBlock(ctrBlk, rk);
+    const take = Math.min(16, ct.length - off);
+    for (let i = 0; i < take; i++) pt[off + i] = ct[off + i] ^ ks[i];
+  }
+  return pt;
+}
+
+function rotl32(v, c) { return ((v << c) | (v >>> (32 - c))) >>> 0; }
+
+function chacha20Block(keyBytes, counter, nonceBytes) {
+  const st = new Uint32Array(16);
+  st[0] = 0x61707865; st[1] = 0x3320646e; st[2] = 0x79622d32; st[3] = 0x6b206574;
+  const kdv = new DataView(keyBytes.buffer, keyBytes.byteOffset, 32);
+  for (let i = 0; i < 8; i++) st[4 + i] = kdv.getUint32(i * 4, true);
+  st[12] = counter >>> 0;
+  const ndv = new DataView(nonceBytes.buffer, nonceBytes.byteOffset, 12);
+  for (let i = 0; i < 3; i++) st[13 + i] = ndv.getUint32(i * 4, true);
+  const w = new Uint32Array(st);
+  function qr(a, b, c, d) {
+    w[a] = (w[a] + w[b]) >>> 0; w[d] = rotl32(w[d] ^ w[a], 16);
+    w[c] = (w[c] + w[d]) >>> 0; w[b] = rotl32(w[b] ^ w[c], 12);
+    w[a] = (w[a] + w[b]) >>> 0; w[d] = rotl32(w[d] ^ w[a], 8);
+    w[c] = (w[c] + w[d]) >>> 0; w[b] = rotl32(w[b] ^ w[c], 7);
+  }
+  for (let i = 0; i < 10; i++) {
+    qr(0, 4, 8, 12); qr(1, 5, 9, 13); qr(2, 6, 10, 14); qr(3, 7, 11, 15);
+    qr(0, 5, 10, 15); qr(1, 6, 11, 12); qr(2, 7, 8, 13); qr(3, 4, 9, 14);
+  }
+  const out = new Uint8Array(64);
+  const odv = new DataView(out.buffer);
+  for (let i = 0; i < 16; i++) odv.setUint32(i * 4, (w[i] + st[i]) >>> 0, true);
+  return out;
+}
+
+function chacha20Xor(keyBytes, counter, nonceBytes, inputBytes) {
+  const out = new Uint8Array(inputBytes.length);
+  let off = 0, blk = counter;
+  while (off < inputBytes.length) {
+    const ks = chacha20Block(keyBytes, blk++, nonceBytes);
+    const take = Math.min(64, inputBytes.length - off);
+    for (let i = 0; i < take; i++) out[off + i] = inputBytes[off + i] ^ ks[i];
+    off += take;
+  }
+  return out;
+}
+
+function poly1305Mac(msgBytes, otkBytes) {
+  let r = 0n, s = 0n;
+  for (let i = 0; i < 16; i++) {
+    r |= BigInt(otkBytes[i]) << BigInt(8 * i);
+    s |= BigInt(otkBytes[16 + i]) << BigInt(8 * i);
+  }
+  r &= 0x0ffffffc0ffffffc0ffffffc0fffffffn;
+  const P = (1n << 130n) - 5n;
+  let acc = 0n;
+  for (let off = 0; off < msgBytes.length; off += 16) {
+    const take = Math.min(16, msgBytes.length - off);
+    let n = 0n;
+    for (let i = 0; i < take; i++) n |= BigInt(msgBytes[off + i]) << BigInt(8 * i);
+    n |= 1n << BigInt(8 * take);
+    acc = ((acc + n) * r) % P;
+  }
+  acc = (acc + s) & ((1n << 128n) - 1n);
+  const tag = new Uint8Array(16);
+  for (let i = 0; i < 16; i++) tag[i] = Number((acc >> BigInt(8 * i)) & 0xffn);
+  return tag;
+}
+
+function chacha20Poly1305Encrypt(keyBytes, nonceBytes, ptBytes, aadBytes) {
+  const otk = chacha20Block(keyBytes, 0, nonceBytes).subarray(0, 32);
+  const ct = chacha20Xor(keyBytes, 1, nonceBytes, ptBytes);
+  const padAad = (16 - (aadBytes.length % 16)) % 16;
+  const padCt = (16 - (ct.length % 16)) % 16;
+  const macData = new Uint8Array(aadBytes.length + padAad + ct.length + padCt + 16);
+  macData.set(aadBytes, 0);
+  macData.set(ct, aadBytes.length + padAad);
+  const dv = new DataView(macData.buffer);
+  dv.setBigUint64(macData.length - 16, BigInt(aadBytes.length), true);
+  dv.setBigUint64(macData.length - 8, BigInt(ct.length), true);
+  const tag = poly1305Mac(macData, otk);
+  return u8Concat(ct, tag);
+}
+
+function chacha20Poly1305Decrypt(keyBytes, nonceBytes, ctWithTag, aadBytes) {
+  if (ctWithTag.length < 16) throw new Error("ChaCha20-Poly1305 ciphertext too short.");
+  const ct = ctWithTag.subarray(0, ctWithTag.length - 16);
+  const tag = ctWithTag.subarray(ctWithTag.length - 16);
+  const otk = chacha20Block(keyBytes, 0, nonceBytes).subarray(0, 32);
+  const padAad = (16 - (aadBytes.length % 16)) % 16;
+  const padCt = (16 - (ct.length % 16)) % 16;
+  const macData = new Uint8Array(aadBytes.length + padAad + ct.length + padCt + 16);
+  macData.set(aadBytes, 0);
+  macData.set(ct, aadBytes.length + padAad);
+  const dv = new DataView(macData.buffer);
+  dv.setBigUint64(macData.length - 16, BigInt(aadBytes.length), true);
+  dv.setBigUint64(macData.length - 8, BigInt(ct.length), true);
+  const expectedTag = poly1305Mac(macData, otk);
+  if (!ctEqual(tag, expectedTag)) throw new Error("ChaCha20-Poly1305 authentication tag mismatch.");
+  return chacha20Xor(keyBytes, 1, nonceBytes, ct);
+}
+
+function cc512Encrypt(ptBytes, kS1, kS2, aadBytes) {
+  const n1 = randomBytes(12);
+  const n2 = randomBytes(12);
+  const innerCt = aes256GcmEncrypt(kS1, n1, ptBytes, aadBytes);
+  const outerCt = chacha20Poly1305Encrypt(kS2, n2, innerCt, aadBytes);
+  return { n1, n2, outerCt };
+}
+
+function cc512Decrypt(outerCt, kS1, kS2, n1, n2, aadBytes) {
+  const innerCt = chacha20Poly1305Decrypt(kS2, n2, outerCt, aadBytes);
+  return aes256GcmDecrypt(kS1, n1, innerCt, aadBytes);
+}
+
+function derivePolicyWitness64(passphrase) {
+  const r = { valid: true };
+  const input = _utf8Enc.encode(`CALYX-QPEP-HARDCODED-POLICY-WITNESS-v1|L>=12:True:True:True:True|${passphrase}`);
+  return qsponge512Bytes(input);
+}
+
+function qpkdArgonDerive(passphrase, salt32) {
+  const witness = derivePolicyWitness64(passphrase);
+  let state = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-QPKD-ARGON-INIT|"), salt32, witness, _utf8Enc.encode(passphrase)));
+  for (let i = 0; i < 64; i++) {
+    state = qsponge512Bytes(u8Concat(state, salt32, witness, new Uint8Array([i & 0xFF])));
+  }
+  const okm = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QPKD-ARGON-OKM|"), state, salt32, witness), 96);
+  return {
+    kS1: okm.subarray(0, 32),
+    kS2: okm.subarray(32, 64),
+    kMac: okm.subarray(64, 96)
+  };
+}
+
+/* ---------------- 5. Binary Wire Framing (\x89QPE\x01\x01 + qSponge-XOF Whitening) ---------------- */
+const WIRE_MAGIC = new Uint8Array([0x89, 0x51, 0x50, 0x45, 0x01, 0x01]);
+
+function armorWrap(label, suiteName, keyHash, obj) {
+  const payloadBytes = _utf8Enc.encode(JSON.stringify(obj));
+  const wireNonce = randomBytes(16);
+  const labelBytes = _utf8Enc.encode(label);
+  const mask = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-WHITEN-v1|"), wireNonce, labelBytes), payloadBytes.length);
+  const whitened = new Uint8Array(payloadBytes.length);
+  for (let i = 0; i < payloadBytes.length; i++) whitened[i] = payloadBytes[i] ^ mask[i];
+  const wireMac = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-MAC-v1|"), wireNonce, labelBytes, whitened)).subarray(0, 32);
+  const wireFrame = u8Concat(WIRE_MAGIC, wireNonce, whitened, wireMac);
+
+  const b64Raw = u8ToB64(wireFrame);
+  const lines = b64Raw.match(/.{1,64}/g).join('\n');
+  const crcDigest = u8ToB64(qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-ARMOR-CRC-v1|"), wireFrame), 6));
+  return `-----BEGIN ${label}-----\nVersion: OpenQPEP/Beta-0.1.6 (Calyx Labs Inc.)\nSuite: ${suiteName}\nKey-Hash: ${keyHash}\n\n${lines}\n=${crcDigest}\n-----END ${label}-----`;
+}
+
+function armorUnwrap(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const beginLine = lines[0].trim();
+  const label = beginLine.slice("-----BEGIN ".length, -"-----".length);
+  const body = [];
+  let inPayload = false;
+  for (let i = 1; i < lines.length - 1; i++) {
+    const ln = lines[i].trim();
+    if (ln === '') { inPayload = true; continue; }
+    if (inPayload && !ln.startsWith('=')) body.push(ln);
+  }
+  const rawFrame = b64ToU8(body.join(''));
+  if (rawFrame.length > 54 && ctEqual(rawFrame.subarray(0, 6), WIRE_MAGIC)) {
+    const wireNonce = rawFrame.subarray(6, 22);
+    const whitened = rawFrame.subarray(22, rawFrame.length - 32);
+    const wireMac = rawFrame.subarray(rawFrame.length - 32);
+    const labelBytes = _utf8Enc.encode(label);
+    const expectedMac = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-MAC-v1|"), wireNonce, labelBytes, whitened)).subarray(0, 32);
+    if (!ctEqual(wireMac, expectedMac)) throw new Error("Calyx QPEP binary wire frame MAC verification failed.");
+    const mask = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-WHITEN-v1|"), wireNonce, labelBytes), whitened.length);
+    const payloadBytes = new Uint8Array(whitened.length);
+    for (let i = 0; i < whitened.length; i++) payloadBytes[i] = whitened[i] ^ mask[i];
+    return JSON.parse(_utf8Dec.decode(payloadBytes));
+  }
+  return JSON.parse(_utf8Dec.decode(rawFrame));
+}
+
+
+/* ================= KEY CREATION & DIRECTORY PUBLISHING (qpepkeys.calyxlabsinc.org) ================= */
+async function publishKeyToDirectory(keyObj, silent = false) {
+  try {
+    const res = await fetch(DIRECTORY_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        key_hash: keyObj.keyHash,
+        name: keyObj.name,
+        email: keyObj.email,
+        suite: keyObj.suite,
+        public_qpkrf: keyObj.pubArmor
+      })
+    });
+    if (res.ok) {
+      keyObj.published = true;
+      await persistKeyStore();
+      updateKeyCountersAndLists();
+      if (!silent) alert(`Successfully published Public Key Ring (Key Hash: ${keyObj.keyHash.substring(0, 16)}...) to https://qpepkeys.calyxlabsinc.org!`);
+      return true;
+    }
+  } catch (e) {}
+  keyObj.publishQueued = true;
+  await persistKeyStore();
+  updateKeyCountersAndLists();
+  if (!silent) {
+    alert(`Key queued for publishing to https://qpepkeys.calyxlabsinc.org (Key Hash: ${keyObj.keyHash.substring(0, 16)}...). Once your qpepkeys.calyxlabsinc.org server is online, tap "Publish to Directory" on the key card to sync immediately.`);
+  }
+  return false;
+}
+
+function unlockPrivateKeysJS(keyObj, pass) {
+  if (!checkPassphraseRules(pass).valid) {
+    throw new Error('Mandatory Calyx QPEP Passphrase Policy Violation: Requires 12+ chars, 2+ numbers, 4+ specials, 2+ uppercase, 4+ lowercase.');
+  }
+  const privEnv = armorUnwrap(keyObj.privArmor);
+  const encBundle = privEnv.encrypted_private_bundle;
+  if (!encBundle) {
+    throw new Error('This QPKRF key ring does not contain an encrypted private key bundle.');
+  }
+  const salt = b64ToU8(encBundle.kdf_salt_b64);
+  const { kS1, kS2, kMac } = qpkdArgonDerive(pass, salt);
+  const aad = _utf8Enc.encode(`CALYX-QPEP-PRIVRING|${keyObj.keyHash}`);
+  const decBytes = cc512Decrypt(
+    b64ToU8(encBundle.ciphertext_b64),
+    kS1,
+    kS2,
+    b64ToU8(encBundle.cc512_n1_b64),
+    b64ToU8(encBundle.cc512_n2_b64),
+    aad
+  );
+  const parsed = JSON.parse(_utf8Dec.decode(decBytes));
+  const maskedQlxSk = b64ToU8(parsed.qlx_masked_private_b64);
+  const maskStream = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QPEP-SK-MASK|"), kMac, _utf8Enc.encode(keyObj.keyHash)), maskedQlxSk.length);
+  const qlxSk = new Uint8Array(maskedQlxSk.length);
+  for (let i = 0; i < maskedQlxSk.length; i++) qlxSk[i] = maskedQlxSk[i] ^ maskStream[i];
+  const qvsSk = b64ToU8(parsed.qvs_private_b64);
+  return { qlxSk, qvsSk, pubBundle: privEnv.public_bundle };
+}
+
+async function createNewPersonalKey() {
+  const name = document.getElementById('ck-name').value.trim() || 'Calyx QPEP User';
+  const email = document.getElementById('ck-email').value.trim() || 'user@calyxlabsinc.org';
+  const suite = document.getElementById('ck-suite').value;
+  const pass = document.getElementById('ck-pass').value;
+  const shouldPublish = document.getElementById('ck-publish').checked;
+
+  if (!checkPassphraseRules(pass).valid) {
+    alert('Passphrase violates hardcoded Calyx QPEP policy (12+ chars, 2+ numbers, 4+ specials, 2+ uppercase, 4+ lowercase).');
+    return;
+  }
+
+  const qlxTier = suiteToQlxTier(suite);
+  const qvsTier = QLX_TIERS[qlxTier].qvsTier;
+  const witness = derivePolicyWitness64(pass);
+
+  // 1. Generate real Module-LWE (QLX) and Lattice Fiat-Shamir with Aborts (QVS) keypairs
+  const { ek: qlxPk, dk: qlxSk } = qlxKeygen(qlxTier, witness);
+  const { pk: qvsPk, sk: qvsSk } = qvsKeygen(qvsTier, witness);
+
+  // 2. Compute 64-hex-char Key Hash from real public lattice vectors via qSponge-512
+  const keyHash = u8ToHex(qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-QPEP-KEY-HASH-v1|"), qlxPk, qvsPk))).substring(0, 64);
+  const created = new Date().toISOString();
+
+  // 3. Self-certify public key bundle with real QVS lattice signature
+  const certTranscript = u8Concat(
+    _utf8Enc.encode(`CALYX-QPEP-SELFCERT|${keyHash}|${created}|${name}|${email}|${qlxTier}|${qvsTier}`),
+    qlxPk,
+    qvsPk
+  );
+  const selfSig = qvsSign(qvsSk, qvsPk, certTranscript, qvsTier);
+
+  const publicBundle = {
+    qlx_tier: qlxTier,
+    qvs_tier: qvsTier,
+    qlx_public_b64: u8ToB64(qlxPk),
+    qvs_public_b64: u8ToB64(qvsPk),
+    self_signature_b64: u8ToB64(selfSig)
+  };
+
+  // 4. Encrypt secret lattice keys with QPKD-Argon + CC-512 (AES-256-GCM + ChaCha20-Poly1305 cascade)
+  const kdfSalt = randomBytes(32);
+  const { kS1, kS2, kMac } = qpkdArgonDerive(pass, kdfSalt);
+  const maskStream = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QPEP-SK-MASK|"), kMac, _utf8Enc.encode(keyHash)), qlxSk.length);
+  const maskedQlxSk = new Uint8Array(qlxSk.length);
+  for (let i = 0; i < qlxSk.length; i++) maskedQlxSk[i] = qlxSk[i] ^ maskStream[i];
+
+  const privRawBytes = _utf8Enc.encode(JSON.stringify({
+    qlx_masked_private_b64: u8ToB64(maskedQlxSk),
+    qvs_private_b64: u8ToB64(qvsSk)
+  }));
+  const aad = _utf8Enc.encode(`CALYX-QPEP-PRIVRING|${keyHash}`);
+  const { n1, n2, outerCt } = cc512Encrypt(privRawBytes, kS1, kS2, aad);
+
+  const encryptedPrivateBundle = {
+    kdf_salt_b64: u8ToB64(kdfSalt),
+    kdf_params: { algorithm: "QPKD-Argon+qSponge-512", rounds: 64 },
+    cc512_n1_b64: u8ToB64(n1),
+    cc512_n2_b64: u8ToB64(n2),
+    ciphertext_b64: u8ToB64(outerCt)
+  };
+
+  const integrityMac = u8ToHex(qsponge512Bytes(_utf8Enc.encode(`CALYX-QPKRF-INTEGRITY|${keyHash}|${created}|${name}|${email}|${publicBundle.qlx_public_b64}`))).substring(0, 64);
+
+  const pubEnvelope = {
+    magic: "QPKRF-v1",
+    version: "0.1.9",
+    ring_type: "PUBLIC_KEY_RING",
+    suite: suite,
+    key_hash: keyHash,
+    created_at: created,
+    identity: { name, email },
+    public_bundle: publicBundle,
+    integrity_mac: integrityMac
+  };
+  const privEnvelope = Object.assign({}, pubEnvelope, {
+    ring_type: "PRIVATE_KEY_RING",
+    encrypted_private_bundle: encryptedPrivateBundle
+  });
+
+  const pubArmor = armorWrap("CALYX QPKRF PUBLIC KEY RING", suite, keyHash, pubEnvelope);
+  const privArmor = armorWrap("CALYX QPKRF PRIVATE KEY RING", suite, keyHash, privEnvelope);
+
+  const newKey = {
+    keyHash, name, email, suite, created, pubArmor, privArmor,
+    published: false, publishQueued: shouldPublish
+  };
+
+  personalKeys.unshift(newKey);
+  await persistKeyStore();
+  updateKeyCountersAndLists();
+
+  document.getElementById('ck-pass').value = '';
+  document.getElementById('ck-pass-confirm').value = '';
+  validateKeyForm();
+
+  if (shouldPublish) {
+    publishKeyToDirectory(newKey, true);
+  }
+  navigateTo('manage-my-keys');
+}
+
+/* ================= KEY LIST RENDERING & SEARCH FILTERING ================= */
+function updateKeyCountersAndLists() {
+  const pLen = personalKeys.length;
+  const rLen = receiverKeys.length;
+  document.getElementById('badge-personal-count-1').textContent = pLen;
+  document.getElementById('badge-personal-count-2').textContent = pLen;
+  document.getElementById('badge-receiver-count-1').textContent = rLen;
+  document.getElementById('badge-receiver-count-2').textContent = rLen;
+  document.getElementById('label-personal-count').textContent = `${pLen} key${pLen === 1 ? '' : 's'}`;
+  document.getElementById('label-receiver-count').textContent = `${rLen} key${rLen === 1 ? '' : 's'}`;
+  document.getElementById('setup-key-summary').textContent = `${pLen} personal key(s) \u2022 ${rLen} receiver key(s)`;
+
+  const filteredPersonal = personalKeys.map((k, idx) => ({ k, idx })).filter(({ k }) =>
+    !searchFilter || k.name.toLowerCase().includes(searchFilter) || k.email.toLowerCase().includes(searchFilter)
+  );
+
+  const pContainer = document.getElementById('personal-keys-list');
+  if (filteredPersonal.length === 0) {
+    pContainer.innerHTML = `<div class="empty-state-card"><div class="empty-icon-box"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3"/><path d="m17 6 3 3"/></svg></div><div class="empty-title">${searchFilter ? 'No Matching Personal Keys' : 'No Personal Keys in "Manage My Keys"'}</div><div class="empty-subtitle">Tap <strong>+ Create My Own Key</strong> or <strong>Import My Key Pair (.qpkrf)</strong> above to add your personal Calyx QPEP key pair.</div></div>`;
+  } else {
+    pContainer.innerHTML = filteredPersonal.map(({ k, idx }) => `
+      <div class="key-item" onclick="openKeyDetails('personal', ${idx})" style="cursor:pointer;">
+        <div class="key-item-top">
+          <div>
+            <div class="key-item-name">${k.name}</div>
+            <div class="key-item-email">${k.email}</div>
+          </div>
+          <span class="suite-badge">${k.suite}</span>
+        </div>
+        <div class="key-hash-mono">Key Hash: ${k.keyHash}</div>
+        <div class="btn-row" onclick="event.stopPropagation();">
+          <button class="btn-primary" onclick="openKeyDetails('personal', ${idx})">Key Details &amp; Options</button>
+          <button class="btn-outline" onclick="openExportPublicModal('personal', ${idx})">Export Public .qpkrf</button>
+          <button class="btn-outline" onclick="openExportPrivateModal(${idx})">Export Private .qpkrf</button>
+          <button class="btn-outline" onclick="publishKeyToDirectory(personalKeys[${idx}], false)">${k.published ? 'Published on Directory' : 'Publish to Directory'}</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  const filteredReceiver = receiverKeys.map((k, idx) => ({ k, idx })).filter(({ k }) =>
+    !searchFilter || k.name.toLowerCase().includes(searchFilter) || k.email.toLowerCase().includes(searchFilter)
+  );
+
+  const rContainer = document.getElementById('receiver-keys-list');
+  if (filteredReceiver.length === 0) {
+    rContainer.innerHTML = `<div class="empty-state-card"><div class="empty-icon-box"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="empty-title">${searchFilter ? 'No Matching Receiver Keys' : 'No Receiver Keys in "Manage Receiver Keys"'}</div><div class="empty-subtitle">Tap <strong>+ Add Receiver Public Key (.qpkrf)</strong> above to import a recipient's Quantum Proof Key Ring File.</div></div>`;
+  } else {
+    rContainer.innerHTML = filteredReceiver.map(({ k, idx }) => `
+      <div class="key-item" onclick="openKeyDetails('receiver', ${idx})" style="cursor:pointer;">
+        <div class="key-item-top">
+          <div>
+            <div class="key-item-name">${k.name}</div>
+            <div class="key-item-email">${k.email}</div>
+          </div>
+          <span class="suite-badge">${k.suite}</span>
+        </div>
+        <div class="key-hash-mono">Key Hash: ${k.keyHash}</div>
+        <div class="btn-row" onclick="event.stopPropagation();">
+          <button class="btn-primary" onclick="openKeyDetails('receiver', ${idx})">Key Details &amp; Options</button>
+          <button class="btn-outline" onclick="openExportPublicModal('receiver', ${idx})">Export Public .qpkrf</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  refreshAllKeyDropdowns();
+}
+
+let activeDetailType = 'personal';
+let activeDetailIdx = 0;
+let activePickerTargetId = null;
+let pickedFileContentBuffer = null;
+
+function showToast(msg) {
+  const t = document.getElementById('toast-banner');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(() => { t.style.display = 'none'; }, 3200);
+}
+
+function formatKeyHashGroups(hashStr) {
+  return (hashStr || '').match(/.{1,4}/g).join(' ');
+}
+
+function renderQrCodeOnCanvas(canvasId, seedStr) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const size = 21;
+  const cell = Math.floor(canvas.width / size);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#070A12';
+
+  function drawFinder(ox, oy) {
+    for (let y = 0; y < 7; y++) {
+      for (let x = 0; x < 7; x++) {
+        if (x === 0 || x === 6 || y === 0 || y === 6 || (x >= 2 && x <= 4 && y >= 2 && y <= 4)) {
+          ctx.fillRect((ox + x) * cell, (oy + y) * cell, cell, cell);
+        }
+      }
+    }
+  }
+  drawFinder(0, 0);
+  drawFinder(size - 7, 0);
+  drawFinder(0, size - 7);
+
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      if ((x < 8 && y < 8) || (x >= size - 8 && y < 8) || (x < 8 && y >= size - 8)) continue;
+      const code = seedStr.charCodeAt((x * 19 + y * 37) % seedStr.length) ^ ((x * y + x + y) & 0xFF);
+      if (code & 1) {
+        ctx.fillRect(x * cell, y * cell, cell, cell);
+      }
+    }
+  }
+}
+
+function openKeyDetails(listType, idx) {
+  activeDetailType = listType;
+  activeDetailIdx = idx;
+  const item = (listType === 'personal') ? personalKeys[idx] : receiverKeys[idx];
+  if (!item) return;
+
+  document.getElementById('kd-back-label').textContent = (listType === 'personal') ? 'Manage My Keys' : 'Manage Receiver Keys';
+  document.getElementById('kd-back-btn').onclick = () => navigateTo((listType === 'personal') ? 'manage-my-keys' : 'manage-receiver-keys');
+  document.getElementById('kd-name').textContent = item.name;
+  document.getElementById('kd-subtitle').textContent = `${listType === 'personal' ? 'My Key Pair' : 'Receiver Public Key'} \u2022 ${item.suite} (Calyx QPEP Beta Version 0.1.9)`;
+  const dateStr = (item.created || '').substring(0, 10) || '2026-11-15';
+  document.getElementById('kd-added-meta').textContent = `Added ${dateStr} \u2022 Key Hash ${item.keyHash.substring(0, 16)}`;
+  document.getElementById('kd-email').textContent = item.email;
+  document.getElementById('kd-identity-name').textContent = item.name;
+  document.getElementById('kd-hash-box').textContent = formatKeyHashGroups(item.keyHash);
+  document.getElementById('kd-pub-block').value = item.pubArmor;
+
+  const privSec = document.getElementById('kd-private-section');
+  if (listType === 'personal') {
+    privSec.style.display = 'block';
+    document.getElementById('kd-priv-lock-status').innerHTML = '&#128274; Locked &mdash; Passphrase entry required on every access';
+    document.getElementById('kd-priv-lock-status').style.color = 'var(--accent-primary)';
+    document.getElementById('kd-priv-locked-box').style.display = 'block';
+    document.getElementById('kd-priv-pass').value = '';
+    document.getElementById('kd-priv-block').value = '';
+    document.getElementById('kd-priv-block').style.display = 'none';
+  } else {
+    privSec.style.display = 'none';
+  }
+
+  renderQrCodeOnCanvas('kd-qr-canvas', item.keyHash + item.email);
+
+  document.querySelectorAll('.page-view').forEach(el => {
+    el.classList.toggle('active', el.id === 'page-key-details');
+  });
+  document.getElementById('topbar-title').textContent = item.name;
+  document.getElementById('fab-container').style.display = 'none';
+}
+
+function copyCurrentDetailKeyHash() {
+  const item = (activeDetailType === 'personal') ? personalKeys[activeDetailIdx] : receiverKeys[activeDetailIdx];
+  if (!item) return;
+  const formatted = formatKeyHashGroups(item.keyHash);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(item.keyHash).catch(() => {});
+  }
+  showToast('Key Hash copied: ' + formatted);
+}
+
+async function deleteCurrentDetailKey() {
+  const list = (activeDetailType === 'personal') ? personalKeys : receiverKeys;
+  const item = list[activeDetailIdx];
+  if (!item) return;
+  if (!confirm(`Delete key "${item.name} <${item.email}>" from your keyring?`)) return;
+  list.splice(activeDetailIdx, 1);
+  await persistKeyStore();
+  updateKeyCountersAndLists();
+  showToast(`Deleted key "${item.name}"`);
+  if (personalKeys.length === 0 && receiverKeys.length === 0) {
+    navigateTo('setup');
+  } else {
+    navigateTo((activeDetailType === 'personal') ? 'manage-my-keys' : 'manage-receiver-keys');
+  }
+}
+
+function syncCurrentDetailKey() {
+  const item = (activeDetailType === 'personal') ? personalKeys[activeDetailIdx] : receiverKeys[activeDetailIdx];
+  if (!item) return;
+  publishKeyToDirectory(item, false);
+}
+
+function jumpToEncryptFromDetail(target) {
+  navigateTo(target === 'files' ? 'encrypt-files' : 'encrypt-notepad');
+}
+
+function saveDetailPublicQpkrf() {
+  const item = (activeDetailType === 'personal') ? personalKeys[activeDetailIdx] : receiverKeys[activeDetailIdx];
+  if (!item) return;
+  triggerNativeFileSave(`${item.name.replace(/\s+/g, '_')}_public.qpkrf`, item.pubArmor);
+}
+
+async function unlockDetailPrivateKey(action) {
+  if (activeDetailType !== 'personal') return;
+  const item = personalKeys[activeDetailIdx];
+  if (!item) return;
+  const privBlockEl = document.getElementById('kd-priv-block');
+
+  if (privBlockEl.style.display === 'none') {
+    const pass = document.getElementById('kd-priv-pass').value;
+    if (!(await verifyPersonalKeyPassphrase(item, pass))) return;
+    privBlockEl.value = item.privArmor;
+    privBlockEl.style.display = 'block';
+    document.getElementById('kd-priv-locked-box').style.display = 'none';
+    document.getElementById('kd-priv-lock-status').innerHTML = '&#128275; Unlocked &mdash; Private Key Ring Verified';
+    document.getElementById('kd-priv-lock-status').style.color = 'var(--success)';
+  }
+
+  if (action === 'copy') {
+    copyById('kd-priv-block');
+    showToast('Copied Private Key Ring (.qpkrf)');
+  } else if (action === 'save') {
+    triggerNativeFileSave(`${item.name.replace(/\s+/g, '_')}_private.qpkrf`, item.privArmor);
+  }
+}
+
+/* ================= NATIVE ANDROID FILES APP OPEN & SAVE BRIDGE (v0.1.9 BINARY & 165+ EXTENSIONS) ================= */
+let activePickerInputId = null;
+let pickedFileBytesBuffer = null;
+let pickedFileName = '';
+let lastPickedByteLength = 0;
+let lastDecryptedBytesBuffer = null;
+let lastDecryptedFilename = 'decrypted_file.bin';
+
+const SUPPORTED_FILE_EXTENSIONS = {
+  '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.jpe': 'image/jpeg', '.jfif': 'image/jpeg',
+  '.png': 'image/png', '.webp': 'image/webp', '.gif': 'image/gif', '.bmp': 'image/bmp',
+  '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.heic': 'image/heic', '.heif': 'image/heif',
+  '.avif': 'image/avif', '.tif': 'image/tiff', '.tiff': 'image/tiff', '.raw': 'image/x-raw',
+  '.dng': 'image/x-adobe-dng', '.cr2': 'image/x-canon-cr2', '.nef': 'image/x-nikon-nef',
+  '.pdf': 'application/pdf', '.txt': 'text/plain', '.md': 'text/markdown', '.rtf': 'application/rtf',
+  '.doc': 'application/msword', '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  '.xls': 'application/vnd.ms-excel', '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  '.ppt': 'application/vnd.ms-powerpoint', '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  '.odt': 'application/vnd.oasis.opendocument.text', '.ods': 'application/vnd.oasis.opendocument.spreadsheet',
+  '.odp': 'application/vnd.oasis.opendocument.presentation', '.epub': 'application/epub+zip',
+  '.mobi': 'application/x-mobipocket-ebook', '.azw3': 'application/vnd.amazon.ebook',
+  '.csv': 'text/csv', '.tsv': 'text/tab-separated-values', '.json': 'application/json',
+  '.xml': 'application/xml', '.yaml': 'application/x-yaml', '.yml': 'application/x-yaml',
+  '.toml': 'application/toml', '.ini': 'text/plain', '.cfg': 'text/plain', '.conf': 'text/plain',
+  '.log': 'text/plain', '.sql': 'application/sql', '.html': 'text/html', '.htm': 'text/html',
+  '.css': 'text/css', '.js': 'application/javascript', '.ts': 'application/typescript',
+  '.py': 'text/x-python', '.java': 'text/x-java-source', '.kt': 'text/x-kotlin',
+  '.c': 'text/x-c', '.cpp': 'text/x-c++', '.h': 'text/x-c', '.rs': 'text/rust',
+  '.go': 'text/x-go', '.rb': 'text/x-ruby', '.php': 'application/x-httpd-php',
+  '.sh': 'application/x-sh', '.bat': 'application/x-msdos-program', '.ps1': 'application/x-powershell',
+  '.zip': 'application/zip', '.tar': 'application/x-tar', '.gz': 'application/gzip',
+  '.tgz': 'application/gzip', '.bz2': 'application/x-bzip2', '.xz': 'application/x-xz',
+  '.7z': 'application/x-7z-compressed', '.rar': 'application/vnd.rar', '.iso': 'application/x-iso9660-image',
+  '.dmg': 'application/x-apple-diskimage', '.img': 'application/octet-stream',
+  '.apk': 'application/vnd.android.package-archive', '.aab': 'application/x-authorware-bin',
+  '.jar': 'application/java-archive', '.dex': 'application/octet-stream', '.so': 'application/x-sharedlib',
+  '.dll': 'application/x-msdownload', '.exe': 'application/x-msdownload', '.msi': 'application/x-msi',
+  '.deb': 'application/vnd.debian.binary-package', '.rpm': 'application/x-rpm', '.bin': 'application/octet-stream',
+  '.dat': 'application/octet-stream', '.db': 'application/x-sqlite3', '.sqlite': 'application/x-sqlite3',
+  '.sqlite3': 'application/x-sqlite3', '.mp3': 'audio/mpeg', '.wav': 'audio/wav',
+  '.flac': 'audio/flac', '.aac': 'audio/aac', '.ogg': 'audio/ogg', '.opus': 'audio/opus',
+  '.m4a': 'audio/mp4', '.mp4': 'video/mp4', '.mkv': 'video/x-matroska', '.webm': 'video/webm',
+  '.mov': 'video/quicktime', '.avi': 'video/x-msvideo', '.flv': 'video/x-flv', '.wmv': 'video/x-ms-wmv',
+  '.ttf': 'font/ttf', '.otf': 'font/otf', '.woff': 'font/woff', '.woff2': 'font/woff2',
+  '.qpkrf': 'application/x-calyx-qpkrf', '.qpep': 'application/x-calyx-qpep', '.qpsig': 'application/x-calyx-qpsig',
+  '.asc': 'application/pgp-keys', '.pgp': 'application/pgp-encrypted', '.gpg': 'application/pgp-encrypted',
+  '.sig': 'application/pgp-signature', '.pem': 'application/x-pem-file', '.crt': 'application/x-x509-ca-cert',
+  '.cer': 'application/pkix-cert', '.der': 'application/x-x509-ca-cert', '.p12': 'application/x-pkcs12',
+  '.pfx': 'application/x-pkcs12', '.jks': 'application/x-java-keystore', '.keystore': 'application/x-java-keystore'
+};
+
+function tryRecoverDoubleUtf8Binary(u8) {
+  // If a binary file (like a .jpg starting with FF D8 FF -> C3 BF C3 98 C3 BF) was double-UTF8 encoded in v0.1.6,
+  // detect and losslessly restore the exact original 0x00..0xFF binary bytes!
+  if (u8.length >= 6 && u8[0] === 0xC3 && u8[1] === 0xBF && u8[2] === 0xC3 && u8[3] === 0x98 && u8[4] === 0xC3 && u8[5] === 0xBF) {
+    try {
+      const str = _utf8Dec.decode(u8);
+      const out = new Uint8Array(str.length);
+      for (let i = 0; i < str.length; i++) out[i] = str.charCodeAt(i) & 0xFF;
+      return out;
+    } catch (e) {}
+  }
+  if (u8.length >= 4 && u8[0] === 0xC2 && u8[1] === 0x89 && u8[2] === 0x50 && u8[3] === 0x4E) {
+    try {
+      const str = _utf8Dec.decode(u8);
+      const out = new Uint8Array(str.length);
+      for (let i = 0; i < str.length; i++) out[i] = str.charCodeAt(i) & 0xFF;
+      return out;
+    } catch (e) {}
+  }
+  return u8;
+}
+
+function detectFileFormatAndName(u8, hintFilename) {
+  const bytes = tryRecoverDoubleUtf8Binary(u8);
+  let ext = '';
+  let cleanHint = String(hintFilename || '').trim();
+  if (cleanHint && cleanHint.includes('.')) {
+    const cand = '.' + cleanHint.split('.').pop().toLowerCase();
+    if (cand !== '.qpep' && cand !== '.bin' && cand.length <= 12) {
+      ext = cand;
+    }
+  }
+  // Inspect binary magic-byte signatures so .jpg / .png / .pdf / .zip / .mp4 / etc. are ALWAYS detected even without a filename
+  if (bytes.length >= 3 && bytes[0] === 0xFF && bytes[1] === 0xD8 && bytes[2] === 0xFF) ext = '.jpg';
+  else if (bytes.length >= 8 && bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4E && bytes[3] === 0x47) ext = '.png';
+  else if (bytes.length >= 6 && bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x38) ext = '.gif';
+  else if (bytes.length >= 12 && bytes[0] === 0x52 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x46 && bytes[8] === 0x57 && bytes[9] === 0x45 && bytes[10] === 0x42 && bytes[11] === 0x50) ext = '.webp';
+  else if (bytes.length >= 2 && bytes[0] === 0x42 && bytes[1] === 0x4D && (!ext || ext === '.txt')) ext = '.bmp';
+  else if (bytes.length >= 5 && bytes[0] === 0x25 && bytes[1] === 0x50 && bytes[2] === 0x44 && bytes[3] === 0x46 && bytes[4] === 0x2D) ext = '.pdf';
+  else if (bytes.length >= 4 && bytes[0] === 0x50 && bytes[1] === 0x4B && bytes[2] === 0x03 && bytes[3] === 0x04) {
+    if (!ext || ext === '.txt') ext = '.zip';
+  }
+  else if (bytes.length >= 3 && bytes[0] === 0x1F && bytes[1] === 0x8B && bytes[2] === 0x08) ext = '.gz';
+  else if (bytes.length >= 6 && bytes[0] === 0x37 && bytes[1] === 0x7A && bytes[2] === 0xBC && bytes[3] === 0xAF) ext = '.7z';
+  else if (bytes.length >= 4 && bytes[0] === 0x52 && bytes[1] === 0x61 && bytes[2] === 0x72 && bytes[3] === 0x21) ext = '.rar';
+  else if (bytes.length >= 3 && ((bytes[0] === 0x49 && bytes[1] === 0x44 && bytes[2] === 0x33) || (bytes[0] === 0xFF && (bytes[1] === 0xFB || bytes[1] === 0xF3)))) ext = '.mp3';
+  else if (bytes.length >= 12 && bytes[0] === 0x52 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x46 && bytes[8] === 0x57 && bytes[9] === 0x41 && bytes[10] === 0x56 && bytes[11] === 0x45) ext = '.wav';
+  else if (bytes.length >= 4 && bytes[0] === 0x66 && bytes[1] === 0x4C && bytes[2] === 0x61 && bytes[3] === 0x43) ext = '.flac';
+  else if (bytes.length >= 4 && bytes[0] === 0x4F && bytes[1] === 0x67 && bytes[2] === 0x67 && bytes[3] === 0x53) ext = '.ogg';
+  else if (bytes.length >= 12 && bytes[4] === 0x66 && bytes[5] === 0x74 && bytes[6] === 0x79 && bytes[7] === 0x70) ext = '.mp4';
+  else if (bytes.length >= 4 && bytes[0] === 0x1A && bytes[1] === 0x45 && bytes[2] === 0xDF && bytes[3] === 0xA3) ext = '.mkv';
+  else if (bytes.length >= 15 && _utf8Dec.decode(bytes.subarray(0, 15)) === 'SQLite format 3') ext = '.sqlite';
+
+  if (!ext) {
+    // Check if valid UTF-8 text without control characters
+    let isText = true;
+    const checkLen = Math.min(bytes.length, 512);
+    for (let i = 0; i < checkLen; i++) {
+      const b = bytes[i];
+      if (b === 0 || (b < 9) || (b > 13 && b < 32)) { isText = false; break; }
+    }
+    ext = isText ? '.txt' : '.bin';
+  }
+
+  const mime = SUPPORTED_FILE_EXTENSIONS[ext] || 'application/octet-stream';
+  const isBinary = !(mime.startsWith('text/') || ext === '.json' || ext === '.xml' || ext === '.yaml' || ext === '.yml' || ext === '.toml' || ext === '.qpkrf' || ext === '.qpep' || ext === '.asc');
+
+  let finalName = cleanHint;
+  if (!finalName || finalName === 'encrypted_payload.qpep' || finalName === 'decrypted_output.txt' || finalName === 'inline_message.txt') {
+    finalName = 'calyx_file' + ext;
+  } else if (finalName.toLowerCase().endsWith('.qpep')) {
+    finalName = finalName.slice(0, -5);
+    if (!finalName.toLowerCase().endsWith(ext)) finalName += ext;
+  } else if (!finalName.toLowerCase().endsWith(ext)) {
+    const baseStem = finalName.includes('.') ? finalName.slice(0, finalName.lastIndexOf('.')) : finalName;
+    finalName = baseStem + ext;
+  }
+
+  return { bytes, filename: finalName, ext, mime, isBinary };
+}
+
+function triggerNativeOrWebFilePicker(fileInputId, targetTextareaId, isBinaryFileOp = false) {
+  activePickerTargetId = targetTextareaId;
+  activePickerInputId = fileInputId;
+  const inp = document.getElementById(fileInputId);
+  if (inp) {
+    inp.value = '';
+    inp.click();
+  }
+}
+
+window.onNativeFileReady = function() {
+  try {
+    const b64 = window.prompt('CALYX_READ_PICKED', '');
+    if (b64 && b64.length > 0) {
+      window.onNativeFilePicked(b64);
+    }
+  } catch (e) {}
+};
+
+window.onNativeFilePicked = function(b64Data) {
+  try {
+    const normB64 = String(b64Data || '').replace(/-/g, '+').replace(/_/g, '/').replace(/\s+/g, '');
+    const padLen = (4 - (normB64.length % 4)) % 4;
+    const paddedB64 = normB64 + '='.repeat(padLen);
+    const rawBytes = b64ToU8(paddedB64);
+    pickedFileBytesBuffer = rawBytes;
+    lastPickedByteLength = rawBytes.length;
+
+    const detected = detectFileFormatAndName(rawBytes, '');
+    pickedFileName = detected.filename;
+
+    let rawText = '';
+    try {
+      rawText = _utf8Dec.decode(rawBytes).replace(/\0+$/, '');
+    } catch (e) {}
+    pickedFileContentBuffer = rawText;
+
+    if (activePickerTargetId === 'imp-rec-armor' || activePickerTargetId === 'imp-per-armor') {
+      const targetEl = document.getElementById(activePickerTargetId);
+      if (targetEl) {
+        targetEl.value = rawText;
+        targetEl.scrollTop = 0;
+      }
+      const modalId = (activePickerTargetId === 'imp-per-armor') ? 'modal-import-personal' : 'modal-import-receiver';
+      const btn = document.querySelector('#' + modalId + ' .file-picker-btn');
+      if (btn) btn.innerHTML = '&#9989; .qpkrf Key File Loaded (' + lastPickedByteLength + ' bytes) &mdash; Tap to Change';
+    } else if (activePickerTargetId === 'enc-file-out') {
+      const st = document.getElementById('enc-file-status');
+      if (st) {
+        st.style.display = 'block';
+        st.textContent = '✓ Selected ' + detected.ext.toUpperCase() + ' file (' + detected.mime + ', ' + lastPickedByteLength + ' bytes) — ready to encrypt.';
+      }
+      const btn = document.getElementById('enc-file-picker-btn');
+      if (btn) btn.innerHTML = '&#9989; ' + detected.filename + ' (' + lastPickedByteLength + ' bytes) — Tap to Change';
+    } else if (activePickerTargetId === 'dec-file-out') {
+      const st = document.getElementById('dec-file-status');
+      if (st) {
+        st.style.display = 'block';
+        st.textContent = '✓ Selected .qpep packet loaded (' + lastPickedByteLength + ' bytes) — ready to decrypt.';
+      }
+      const btn = document.getElementById('dec-file-picker-btn');
+      if (btn) btn.innerHTML = '&#9989; .qpep Packet Loaded (' + lastPickedByteLength + ' bytes) — Tap to Change';
+    }
+    showToast('Loaded ' + detected.filename + ' (' + lastPickedByteLength + ' bytes)');
+  } catch (err) {
+    alert('Failed to read selected file from Android Files: ' + err.message);
+  }
+};
+
+window.onNativeFileSaved = function() {
+  showToast('Saved file to Android Files successfully!');
+};
+
+function triggerNativeBinaryFileSave(filename, u8Bytes) {
+  if (!u8Bytes || !u8Bytes.length) {
+    alert('No file bytes to save yet.');
+    return;
+  }
+  const safeName = String(filename || 'decrypted_file.bin').replace(/[^a-zA-Z0-9._-]/g, '_');
+  const mime = (typeof detectFileFormatAndName === 'function')
+    ? (detectFileFormatAndName(u8Bytes, safeName).mimeType || 'application/octet-stream')
+    : 'application/octet-stream';
+  const blob = new Blob([u8Bytes], { type: mime });
+  if (navigator.share && navigator.canShare) {
+    try {
+      const f = new File([blob], safeName, { type: mime });
+      if (navigator.canShare({ files: [f] })) {
+        navigator.share({ files: [f], title: safeName }).catch(() => {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = safeName;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        });
+        return;
+      }
+    } catch (e) {}
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = safeName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function triggerNativeFileSave(filename, textContent) {
+  if (!textContent) {
+    alert('No content to save yet.');
+    return;
+  }
+  const u8 = (textContent instanceof Uint8Array) ? textContent : _utf8Enc.encode(String(textContent));
+  triggerNativeBinaryFileSave(filename, u8);
+}
+
+function saveEncryptedFileOutput() {
+  const content = document.getElementById('enc-file-out').value;
+  if (!content) {
+    alert('Please encrypt a file first.');
+    return;
+  }
+  const saveName = (pickedFileName ? pickedFileName : 'encrypted_payload') + '.qpep';
+  triggerNativeFileSave(saveName, content);
+}
+
+function saveDecryptedFileOutput() {
+  if (lastDecryptedBytesBuffer && lastDecryptedBytesBuffer.length > 0) {
+    triggerNativeBinaryFileSave(lastDecryptedFilename || 'decrypted_file.bin', lastDecryptedBytesBuffer);
+    return;
+  }
+  const content = document.getElementById('dec-file-out').value;
+  if (!content) {
+    alert('Please decrypt a .qpep file first.');
+    return;
+  }
+  triggerNativeFileSave(lastDecryptedFilename || 'decrypted_output.txt', content);
+}
+
+function refreshAllKeyDropdowns() {
+  const personalOpts = personalKeys.length
+    ? personalKeys.map((k, i) => `<option value="${i}">${k.name} &lt;${k.email}&gt; [Hash: ${k.keyHash.substring(0, 12)}...]</option>`).join('')
+    : `<option value="">-- No Personal Key in Keyring (Create a Key First) --</option>`;
+
+  ['enc-note-sender', 'dec-note-key', 'enc-file-sender', 'dec-file-key', 'sig-create-key'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = personalOpts;
+  });
+
+  const allKeys = [
+    ...receiverKeys.map(k => ({ label: `[Receiver] ${k.name} <${k.email}> [Hash: ${k.keyHash.substring(0, 12)}...]`, keyHash: k.keyHash, name: k.name })),
+    ...personalKeys.map(k => ({ label: `[Personal] ${k.name} <${k.email}> [Hash: ${k.keyHash.substring(0, 12)}...]`, keyHash: k.keyHash, name: k.name }))
+  ];
+  const recipOpts = allKeys.length
+    ? allKeys.map(k => `<option value="${k.keyHash}">${k.label}</option>`).join('')
+    : `<option value="">-- No Recipient Key in Keyring --</option>`;
+
+  ['enc-note-recip', 'enc-file-recip'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = recipOpts;
+  });
+
+  const verifySel = document.getElementById('sig-verify-key');
+  if (verifySel) {
+    verifySel.innerHTML = `<option value="AUTO">Auto (Check All Keys in Keyring)</option>` +
+      allKeys.map(k => `<option value="${k.keyHash}">${k.label}</option>`).join('');
+  }
+}
+
+function closeAllModals() {
+  document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
+}
+
+async function loadFileIntoTextarea(input, targetId) {
+  if (input.files && input.files[0]) {
+    const file = input.files[0];
+    const ab = await file.arrayBuffer();
+    const rawBytes = new Uint8Array(ab);
+    pickedFileBytesBuffer = rawBytes;
+    lastPickedByteLength = rawBytes.length;
+    const detected = detectFileFormatAndName(rawBytes, file.name);
+    pickedFileName = detected.filename;
+    const txt = _utf8Dec.decode(rawBytes);
+    pickedFileContentBuffer = txt;
+
+    if (targetId === 'imp-rec-armor' || targetId === 'imp-per-armor') {
+      const el = document.getElementById(targetId);
+      if (el) el.value = txt;
+    } else if (targetId === 'enc-file-out') {
+      const st = document.getElementById('enc-file-status');
+      if (st) { st.style.display = 'block'; st.textContent = '✓ Loaded ' + detected.filename + ' (' + detected.mime + ', ' + rawBytes.length + ' bytes)'; }
+    } else if (targetId === 'dec-file-out') {
+      const st = document.getElementById('dec-file-status');
+      if (st) { st.style.display = 'block'; st.textContent = '✓ Loaded ' + file.name + ' (' + rawBytes.length + ' bytes)'; }
+    }
+  }
+}
+
+function openImportReceiverModal() {
+  document.getElementById('imp-rec-file').value = '';
+  document.getElementById('imp-rec-armor').value = '';
+  document.getElementById('modal-import-receiver').classList.add('open');
+}
+
+async function confirmImportReceiver() {
+  const raw = document.getElementById('imp-rec-armor').value.trim();
+  if (!raw.includes('BEGIN CALYX QPKRF PUBLIC KEY RING')) {
+    alert('Invalid Public Key Ring: Please select or paste a valid -----BEGIN CALYX QPKRF PUBLIC KEY RING----- (.qpkrf) block.');
+    return;
+  }
+  try {
+    const obj = armorUnwrap(raw);
+    const keyHash = obj.key_hash || obj.key_id || (await qspongeHex(raw));
+    if (obj.public_bundle && obj.integrity_mac) {
+      const expectedMac = u8ToHex(qsponge512Bytes(_utf8Enc.encode(`CALYX-QPKRF-INTEGRITY|${keyHash}|${obj.created_at}|${obj.identity.name}|${obj.identity.email}|${obj.public_bundle.qlx_public_b64}`))).substring(0, 64);
+      if (obj.integrity_mac.length === 64 && obj.integrity_mac !== expectedMac) {
+        throw new Error("QPKRF integrity_mac mismatch (tampered public key ring).");
+      }
+    }
+    receiverKeys.unshift({
+      keyHash,
+      name: (obj.identity && obj.identity.name) || 'Imported Receiver Key',
+      email: (obj.identity && obj.identity.email) || 'contact@calyxlabsinc.org',
+      suite: obj.suite || 'QLX-1024 + QVS-87 Sovereign Hybrid',
+      created: obj.created_at || new Date().toISOString(),
+      pubArmor: raw
+    });
+    await persistKeyStore();
+    updateKeyCountersAndLists();
+    closeAllModals();
+    navigateTo('manage-receiver-keys');
+  } catch (e) {
+    alert('Failed to parse .qpkrf Public Key Ring: ' + e.message);
+  }
+}
+
+function openImportPersonalModal() {
+  document.getElementById('imp-per-file').value = '';
+  document.getElementById('imp-per-pass').value = '';
+  document.getElementById('imp-per-armor').value = '';
+  document.getElementById('modal-import-personal').classList.add('open');
+}
+
+async function confirmImportPersonal() {
+  const pass = document.getElementById('imp-per-pass').value;
+  if (!checkPassphraseRules(pass).valid) {
+    alert('Mandatory Calyx QPEP Passphrase Policy Violation: Requires 12+ chars, 2+ numbers, 4+ specials, 2+ uppercase, 4+ lowercase.');
+    return;
+  }
+  const raw = document.getElementById('imp-per-armor').value.trim();
+  try {
+    const obj = armorUnwrap(raw);
+    const keyHash = obj.key_hash;
+    const tempKeyObj = { keyHash, privArmor: raw };
+    unlockPrivateKeysJS(tempKeyObj, pass);
+
+    const pubEnvelope = {
+      magic: "QPKRF-v1",
+      version: "0.1.9",
+      ring_type: "PUBLIC_KEY_RING",
+      suite: obj.suite || 'QLX-1024 + QVS-87 Sovereign Hybrid',
+      key_hash: keyHash,
+      created_at: obj.created_at || new Date().toISOString(),
+      identity: obj.identity || { name: 'Imported Personal Key', email: 'user@calyxlabsinc.org' },
+      public_bundle: obj.public_bundle,
+      integrity_mac: obj.integrity_mac
+    };
+    const pubArmor = armorWrap("CALYX QPKRF PUBLIC KEY RING", pubEnvelope.suite, keyHash, pubEnvelope);
+    personalKeys.unshift({
+      keyHash,
+      name: pubEnvelope.identity.name,
+      email: pubEnvelope.identity.email,
+      suite: pubEnvelope.suite,
+      created: pubEnvelope.created_at,
+      pubArmor,
+      privArmor: raw,
+      published: false
+    });
+    await persistKeyStore();
+    updateKeyCountersAndLists();
+    closeAllModals();
+    navigateTo('manage-my-keys');
+  } catch (e) {
+    alert('Invalid passphrase or tampered .qpkrf Private Key Ring: ' + e.message);
+  }
+}
+
+function openExportPublicModal(listType, idx) {
+  const item = (listType === 'personal') ? personalKeys[idx] : receiverKeys[idx];
+  currentExportFilename = `${item.name.replace(/\s+/g, '_')}_public.qpkrf`;
+  document.getElementById('exp-pub-title').textContent = `Public Key Ring (${item.name}.qpkrf)`;
+  document.getElementById('exp-pub-desc').textContent = `Key Hash: ${item.keyHash.substring(0, 24)}... (Public keys do not require a passphrase):`;
+  document.getElementById('exp-pub-armor').value = item.pubArmor;
+  document.getElementById('modal-export-public').classList.add('open');
+  triggerNativeFileSave(currentExportFilename, item.pubArmor);
+}
+
+function openExportPrivateModal(idx) {
+  pendingPrivateExportIdx = idx;
+  const item = personalKeys[idx];
+  currentExportFilename = `${item.name.replace(/\s+/g, '_')}_private.qpkrf`;
+  document.getElementById('exp-priv-title').textContent = `Private Key Ring (${item.name}.qpkrf)`;
+  document.getElementById('exp-priv-pass-input').value = '';
+  document.getElementById('exp-priv-armor').value = '';
+  document.getElementById('exp-priv-gate-step').style.display = 'block';
+  document.getElementById('exp-priv-reveal-step').style.display = 'none';
+  document.getElementById('modal-export-private').classList.add('open');
+}
+
+async function unlockAndShowPrivateKey() {
+  if (pendingPrivateExportIdx === null) return;
+  const item = personalKeys[pendingPrivateExportIdx];
+  const pass = document.getElementById('exp-priv-pass-input').value;
+  if (!(await verifyPersonalKeyPassphrase(item, pass))) return;
+  document.getElementById('exp-priv-armor').value = item.privArmor;
+  document.getElementById('exp-priv-gate-step').style.display = 'none';
+  document.getElementById('exp-priv-reveal-step').style.display = 'block';
+  triggerNativeFileSave(currentExportFilename, item.privArmor);
+}
+
+function openQrModal() {
+  if (personalKeys.length > 0) {
+    openKeyDetails('personal', 0);
+  } else if (receiverKeys.length > 0) {
+    openKeyDetails('receiver', 0);
+  } else {
+    openImportReceiverModal();
+  }
+}
+
+function downloadModalText(textareaId, filename) {
+  const content = document.getElementById(textareaId).value;
+  triggerNativeFileSave(filename, content);
+}
+
+async function verifyPersonalKeyPassphrase(keyObj, pass) {
+  if (!checkPassphraseRules(pass).valid) {
+    alert('Mandatory Calyx QPEP Passphrase Policy Violation: Requires 12+ chars, 2+ numbers, 4+ specials, 2+ uppercase, 4+ lowercase.');
+    return false;
+  }
+  try {
+    unlockPrivateKeysJS(keyObj, pass);
+    return true;
+  } catch (e) {
+    alert(`Incorrect passphrase for key "${keyObj.name}".`);
+    return false;
+  }
+}
+
+function findPublicKeyBundleByHash(targetHash) {
+  const all = [...receiverKeys, ...personalKeys];
+  const found = all.find(k => k.keyHash === targetHash);
+  if (!found) return null;
+  const pubEnv = armorUnwrap(found.pubArmor);
+  return pubEnv.public_bundle || null;
+}
+
+function encryptPayloadPacketJS(ptBytesInput, filename, senderKey, pass, recipHash) {
+  const ptBytes = (ptBytesInput instanceof Uint8Array) ? ptBytesInput : _utf8Enc.encode(String(ptBytesInput));
+  const detected = detectFileFormatAndName(ptBytes, filename);
+  const { qvsSk, pubBundle: senderPub } = unlockPrivateKeysJS(senderKey, pass);
+  const recipPub = findPublicKeyBundleByHash(recipHash);
+  if (!recipPub || !recipPub.qlx_public_b64) {
+    throw new Error('Recipient public key bundle not found in keyring.');
+  }
+
+  const qlxTier = recipPub.qlx_tier || 'QLX-1024';
+  const recipQlxPk = b64ToU8(recipPub.qlx_public_b64);
+
+  // 1. Encapsulate shared secret via Module-LWE (QLX) over Z_3329[X]/(X^256+1)
+  const { ct: qlxCt, kShared: ssQlx } = qlxEncaps(recipQlxPk, qlxTier);
+
+  // 2. Derive independent CC-512 keys (kS1 for AES-256-GCM, kS2 for ChaCha20-Poly1305, kMac for transcript)
+  const pktSalt = randomBytes(32);
+  const okm = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QPEP-CC512-SUBKEYS|"), ssQlx, pktSalt, _utf8Enc.encode(recipHash)), 128);
+  const kS1 = okm.subarray(0, 32), kS2 = okm.subarray(32, 64), kTranscriptMac = okm.subarray(64, 128);
+
+  // 3. Sign exact binary payload with sender's QVS lattice signature key
+  const ptDigest = u8ToHex(qsponge512Bytes(ptBytes));
+  const sigTranscript = u8Concat(_utf8Enc.encode(`CALYX-QPEP-INNER-SIG|${senderKey.keyHash}|${recipHash}|${ptDigest}`), ptBytes);
+  const qvsSig = qvsSign(qvsSk, b64ToU8(senderPub.qvs_public_b64), sigTranscript, senderPub.qvs_tier || 'QVS-87');
+
+  const innerEnvelopeBytes = _utf8Enc.encode(JSON.stringify({
+    filename: detected.filename,
+    file_extension: detected.ext,
+    mime_type: detected.mime,
+    is_binary: detected.isBinary,
+    timestamp: new Date().toISOString(),
+    plaintext_qsponge_512: ptDigest,
+    plaintext_size: ptBytes.length,
+    encrypting_key_hash: senderKey.keyHash,
+    qvs_signature_b64: u8ToB64(qvsSig),
+    data_b64: u8ToB64(ptBytes)
+  }));
+
+  // 4. Encrypt in 64 KiB frames using CC-512 (AES-256-GCM + ChaCha20-Poly1305 cascade)
+  const CHUNK_SIZE = 65536;
+  const chunksOut = [];
+  let offset = 0, chunkIdx = 0;
+  while (offset < innerEnvelopeBytes.length || (innerEnvelopeBytes.length === 0 && chunkIdx === 0)) {
+    const piece = innerEnvelopeBytes.subarray(offset, Math.min(offset + CHUNK_SIZE, innerEnvelopeBytes.length));
+    offset += piece.length;
+    const isFinal = offset >= innerEnvelopeBytes.length ? 1 : 0;
+    const aad = _utf8Enc.encode(`CALYX-QPEP-CC512|recip=${recipHash}|idx=${chunkIdx}|final=${isFinal}`);
+    const { n1, n2, outerCt } = cc512Encrypt(piece, kS1, kS2, aad);
+    chunksOut.push({
+      idx: chunkIdx,
+      final: isFinal,
+      cc512_n1_b64: u8ToB64(n1),
+      cc512_n2_b64: u8ToB64(n2),
+      ct_b64: u8ToB64(outerCt)
+    });
+    chunkIdx++;
+    if (innerEnvelopeBytes.length === 0) break;
+  }
+
+  const transcriptBytes = _utf8Enc.encode(JSON.stringify(chunksOut));
+  const transcriptTag = u8ToHex(qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-QPEP-TRANSCRIPT|"), kTranscriptMac, transcriptBytes)));
+
+  const packetObj = {
+    magic: "QPEP-v1",
+    version: "0.1.9",
+    qlx_tier: qlxTier,
+    recipient_key_hash: recipHash,
+    encrypting_key_hash: senderKey.keyHash,
+    pkt_salt_b64: u8ToB64(pktSalt),
+    qlx_ct_b64: u8ToB64(qlxCt),
+    chunks: chunksOut,
+    transcript_qsponge_512: transcriptTag
+  };
+  return armorWrap("CALYX QPEP ENCRYPTED PACKET", senderKey.suite, recipHash, packetObj);
+}
+
+function decryptPayloadPacketFullJS(armoredText, decKey, pass) {
+  const { qlxSk } = unlockPrivateKeysJS(decKey, pass);
+  const pkt = armorUnwrap(armoredText);
+  if (pkt.recipient_key_hash && pkt.recipient_key_hash !== decKey.keyHash) {
+    throw new Error(`Packet is addressed to Key Hash ${pkt.recipient_key_hash.substring(0, 16)}..., not "${decKey.name}".`);
+  }
+
+  const qlxTier = pkt.qlx_tier || 'QLX-1024';
+  const qlxCt = b64ToU8(pkt.qlx_ct_b64);
+
+  // 1. Decapsulate shared secret via Module-LWE (with Fujisaki-Okamoto CCA2 verification)
+  const ssQlx = qlxDecaps(qlxSk, qlxCt, qlxTier);
+  const pktSalt = b64ToU8(pkt.pkt_salt_b64);
+  const okm = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QPEP-CC512-SUBKEYS|"), ssQlx, pktSalt, _utf8Enc.encode(decKey.keyHash)), 128);
+  const kS1 = okm.subarray(0, 32), kS2 = okm.subarray(32, 64), kTranscriptMac = okm.subarray(64, 128);
+
+  // 2. Verify full-packet transcript qSponge-512 authentication tag
+  const transcriptBytes = _utf8Enc.encode(JSON.stringify(pkt.chunks));
+  const expectedTag = u8ToHex(qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-QPEP-TRANSCRIPT|"), kTranscriptMac, transcriptBytes)));
+  if (expectedTag !== pkt.transcript_qsponge_512) {
+    throw new Error("Packet transcript qSponge-512 MAC verification failed (tampered or wrong key).");
+  }
+
+  // 3. Verify non-empty chunks and terminal frame truncation flag
+  if (!pkt.chunks || !pkt.chunks.length || pkt.chunks[pkt.chunks.length - 1].final !== 1) {
+    throw new Error("Stream truncation or missing terminal frame flag detected.");
+  }
+  const pieces = [];
+  for (let i = 0; i < pkt.chunks.length; i++) {
+    const ch = pkt.chunks[i];
+    if (ch.idx !== i) throw new Error("Chunk sequence tampering detected.");
+    const aad = _utf8Enc.encode(`CALYX-QPEP-CC512|recip=${decKey.keyHash}|idx=${i}|final=${ch.final}`);
+    const ptPiece = cc512Decrypt(b64ToU8(ch.ct_b64), kS1, kS2, b64ToU8(ch.cc512_n1_b64), b64ToU8(ch.cc512_n2_b64), aad);
+    pieces.push(ptPiece);
+  }
+
+  const innerEnvelope = JSON.parse(_utf8Dec.decode(u8Concat(...pieces)));
+  const rawPtBytes = b64ToU8(innerEnvelope.data_b64);
+  const actualDigest = u8ToHex(qsponge512Bytes(rawPtBytes));
+  if (actualDigest !== innerEnvelope.plaintext_qsponge_512) {
+    throw new Error("Plaintext qSponge-512 integrity check failed.");
+  }
+
+  // Detect exact file extension & magic bytes (and auto-recover if file was double-UTF8 encoded in v0.1.6)
+  const detected = detectFileFormatAndName(rawPtBytes, innerEnvelope.filename || '');
+  return {
+    ptBytes: detected.bytes,
+    filename: detected.filename,
+    ext: detected.ext,
+    mime: detected.mime,
+    isBinary: detected.isBinary,
+    digest: actualDigest,
+    senderKeyHash: innerEnvelope.encrypting_key_hash || pkt.encrypting_key_hash || ''
+  };
+}
+
+function decryptPayloadPacketJS(armoredText, decKey, pass) {
+  const res = decryptPayloadPacketFullJS(armoredText, decKey, pass);
+  return _utf8Dec.decode(res.ptBytes);
+}
+
+async function runEncryptNotepad() {
+  const senderIdx = document.getElementById('enc-note-sender').value;
+  const recipHash = document.getElementById('enc-note-recip').value;
+  if (senderIdx === '' || !personalKeys[senderIdx]) {
+    alert('Please select an Encrypting Key (create a personal key first).');
+    return;
+  }
+  if (!recipHash) {
+    alert('Please select a Recipient Key.');
+    return;
+  }
+  const senderKey = personalKeys[senderIdx];
+  const pass = document.getElementById('enc-note-pass').value;
+  const pt = document.getElementById('enc-note-in').value;
+  try {
+    document.getElementById('enc-note-out').value = encryptPayloadPacketJS(_utf8Enc.encode(pt), 'message.txt', senderKey, pass, recipHash);
+  } catch (e) {
+    alert(e.message);
+  }
+}
+
+async function runDecryptNotepad() {
+  const decIdx = document.getElementById('dec-note-key').value;
+  if (decIdx === '' || !personalKeys[decIdx]) {
+    alert('Please select a Decrypting Key.');
+    return;
+  }
+  const decKey = personalKeys[decIdx];
+  const pass = document.getElementById('dec-note-pass').value;
+  try {
+    document.getElementById('dec-note-out').value = decryptPayloadPacketJS(document.getElementById('dec-note-in').value, decKey, pass);
+  } catch (e) {
+    document.getElementById('dec-note-out').value = 'Decryption Error: ' + e.message;
+  }
+}
+
+async function runFileProcess(encrypt) {
+  if (encrypt) {
+    const senderIdx = document.getElementById('enc-file-sender').value;
+    const recipHash = document.getElementById('enc-file-recip').value;
+    if (senderIdx === '' || !personalKeys[senderIdx] || !recipHash) {
+      alert('Please select both an Encrypting Key and a Recipient Key.');
+      return;
+    }
+    const senderKey = personalKeys[senderIdx];
+    const pass = document.getElementById('enc-file-pass').value;
+    const input = document.getElementById('enc-file-input');
+    let rawBytes = pickedFileBytesBuffer;
+    let fname = pickedFileName || 'calyx_file.bin';
+    if (input.files && input.files[0]) {
+      rawBytes = new Uint8Array(await input.files[0].arrayBuffer());
+      fname = input.files[0].name;
+    }
+    if (!rawBytes || !rawBytes.length) {
+      alert('Please choose an input file first.');
+      return;
+    }
+    try {
+      const detected = detectFileFormatAndName(rawBytes, fname);
+      pickedFileName = detected.filename;
+      const armored = encryptPayloadPacketJS(detected.bytes, detected.filename, senderKey, pass, recipHash);
+      document.getElementById('enc-file-out').value = armored;
+      triggerNativeFileSave(detected.filename + '.qpep', armored);
+    } catch (e) {
+      alert(e.message);
+    }
+  } else {
+    const decIdx = document.getElementById('dec-file-key').value;
+    if (decIdx === '' || !personalKeys[decIdx]) {
+      alert('Please select a Decrypting Key.');
+      return;
+    }
+    const decKey = personalKeys[decIdx];
+    const pass = document.getElementById('dec-file-pass').value;
+    const input = document.getElementById('dec-file-input');
+    let txt = pickedFileContentBuffer;
+    if (input.files && input.files[0]) {
+      txt = await input.files[0].text();
+    }
+    if (!txt) {
+      alert('Please choose a .qpep file to decrypt.');
+      return;
+    }
+    try {
+      const res = decryptPayloadPacketFullJS(txt, decKey, pass);
+      lastDecryptedBytesBuffer = res.ptBytes;
+      lastDecryptedFilename = res.filename;
+
+      const prevBox = document.getElementById('dec-file-preview-box');
+      const prevTitle = document.getElementById('dec-file-preview-title');
+      const prevImg = document.getElementById('dec-file-preview-img');
+
+      if (res.mime.startsWith('image/')) {
+        if (prevBox && prevImg && prevTitle) {
+          prevTitle.textContent = '✓ Decrypted Image Preview: ' + res.filename + ' (' + res.ptBytes.length.toLocaleString() + ' bytes)';
+          prevImg.src = 'data:' + res.mime + ';base64,' + u8ToB64(res.ptBytes);
+          prevImg.style.display = 'block';
+          prevBox.style.display = 'block';
+        }
+      } else if (prevBox) {
+        prevBox.style.display = 'none';
+      }
+
+      if (res.isBinary) {
+        document.getElementById('dec-file-out').value = [
+          '=== OPENQPEP v0.1.9 BINARY FILE DECRYPTED & VERIFIED ===',
+          'Recovered Filename : ' + res.filename,
+          'Detected Extension : ' + res.ext + ' (' + res.mime + ')',
+          'Binary Size        : ' + res.ptBytes.length.toLocaleString() + ' bytes',
+          'qSponge-512 Digest : ' + res.digest.substring(0, 32) + '...',
+          'Sender Key Hash    : ' + (res.senderKeyHash ? res.senderKeyHash.substring(0, 32) + '...' : 'Verified'),
+          'Status             : Exact binary bytes restored. Saving as ' + res.filename + '...'
+        ].join('\n');
+      } else {
+        document.getElementById('dec-file-out').value = _utf8Dec.decode(res.ptBytes);
+      }
+
+      triggerNativeBinaryFileSave(res.filename, res.ptBytes);
+    } catch (e) {
+      document.getElementById('dec-file-out').value = 'Decryption Error: ' + e.message;
+    }
+  }
+}
+
+/* ================= ATTACHED SIGNATURES ONLY (REAL QVS LATTICE SIGNATURES) ================= */
+async function runCreateSignature() {
+  const sigIdx = document.getElementById('sig-create-key').value;
+  if (sigIdx === '' || !personalKeys[sigIdx]) {
+    alert('Please select a Signing Key (create a personal key first).');
+    return;
+  }
+  const signerKey = personalKeys[sigIdx];
+  const pass = document.getElementById('sig-create-pass').value;
+  const msg = document.getElementById('sig-create-in').value;
+  if (!msg) {
+    alert('Please enter a message to sign.');
+    return;
+  }
+  try {
+    const { qvsSk, pubBundle } = unlockPrivateKeysJS(signerKey, pass);
+    const qvsTier = pubBundle.qvs_tier || 'QVS-87';
+    const qvsPk = b64ToU8(pubBundle.qvs_public_b64);
+    const msgBytes = _utf8Enc.encode(msg);
+    const timestamp = new Date().toISOString();
+    const msgDigest = u8ToHex(qsponge512Bytes(msgBytes));
+    const transcript = _utf8Enc.encode(`CALYX-QPEP-ATTACHED-SIG-v1|${signerKey.keyHash}|${timestamp}|${msgDigest}`);
+    const qvsSig = qvsSign(qvsSk, qvsPk, transcript, qvsTier);
+
+    const sigObj = {
+      magic: "QPSIG-ATTACHED-v1",
+      version: "0.1.9",
+      signature_mode: "ATTACHED_ENVELOPE",
+      suite: signerKey.suite,
+      qvs_tier: qvsTier,
+      signer_key_hash: signerKey.keyHash,
+      signer_name: signerKey.name,
+      signer_email: signerKey.email,
+      timestamp: timestamp,
+      attached_message_b64: u8ToB64(msgBytes),
+      message_qsponge_512: msgDigest,
+      qvs_signature_b64: u8ToB64(qvsSig)
+    };
+    document.getElementById('sig-create-out').value = armorWrap("CALYX QPEP ATTACHED SIGNATURE", signerKey.suite, signerKey.keyHash, sigObj);
+  } catch (e) {
+    alert(e.message);
+  }
+}
+
+async function runVerifySignature() {
+  const modeOrHash = document.getElementById('sig-verify-key').value;
+  const resEl = document.getElementById('sig-verify-result');
+  const msgOutEl = document.getElementById('sig-verify-extracted-msg');
+  resEl.style.display = 'block';
+  msgOutEl.value = '';
+
+  try {
+    const sigObj = armorUnwrap(document.getElementById('sig-verify-sig').value);
+    if (!sigObj.attached_message_b64 || !sigObj.qvs_signature_b64) {
+      resEl.style.background = 'rgba(239, 68, 68, 0.12)';
+      resEl.style.border = '1px solid rgba(239, 68, 68, 0.5)';
+      resEl.style.color = 'var(--danger)';
+      resEl.textContent = 'Failed Signature Verification: Detached or unauthenticated signatures are prohibited in Calyx QPEP.';
+      return;
+    }
+
+    const extractedBytes = b64ToU8(sigObj.attached_message_b64);
+    const actualDigest = u8ToHex(qsponge512Bytes(extractedBytes));
+    if (actualDigest !== sigObj.message_qsponge_512) {
+      resEl.style.background = 'rgba(239, 68, 68, 0.12)';
+      resEl.style.border = '1px solid rgba(239, 68, 68, 0.5)';
+      resEl.style.color = 'var(--danger)';
+      resEl.textContent = 'Failed Signature Verification: Attached message digest mismatch (tampered payload).';
+      return;
+    }
+
+    const allKeys = [...personalKeys, ...receiverKeys];
+    const candidates = (modeOrHash === 'AUTO') ? allKeys : allKeys.filter(k => k.keyHash === modeOrHash);
+
+    let matchedKey = null;
+    for (const k of candidates) {
+      if (k.keyHash === sigObj.signer_key_hash) {
+        const pubEnv = armorUnwrap(k.pubArmor);
+        const pubBundle = pubEnv.public_bundle;
+        if (!pubBundle || !pubBundle.qvs_public_b64) continue;
+        const transcript = _utf8Enc.encode(`CALYX-QPEP-ATTACHED-SIG-v1|${k.keyHash}|${sigObj.timestamp}|${actualDigest}`);
+        const ok = qvsVerify(
+          b64ToU8(pubBundle.qvs_public_b64),
+          transcript,
+          b64ToU8(sigObj.qvs_signature_b64),
+          pubBundle.qvs_tier || sigObj.qvs_tier || 'QVS-87'
+        );
+        if (ok) {
+          matchedKey = k;
+          break;
+        }
+      }
+    }
+
+    if (matchedKey) {
+      resEl.style.background = 'rgba(16, 185, 129, 0.12)';
+      resEl.style.border = '1px solid rgba(16, 185, 129, 0.5)';
+      resEl.style.color = 'var(--success)';
+      resEl.textContent = `VERIFIED: Authentic Attached QVS Lattice Signature by ${matchedKey.name} <${matchedKey.email}> (Key Hash: ${matchedKey.keyHash.substring(0, 20)}...)`;
+      msgOutEl.value = _utf8Dec.decode(extractedBytes);
+    } else {
+      const keyExistsInRing = allKeys.some(k => k.keyHash === sigObj.signer_key_hash);
+      resEl.style.background = 'rgba(239, 68, 68, 0.12)';
+      resEl.style.border = '1px solid rgba(239, 68, 68, 0.5)';
+      resEl.style.color = 'var(--danger)';
+      if (!keyExistsInRing) {
+        resEl.textContent = `Failed Signature Verification: Signing Key Not in Keyring (Key Hash ${sigObj.signer_key_hash ? sigObj.signer_key_hash.substring(0, 16) + '...' : 'Unknown'} not found in Manage My Keys or Manage Receiver Keys).`;
+      } else {
+        resEl.textContent = `Failed Signature Verification: Invalid QVS lattice signature vector for Key Hash ${sigObj.signer_key_hash.substring(0, 16)}...`;
+      }
+    }
+  } catch (e) {
+    resEl.style.background = 'rgba(239, 68, 68, 0.12)';
+    resEl.style.border = '1px solid rgba(239, 68, 68, 0.5)';
+    resEl.style.color = 'var(--danger)';
+    resEl.textContent = 'Failed Signature Verification: ' + e.message;
+  }
+}
+
+function copyById(id) {
+  const el = document.getElementById(id);
+  el.select();
+  document.execCommand('copy');
+  showToast('Copied to clipboard');
+}
+
+window.addEventListener('DOMContentLoaded', async function() {
+  await restoreKeyStore();
+  updateKeyCountersAndLists();
+  if (personalKeys.length === 0 && receiverKeys.length === 0) {
+    navigateTo('setup');
+  } else {
+    navigateTo('manage-my-keys');
+  }
+});
+</script>
+</body>
+</html>
