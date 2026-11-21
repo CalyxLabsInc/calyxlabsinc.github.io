@@ -1,7 +1,7 @@
 ========================================================================
 CALYX LABS INC. — OFFICIAL GOOGLE PLAY TERMS OF SERVICE
-Application: Calyx Encrypted Messenger (com.calyxlabs.qpem) — v1.0.0
-Protocol: OpenQPEP / Calyx QPEP (Production Candidate 1.0.0)
+Application: Calyx Encrypted Messenger (com.calyxlabs.qpem) — RC 1.0.0
+Protocol: OpenQPEP / Calyx QPEP (Release Candidate 1.0.0)
 ========================================================================
 Effective Date: November 16, 2026
 Publisher / Developer: Calyx Labs Inc. (Created & Engineered by Tristen Martinez)
@@ -24,18 +24,18 @@ In Calyx Encrypted Messenger, self-certified OpenQPEP Quantum-Proof Key Rings
     post-quantum OpenQPEP key pair (QLX-768 + QVS-65 Velocity, QLX-1024 + QVS-87
     Sovereign Hybrid, or QLX-2048 + QVS-128 Ultra-Grid) bound to your chosen Key
     Name (username), Email address, and unique 64-character hex Key Hash.
-  * Mandatory QPKD-Argon Passphrase Gate: Before any private key is generated,
+  * Mandatory QPKD-Argon2id Passphrase Gate: Before any private key is generated,
     unlocked, imported, exported, or used to sign or decrypt messages, the
     Application enforces the mandatory Calyx QPEP Passphrase Policy (minimum 12
     characters, at least 2 digits 0-9, at least 4 special characters, at least 2
     uppercase letters A-Z, and at least 4 lowercase letters a-z) stretched with
-    a 256-bit salt and 24-round Keccak-f[1600] qSponge-512.
+    a 256-bit salt and 24-round Keccak-f[1600] qSponge-512 (kdf_version: 3).
   * Local Private Key Isolation & Export: Your Private Key Ring (.qpkrf) and
     passphrase remain strictly on your local device. Calyx Labs Inc. never
     receives, escrows, or stores your private keys or passphrases. You may
     export your Public or Private .qpkrf Key Ring files at any time through the
     Application and are solely responsible for backing up your exported keys and
-    passphrase. Losing your QPKD-Argon passphrase permanently prevents unlocking
+    passphrase. Losing your QPKD-Argon2id passphrase permanently prevents unlocking
     or exporting your Private Key Ring.
 
 3. END-TO-END ENCRYPTED MESSAGING & KEY HASH DIRECTORY
