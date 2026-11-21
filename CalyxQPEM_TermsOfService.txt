@@ -1,7 +1,7 @@
 ========================================================================
 CALYX LABS INC. — OFFICIAL GOOGLE PLAY TERMS OF SERVICE
 Application: Calyx Encrypted Messenger (com.calyxlabs.qpem) — v1.0.0
-Protocol: OpenQPEP / Calyx QPEP (Beta Version 0.1.6)
+Protocol: OpenQPEP / Calyx QPEP (Production Candidate 1.0.0)
 ========================================================================
 Effective Date: November 16, 2026
 Publisher / Developer: Calyx Labs Inc. (Created & Engineered by Tristen Martinez)
@@ -14,7 +14,7 @@ Contact: support@calyxlabsinc.org | calyxlabsinc@gmail.com
 By downloading, installing, accessing, or using Calyx Encrypted Messenger
 (package name: "com.calyxlabs.qpem", hereinafter "the Application"), you agree
 to be bound by these Terms of Service and the Calyx Public Open Source License
-1.0 (CPOSL-1.0). If you do not agree to these Terms, do not install or use the
+1.0 (CPOSLS-1.0). If you do not agree to these Terms, do not install or use the
 Application.
 
 2. QPEP KEY ACCOUNTS & SOVEREIGN ON-DEVICE CRYPTOGRAPHY

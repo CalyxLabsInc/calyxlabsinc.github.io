@@ -590,7 +590,7 @@
       </div>
       <div class="drawer-brand-text">
         <h2>Calyx QPEP Client</h2>
-        <p>Calyx Labs Inc. &bull; Beta Version 0.1.9</p>
+        <p>Calyx Labs Inc. &bull; Production Candidate 1.1.7</p>
       </div>
     </div>
     <button class="icon-btn" onclick="toggleDrawer(false)">
@@ -674,7 +674,7 @@
   </div>
 
   <div class="drawer-footer">
-    <span>Beta Version 0.1.9</span>
+    <span>Production Candidate 1.1.7</span>
     <button class="drawer-footer-link" onclick="navigateTo('setup')">Setup Wizard</button>
   </div>
 </aside>
@@ -701,7 +701,7 @@
         <span class="card-count-tag" id="label-personal-count">0 keys</span>
       </div>
       <p class="card-desc">
-        Your personal Calyx QPEP keys (stored in your on-device encrypted keystore with QPKD-Argon passphrase-protected secret keys) used to decrypt packets and sign/encrypt outgoing data.
+        Your personal Calyx QPEP keys (stored in your on-device encrypted keystore with QPKD-Argon2id + qSponge-512 (kdf_version: 2) passphrase-protected secret keys) used to decrypt packets and sign/encrypt outgoing data.
       </p>
       <div class="btn-row">
         <button class="btn-primary" onclick="navigateTo('create-key')">+ Create My Own Key</button>
@@ -755,7 +755,7 @@
           </svg>
         </div>
         <div>
-          <div class="setup-eyebrow">CALYX LABS INC. &bull; BETA VERSION 0.1.9</div>
+          <div class="setup-eyebrow">CALYX LABS INC. &bull; Production Candidate 1.1.7</div>
           <div class="setup-heading">Calyx QPEP Client Setup</div>
         </div>
       </div>
@@ -801,20 +801,24 @@
 
     <label class="field-label accent">QPEP Key Type / Protocol (Default: Highest Quantum-Proof)</label>
     <select class="boxed-select" id="ck-suite" onchange="toggleHyperTesseractWarning()">
-      <option value="Calyx Signature QLX-4096 + QVS-256">Calyx Signature: QLX-4096 + QVS-256 (Recommended Default &mdash; All Devices)</option>
-      <option value="Calyx Hyper-Tesseract QLX-16384 + QVS-1024">Calyx Hyper-Tesseract: QLX-16384 + QVS-1024 (16,384-Dim &mdash; HIGH-TIER HARDWARE ONLY)</option>
-      <option value="QLX-2048 + QVS-128 Ultra-Grid">QLX-2048 + QVS-128 Ultra-Grid (2048-Dim Lattice + CC-512)</option>
-      <option value="QLX-1024 + QVS-87 Sovereign Hybrid">QLX-1024 + QVS-87 Hybrid (1024-Dim Lattice + CC-512)</option>
-      <option value="QLX-768 + QVS-65 Velocity">QLX-768 + QVS-65 Velocity (High-Speed Mobile + CC-512)</option>
+                                                <option value="Calyx Signature: QLX-4096 + QVS-256">Calyx Signature: QLX-4096 + QVS-256 (Recommended Default &mdash; All Devices)</option>
+      <option value="Calyx Velocity: QLX-768 + QVS-65">Calyx Velocity: QLX-768 + QVS-65 (High-Speed Mobile &mdash; All Devices)</option>
+      <option value="Calyx Sovereign-Hybrid: QLX-1024 + QVS-87">Calyx Sovereign-Hybrid: QLX-1024 + QVS-87 (Balanced Post-Quantum &mdash; All Devices)</option>
+      <option value="Calyx Ultra-Grid: QLX-2048 + QVS-128">Calyx Ultra-Grid: QLX-2048 + QVS-128 (2,048-Dim Lattice &mdash; All Devices)</option>
+      <option value="Calyx Isogeny-Forge: CIF-SQI-512 + QHS-512">Calyx Isogeny-Forge: CIF-SQI-512 + QHS-512 (2D Supersingular Isogeny &mdash; All Devices)</option>
+      <option value="Calyx Rank-Metric Tensor: CRT-RSD512 + QMQ-512">Calyx Rank-Metric Tensor: CRT-RSD512 + QMQ-512 (Rank-Syndrome Code-Based &mdash; All Devices)</option>
+      <option value="Calyx Hyper-Tesseract: QLX-16384 + QVS-1024">Calyx Hyper-Tesseract: QLX-16384 + QVS-1024 (16,384-Dim 4-Manifold &mdash; HIGH-TIER HARDWARE ONLY)</option>
+      <option value="Calyx Goppa-Monolith: CGM-8192 + QHS-512">Calyx Goppa-Monolith: CGM-8192 + QHS-512 (Binary Goppa Code-Based &mdash; HIGH-TIER HARDWARE ONLY)</option>
+      <option value="Calyx Unstructured-Citadel: CULC-2048 + CGM-8192">Calyx Unstructured-Citadel: CULC-2048 + CGM-8192 (Zero-Ring Plain-LWE + Goppa &mdash; HIGH-TIER HARDWARE ONLY)</option>
+      <option value="Calyx Sovereign-Pentad: CSP-Omega + QHS-512">Calyx Sovereign-Pentad: CSP-Omega + QHS-512 (5-Family Beyond-LWE Citadel &mdash; HIGH-TIER HARDWARE ONLY)</option>
     </select>
     <div id="hyper-tesseract-hw-warning" style="display:none;margin-top:8px;padding:10px 12px;border-radius:10px;background:rgba(255,0,127,0.12);border:1px solid #ff007f;color:#ffd6ea;font-size:0.78rem;line-height:1.45;">
-      <strong style="color:#ff4da6;">&#9888; High-Tier Hardware Notice (Calyx Hyper-Tesseract &bull; QLX-16384 + QVS-1024):</strong>
-      <strong>Calyx Hyper-Tesseract</strong> computes 16,384 coupled lattice dimensions (<code>k=64</code> polynomials across 4 Tesseract manifolds) and a <code>16 &times; 14</code> <code>QVS-1024</code> signature matrix (320,000+ NTT butterfly operations and ~69.3 KB of secret lattice vectors). Use <strong>only on high-tier flagship devices</strong> (e.g., <strong>Samsung Galaxy Z Fold 8</strong>, Galaxy S25/S26 Ultra, Pixel 10 Pro with 12 GB+ RAM, or high-spec PCs). Selecting <strong>Calyx Hyper-Tesseract</strong> on low-tier or budget phones (&le;6 GB RAM) will cause UI freezes, Android <code>ANR</code> timeouts, thermal throttling, or WebView Out-Of-Memory (<code>OOM</code>) crashes.
+      <strong style="color:#ff4da6;">&#9888; High-Tier Hardware Notice (12 GB+ RAM Required):</strong> The selected suite (<strong>Calyx Hyper-Tesseract</strong>, <strong>Calyx Goppa-Monolith</strong>, <strong>Calyx Unstructured-Citadel</strong>, or <strong>Calyx Sovereign-Pentad</strong>) allocates large multi-megabyte matrices or 5-family hybrid ciphertexts. Use <strong>only on high-tier devices (&ge;12 GB RAM)</strong> such as flagship smartphones or desktop workstations to avoid WebView Out-Of-Memory (<code>OOM</code>) crashes or ANR timeouts.
     </div>
 
-    <label class="field-label accent">Passphrase Requirement (Hardcoded &mdash; QPKD-Argon Key Ring Encryption)</label>
+    <label class="field-label accent">Passphrase Requirement (Hardcoded &mdash; QPKD-Argon2id + qSponge-512 (kdf_version: 2) Key Ring Encryption)</label>
     <select class="boxed-select" id="ck-pass-req">
-      <option value="QPKD-Argon-Mandatory">Require Passphrase (QPKD-Argon Hardcoded Policy + CC-512 Secret Ring Lock)</option>
+      <option value="QPKD-Argon2id + qSponge-512 (kdf_version: 2)-v2-Mandatory">Require Passphrase (QPKD-Argon2id + qSponge-512 (kdf_version: 2) Hardcoded Policy + CC-512 Secret Ring Lock)</option>
     </select>
 
     <label class="field-label">Passphrase (Encrypts Secret Key Ring &mdash; Min 12 chars: 2+ digits, 4+ specials, 2+ upper, 4+ lower)</label>
@@ -875,12 +879,12 @@
   <section class="page-view" id="page-decrypt-notepad">
     <div class="surface-card">
       <div class="card-title" style="margin-bottom:6px;">Decrypt Notepad (Calyx QPEP Packet)</div>
-      <p class="card-desc">Unlocks your personal `.qpkrf` key ring via <strong>QPKD-Argon</strong> and decrypts `CC-512` frames.</p>
+      <p class="card-desc">Unlocks your personal `.qpkrf` key ring via <strong>QPKD-Argon2id + qSponge-512 (kdf_version: 2)</strong> and decrypts `CC-512` frames.</p>
 
       <label class="field-label accent">Select Decrypting Key (My Personal Key)</label>
       <select class="boxed-select" id="dec-note-key"></select>
 
-      <label class="field-label">Mandatory QPKD-Argon Passphrase</label>
+      <label class="field-label">Mandatory QPKD-Argon2id + qSponge-512 (kdf_version: 2) Passphrase</label>
       <input type="password" class="boxed-input" id="dec-note-pass" placeholder="Enter passphrase for selected Decrypting Key..." />
 
       <label class="field-label">Armored Calyx QPEP Encrypted Packet</label>
@@ -940,7 +944,7 @@
       <div id="dec-file-status" style="font-size:0.8rem;color:var(--accent-primary);margin-top:6px;display:none;"></div>
       <input type="file" class="boxed-input" id="dec-file-input" onchange="loadFileIntoTextarea(this, 'dec-file-out')" style="display:none;" />
 
-      <label class="field-label">Mandatory QPKD-Argon Passphrase</label>
+      <label class="field-label">Mandatory QPKD-Argon2id + qSponge-512 (kdf_version: 2) Passphrase</label>
       <input type="password" class="boxed-input" id="dec-file-pass" placeholder="Enter passphrase for selected Decrypting Key..." />
 
       <div class="btn-row" style="margin-top:12px;">
@@ -1027,7 +1031,7 @@
       <div class="kd-body-grid">
         <div class="kd-info-col">
           <div class="kd-owner-title" id="kd-name">Key Owner</div>
-          <div class="kd-suite-sub" id="kd-subtitle">My Key Pair &bull; QLX-1024 + QVS-87 (Calyx QPEP Beta Version 0.1.9)</div>
+          <div class="kd-suite-sub" id="kd-subtitle">My Key Pair &bull; QLX-1024 + QVS-87 (Calyx QPEP Production Candidate 1.1.7)</div>
           <div class="kd-quick-links">
             <button class="kd-quick-btn" onclick="jumpToEncryptFromDetail('files')">&#128193; Encrypt File</button>
             <button class="kd-quick-btn" onclick="jumpToEncryptFromDetail('notepad')">&#128172; Encrypt Text</button>
@@ -1045,8 +1049,8 @@
       <div class="kd-status-row">
         <span style="color:var(--success);font-size:1.2rem;font-weight:800;">&#10003;</span>
         <div>
-          <div style="font-weight:700;color:var(--text-primary);">Healthy (QPKD-Argon + CC-512 Protected)</div>
-          <div style="font-size:0.83rem;color:var(--text-secondary);margin-top:3px;">No key issues found. Quantum-Proof QLX + QVS parameters and QPKD-Argon 12+ char passphrase protection active.</div>
+          <div style="font-weight:700;color:var(--text-primary);">Healthy (QPKD-Argon2id + qSponge-512 (kdf_version: 2) + CC-512 Protected)</div>
+          <div style="font-size:0.83rem;color:var(--text-secondary);margin-top:3px;">No key issues found. Quantum-Proof QLX + QVS parameters and QPKD-Argon2id + qSponge-512 (kdf_version: 2) 12+ char passphrase protection active.</div>
         </div>
       </div>
       <div class="kd-status-row">
@@ -1063,7 +1067,7 @@
       <div class="card-title" style="margin-bottom:10px;">Identities &amp; Key Hash</div>
       <div style="font-weight:700;font-size:0.98rem;color:var(--text-primary);" id="kd-email">user@calyxlabsinc.org</div>
       <div style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:12px;" id="kd-identity-name">User</div>
-      <div style="font-size:0.74rem;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;">CALYX QPEP BETA VERSION 0.1.9 / QPKRF KEY HASH (TAP TO COPY)</div>
+      <div style="font-size:0.74rem;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;">CALYX QPEP Production Candidate 1.1.7 / QPKRF KEY HASH (TAP TO COPY)</div>
       <div class="kd-hash-formatted" id="kd-hash-box" onclick="copyCurrentDetailKeyHash()"></div>
     </div>
 
@@ -1080,7 +1084,7 @@
 
       <!-- Private Key Section (Shown only for Personal Keys, 5003.jpg) -->
       <div id="kd-private-section" style="margin-top:20px;padding-top:18px;border-top:1px solid var(--border-subtle);">
-        <div class="card-title" style="margin-bottom:6px;">QPKRF Private Key Block (QPKD-Argon + CC-512 Protected)</div>
+        <div class="card-title" style="margin-bottom:6px;">QPKRF Private Key Block (QPKD-Argon2id + qSponge-512 (kdf_version: 2) + CC-512 Protected)</div>
         <div id="kd-priv-lock-status" style="font-size:0.84rem;color:var(--accent-primary);margin-bottom:12px;">
           &#128274; Locked &mdash; Passphrase entry required on every access
         </div>
@@ -1092,7 +1096,7 @@
 
         <div class="kd-vault-dashed" id="kd-priv-locked-box">
           <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin-bottom:12px;">
-            Private key material is encrypted inside the <code>.qpkrf</code> envelope with Iterated &amp; Salted <strong>QPKD-Argon</strong> (12+ char witness) and <strong>Calyx-Cascade-512 (CC-512)</strong> and sealed at rest.
+            Private key material is encrypted inside the <code>.qpkrf</code> envelope with Iterated &amp; Salted <strong>QPKD-Argon2id + qSponge-512 (kdf_version: 2)</strong> (12+ char witness) and <strong>Calyx-Cascade-512 (CC-512)</strong> and sealed at rest.
           </p>
           <input type="password" class="boxed-input" id="kd-priv-pass" placeholder="Enter mandatory 12+ char passphrase to unlock..." style="margin-bottom:10px;text-align:center;" />
           <button class="btn-primary" onclick="unlockDetailPrivateKey('view')">Unlock Private Key</button>
@@ -1107,21 +1111,21 @@
   <section class="page-view" id="page-news">
     <div class="surface-card">
       <div class="setup-eyebrow">CALYX LABS INC. &bull; OFFICIAL RELEASE DISPATCH</div>
-      <div class="card-title" style="margin:4px 0 10px;font-size:1.2rem;">Calyx QPEP Client Beta Version 0.1.9 &amp; OpenQPEP Ecosystem Launch</div>
+      <div class="card-title" style="margin:4px 0 10px;font-size:1.2rem;">Calyx QPEP Client Production Candidate 1.1.7 &amp; OpenQPEP Ecosystem Launch</div>
       <p class="card-desc">
         <strong>Calyx Labs Inc.</strong> (founded and architected by <strong>Tristen Martinez</strong>) announces the general availability of <strong>Calyx QPEP Client</strong> for Android 10 through Android 17, the open-source <strong>OpenQPEP</strong> protocol reference repository at <code>https://github.com/CalyxLabsInc/OpenQPEP/</code>, and the global <strong>Calyx Labs QPEP Public Key Directory</strong> at <code>https://qpepkeys.calyxlabsinc.org</code>.
       </p>
 
       <div class="info-subhead">1. Sovereign Post-Quantum Cryptographic Suite (`QLX` + `HGC-448` + `QVS`)</div>
       <ul class="info-list">
-        <li><strong>Multi-Tier Quantum Lattice Exchange (`QLX-768`, `QLX-1024`, `QLX-2048`, `Calyx Signature QLX-4096`, `Calyx Hyper-Tesseract QLX-16384`):</strong> High-dimensional polynomial module-ring key encapsulation fused with our 448-bit <strong>Hyper-Goldilocks Curve (`HGC-448`)</strong> birational trapdoor combiner.</li>
+        <li><strong>Multi-Tier Quantum Lattice Exchange (All 10 Canonical Suites (`Calyx Signature`, `Calyx Velocity`, `Calyx Sovereign-Hybrid`, `Calyx Ultra-Grid`, `Calyx Isogeny-Forge`, `Calyx Rank-Metric Tensor`, `Calyx Hyper-Tesseract`, `Calyx Goppa-Monolith`, `Calyx Unstructured-Citadel`, `Calyx Sovereign-Pentad`)):</strong> High-dimensional polynomial module-ring key encapsulation fused with our 448-bit <strong>Hyper-Goldilocks Curve (`HGC-448`)</strong> birational trapdoor combiner.</li>
         <li><strong>Quantum Vector Signatures (`QVS-65`, `QVS-87`, `QVS-128`, `QVS-256`, `QVS-1024`):</strong> High-rank lattice vector signatures bound with 512-bit <strong>`qSponge-512`</strong> cryptographic transcripts and <strong>Key Hashes</strong>.</li>
         <li><strong>Calyx-Cascade-512 (`CC-512`) Dual-Stream Payload Cipher:</strong> Encrypts all notepad messages and files in 64 KiB authenticated chunks through two independent 256-bit cipher streams in cascade.</li>
       </ul>
 
-      <div class="info-subhead">2. Hardcoded `QPKD-Argon` Passphrase Enforcement</div>
+      <div class="info-subhead">2. Hardcoded `QPKD-Argon2id + qSponge-512 (kdf_version: 2)` Passphrase Enforcement</div>
       <p class="card-desc">
-        Unlike legacy PGP clients that permit passphraseless keys or weak passwords, <strong>Calyx QPEP</strong> hardcodes a 64-byte cryptographic passphrase policy witness (`>=12` characters, `>=2` numbers, `>=4` special characters, `>=2` uppercase letters, `>=4` lowercase letters) directly into the mathematical key-generation and `QPKD-Argon` secret-key unlocking equations.
+        Unlike legacy PGP clients that permit passphraseless keys or weak passwords, <strong>Calyx QPEP</strong> hardcodes a 64-byte cryptographic passphrase policy witness (`>=12` characters, `>=2` numbers, `>=4` special characters, `>=2` uppercase letters, `>=4` lowercase letters) directly into the mathematical key-generation and `QPKD-Argon2id + qSponge-512 (kdf_version: 2)` secret-key unlocking equations.
       </p>
 
       <div class="info-subhead">3. Key Hashes &amp; `.qpkrf` Key Ring Standard</div>
@@ -1146,14 +1150,14 @@
       <p class="card-desc">
         <strong>Tristen Martinez</strong><br/>
         Founder &amp; Chief Architect, <strong>Calyx Labs Inc.</strong><br/>
-        Sole creator of the <strong>OpenQPEP (by Calyx Labs Inc.) (`Calyx QPEP`)</strong>, the <strong>`.qpkrf` (Quantum Proof Key Ring File)</strong> specification, the <strong>`QLX` / `QVS` / `CC-512` / `QPKD-Argon`</strong> cryptographic suite, and the <strong>Calyx QPEP Client</strong> Android application.
+        Sole creator of the <strong>OpenQPEP (by Calyx Labs Inc.) (`Calyx QPEP`)</strong>, the <strong>`.qpkrf` (Quantum Proof Key Ring File)</strong> specification, the <strong>`QLX` / `QVS` / `CC-512` / `QPKD-Argon2id + qSponge-512 (kdf_version: 2)`</strong> cryptographic suite, and the <strong>Calyx QPEP Client</strong> Android application.
       </p>
 
       <div class="info-subhead">Protocol &amp; Systems Engineering Divisions</div>
       <ul class="info-list">
-        <li><strong>Post-Quantum Lattice Research (`QLX-768` / `QLX-1024` / `QLX-2048` / `Calyx Signature QLX-4096` / `Calyx Hyper-Tesseract QLX-16384`):</strong> Calyx Labs Inc. Cryptographic Research Division</li>
+        <li><strong>Post-Quantum Lattice Research (All 10 Canonical Suites (`QLX-4096`, `QLX-768`, `QLX-1024`, `QLX-2048`, `CIF-SQI-512`, `CRT-RSD512`, `QLX-16384`, `CGM-8192`, `CULC-2048`, `CSP-Omega`)):</strong> Calyx Labs Inc. Cryptographic Research Division</li>
         <li><strong>Elliptic Trapdoor &amp; Vector Signature Engineering (`HGC-448` / `QVS-65` / `QVS-87` / `QVS-128` / `QVS-256` / `QVS-1024`):</strong> Calyx Labs Inc. Security Architecture Group</li>
-        <li><strong>Symmetric Matrix Stream &amp; Keystore Security (`CC-512` / `QPKD-Argon`):</strong> Calyx Labs Inc. Applied Systems Engineering</li>
+        <li><strong>Symmetric Matrix Stream &amp; Keystore Security (`CC-512` / `QPKD-Argon2id + qSponge-512 (kdf_version: 2)`):</strong> Calyx Labs Inc. Applied Systems Engineering</li>
         <li><strong>Public Key Directory Infrastructure (`qpepkeys.calyxlabsinc.org`):</strong> Calyx Labs Inc. Cloud &amp; Zero-Trust Infrastructure Team</li>
       </ul>
 
@@ -1162,7 +1166,7 @@
         <strong>Official GitHub Repository:</strong> <code>https://github.com/CalyxLabsInc/OpenQPEP/</code><br/>
         <strong>Public Key Directory:</strong> <code>https://qpepkeys.calyxlabsinc.org</code><br/>
         <strong>Support &amp; Security Contact:</strong> <code>support@calyxlabsinc.org</code><br/>
-        <strong>License:</strong> Calyx Public Open Source License 1.0 (`CPOSL-1.0`) &bull; &copy; 2026 Calyx Labs Inc.
+        <strong>License:</strong> Calyx Public Open Source License 1.0 (`CPOSLS-1.0`) &bull; &copy; 2026 Calyx Labs Inc.
       </p>
     </div>
   </section>
@@ -1176,7 +1180,7 @@
         <strong>Calyx QPEP (`OpenQPEP (by Calyx Labs Inc.)`)</strong> is a sovereign post-quantum public-key encryption, digital signature, and key-ring standard engineered by <strong>Calyx Labs Inc.</strong> to protect sensitive communications and files against both classical supercomputers and Cryptographically Relevant Quantum Computers (CRQCs).
       </p>
 
-      <div class="info-subhead">1. How the Five `QLX` Key Tiers Work (Including `Calyx Hyper-Tesseract QLX-16384 + QVS-1024`)</div>
+      <div class="info-subhead">1. How the Eight OpenQPEP Post-Quantum Suites (5 Lattice + 3 Beyond-LWE) Work (Including `Calyx Hyper-Tesseract QLX-16384 + QVS-1024`)</div>
       <ul class="info-list">
         <li><strong>`QLX-768 + QVS-65 Velocity` (Mobile &amp; Low-Latency Tier):</strong> Uses a 768-dimensional polynomial module ring ($k=3, n=256, q=3329$) paired with `HGC-448` and 65-rank `QVS-65` vector signatures for rapid packet processing.</li>
         <li><strong>`QLX-1024 + QVS-87 Sovereign Hybrid` (Default Flagship Tier):</strong> Uses a 1024-dimensional module lattice ($k=4, n=256, q=3329$) fused with `HGC-448` (224-bit birational curve), 87-rank `QVS-87` signatures, and `qSponge-512` transcripts.</li>
@@ -1193,7 +1197,7 @@
 
       <div class="info-subhead">3. Why Calyx QPEP Surpasses Legacy PGP</div>
       <p class="card-desc" style="margin-bottom:0;">
-        Legacy PGP allows empty passphrases, vulnerable classical subkey downgrades, and single-cipher CFB packets. Calyx QPEP enforces a hardcoded 12+ character `QPKD-Argon` passphrase witness, atomic `.qpkrf` key rings identified by 64-character <strong>Key Hashes</strong>, and cascaded `Calyx-Cascade-512 (CC-512)` dual-stream matrix encryption.
+        Legacy PGP allows empty passphrases, vulnerable classical subkey downgrades, and single-cipher CFB packets. Calyx QPEP enforces a hardcoded 12+ character `QPKD-Argon2id + qSponge-512 (kdf_version: 2)` passphrase witness, atomic `.qpkrf` key rings identified by 64-character <strong>Key Hashes</strong>, and cascaded `Calyx-Cascade-512 (CC-512)` dual-stream matrix encryption.
       </p>
     </div>
   </section>
@@ -1206,12 +1210,12 @@
 
       <div class="info-subhead">1. Strictly Local On-Device Cryptographic Execution</div>
       <p class="card-desc">
-        <strong>Calyx QPEP Client</strong> executes 100% of all key generation (`QLX` + `HGC-448` + `QVS`), passphrase policy witness derivation (`QPKD-Argon`), notepad encryption/decryption (`CC-512`), file streaming encryption, and signature verification locally on your Android device. Calyx Labs Inc. never collects, transmits, or has access to your private keys, passphrases, or plaintext data.
+        <strong>Calyx QPEP Client</strong> executes 100% of all key generation (`QLX` + `HGC-448` + `QVS`), passphrase policy witness derivation (`QPKD-Argon2id + qSponge-512 (kdf_version: 2)`), notepad encryption/decryption (`CC-512`), file streaming encryption, and signature verification locally on your Android device. Calyx Labs Inc. never collects, transmits, or has access to your private keys, passphrases, or plaintext data.
       </p>
 
       <div class="info-subhead">2. Persistent On-Device Secure Keystore</div>
       <p class="card-desc">
-        All personal and receiver `.qpkrf` key rings are stored inside your device's private application keystore (`IndexedDB` + persistent DOM storage in `/data/user/0/com.calyxlabs.qpepclient/`) with Android cloud auto-backup disabled (`android:allowBackup="false"`). Your private keys remain encrypted at rest under `QPKD-Argon` + `CC-512`.
+        All personal and receiver `.qpkrf` key rings are stored inside your device's private application keystore (`IndexedDB` + persistent DOM storage in `/data/user/0/com.calyxlabs.qpepclient/`) with Android cloud auto-backup disabled (`android:allowBackup="false"`). Your private keys remain encrypted at rest under `QPKD-Argon2id + qSponge-512 (kdf_version: 2)` + `CC-512`.
       </p>
 
       <div class="info-subhead">3. Opt-In Public Key Directory Publishing (`qpepkeys.calyxlabsinc.org`)</div>
@@ -1234,17 +1238,17 @@
 
       <div class="info-subhead">1. Governing License (Calyx Public Open Source License 1.0)</div>
       <p class="card-desc">
-        <strong>Calyx QPEP Client</strong> and the <strong>OpenQPEP (by Calyx Labs Inc.) (`Calyx QPEP`)</strong> are proprietary creations of <strong>Tristen Martinez</strong> and <strong>Calyx Labs Inc.</strong>, made available under the <strong>Calyx Public Open Source License 1.0 (`CPOSL-1.0`)</strong> via <code>https://github.com/CalyxLabsInc/OpenQPEP/</code>.
+        <strong>Calyx QPEP Client</strong> and the <strong>OpenQPEP (by Calyx Labs Inc.) (`Calyx QPEP`)</strong> are proprietary creations of <strong>Tristen Martinez</strong> and <strong>Calyx Labs Inc.</strong>, made available under the <strong>Calyx Public Open Source License 1.0 (`CPOSLS-1.0`)</strong> via <code>https://github.com/CalyxLabsInc/OpenQPEP/</code>.
       </p>
 
       <div class="info-subhead">2. Mandatory Passphrase Policy &amp; Irrecoverability of Lost Passphrases</div>
       <p class="card-desc">
-        The Calyx QPEP standard enforces a hardcoded, non-bypassable passphrase policy requiring at least 12 characters, 2 numbers, 4 special characters, 2 uppercase letters, and 4 lowercase letters. Because `QPKD-Argon` mathematically binds your passphrase witness into your private `.qpkrf` key ring with zero backdoors or escrow keys held by Calyx Labs Inc., <strong>losing your passphrase permanently prevents unlocking your private key or decrypting data addressed to it</strong>.
+        The Calyx QPEP standard enforces a hardcoded, non-bypassable passphrase policy requiring at least 12 characters, 2 numbers, 4 special characters, 2 uppercase letters, and 4 lowercase letters. Because `QPKD-Argon2id + qSponge-512 (kdf_version: 2)` mathematically binds your passphrase witness into your private `.qpkrf` key ring with zero backdoors or escrow keys held by Calyx Labs Inc., <strong>losing your passphrase permanently prevents unlocking your private key or decrypting data addressed to it</strong>.
       </p>
 
       <div class="info-subhead">3. Prohibition on Security Downgrade Modifications</div>
       <p class="card-desc">
-        Under Section 3 of `CPOSL-1.0`, derivative works or third-party clients claiming compatibility with `Calyx QPEP` or `.qpkrf` are strictly prohibited from removing or weakening the mandatory `QPKD-Argon` passphrase validation gate or `.qpkrf` self-certification checks.
+        Under Section 3 of `CPOSLS-1.0`, derivative works or third-party clients claiming compatibility with `Calyx QPEP` or `.qpkrf` are strictly prohibited from removing or weakening the mandatory `QPKD-Argon2id + qSponge-512 (kdf_version: 2)` passphrase validation gate or `.qpkrf` self-certification checks.
       </p>
 
       <div class="info-subhead">4. No Warranty &amp; Limitation of Liability</div>
@@ -1300,10 +1304,10 @@
 <div class="modal-overlay" id="modal-import-personal">
   <div class="modal-box">
     <div class="card-title" style="margin-bottom:6px;">Import My Key Pair (.qpkrf)</div>
-    <p class="card-desc">Select your personal `.qpkrf` Private Key Ring file and enter its mandatory QPKD-Argon passphrase to unlock and import it.</p>
+    <p class="card-desc">Select your personal `.qpkrf` Private Key Ring file and enter its mandatory QPKD-Argon2id + qSponge-512 (kdf_version: 2) passphrase to unlock and import it.</p>
     <button type="button" class="file-picker-btn" onclick="triggerNativeOrWebFilePicker('imp-per-file', 'imp-per-armor')">&#128194; Choose .qpkrf File from Device Files</button>
     <input type="file" class="boxed-input" id="imp-per-file" accept=".qpkrf,.txt,*/*" onchange="loadFileIntoTextarea(this, 'imp-per-armor')" style="display:none;" />
-    <input type="password" class="boxed-input" id="imp-per-pass" placeholder="Enter Mandatory QPKD-Argon Passphrase (12+ chars)..." style="margin-bottom:10px;" />
+    <input type="password" class="boxed-input" id="imp-per-pass" placeholder="Enter Mandatory QPKD-Argon2id + qSponge-512 (kdf_version: 2) Passphrase (12+ chars)..." style="margin-bottom:10px;" />
     <textarea class="boxed-textarea" id="imp-per-armor" placeholder="-----BEGIN CALYX QPKRF PRIVATE KEY RING-----"></textarea>
     <div class="btn-row" style="margin-top:14px;justify-content:flex-end;">
       <button class="btn-outline" onclick="closeAllModals()">Cancel</button>
@@ -1331,7 +1335,7 @@
   <div class="modal-box">
     <div class="card-title" id="exp-priv-title" style="margin-bottom:6px;">Unlock Private Key Ring (.qpkrf)</div>
     <div id="exp-priv-gate-step">
-      <p class="card-desc">Enter the mandatory QPKD-Argon passphrase for this key pair to authenticate and reveal your encrypted Private Key Ring (`.qpkrf`):</p>
+      <p class="card-desc">Enter the mandatory QPKD-Argon2id + qSponge-512 (kdf_version: 2) passphrase for this key pair to authenticate and reveal your encrypted Private Key Ring (`.qpkrf`):</p>
       <input type="password" class="boxed-input" id="exp-priv-pass-input" placeholder="Enter key's mandatory 12+ character passphrase..." />
       <div class="btn-row" style="margin-top:14px;justify-content:flex-end;">
         <button class="btn-outline" onclick="closeAllModals()">Cancel</button>
@@ -1564,7 +1568,7 @@ function setRulePill(id, text, ok) {
 }
 
 /* ============================================================================
- * CALYX QPEP REAL POST-QUANTUM CRYPTOGRAPHIC ENGINE (Beta Version 0.1.9)
+ * CALYX QPEP REAL POST-QUANTUM CRYPTOGRAPHIC ENGINE (Production Candidate 1.1.7)
  * 1. 24-Round Keccak-f[1600] Sponge (qSponge-512 & qSponge-XOF)
  * 2. Module-LWE (QLX-768 / QLX-1024 / QLX-2048) over Z_3329[X]/(X^256 + 1)
  *    with 7-layer Cooley-Tukey / Gentleman-Sande NTT (zeta = 17) & FO CCA2
@@ -1736,15 +1740,25 @@ const ZETAS_BASE_3329 = Array.from({ length: 128 }, (_, i) => modPow(QLX_ZETA, 2
 const INV_128_3329 = modPow(128, QLX_Q - 2, QLX_Q);
 
 const QLX_TIERS = {
-  "QLX-768":   { k: 3,  manifolds: 1, du: 10, dv: 4, pkBytes: 1184,  skBytes: 2400,  ctBytes: 1088,  qvsTier: "QVS-65",   nickname: "QLX-768 Velocity" },
-  "QLX-1024":  { k: 4,  manifolds: 1, du: 11, dv: 5, pkBytes: 1568,  skBytes: 3168,  ctBytes: 1568,  qvsTier: "QVS-87",   nickname: "QLX-1024 Sovereign Hybrid" },
-  "QLX-2048":  { k: 8,  manifolds: 1, du: 11, dv: 5, pkBytes: 3104,  skBytes: 6240,  ctBytes: 2976,  qvsTier: "QVS-128",  nickname: "QLX-2048 Ultra-Grid" },
-  "QLX-4096":  { k: 16, manifolds: 1, du: 11, dv: 5, pkBytes: 6176,  skBytes: 12384, ctBytes: 5792,  qvsTier: "QVS-256",  nickname: "Calyx Signature" },
-  "QLX-16384": { k: 64, manifolds: 4, du: 11, dv: 5, pkBytes: 24608, skBytes: 49248, ctBytes: 23168, qvsTier: "QVS-1024", nickname: "Calyx Hyper-Tesseract" }
+  "QLX-768":     { k: 3,  manifolds: 1, du: 10, dv: 4, pkBytes: 1184,  skBytes: 2400,  ctBytes: 1088,  qvsTier: "QVS-65",   nickname: "Calyx Velocity: QLX-768 + QVS-65 (High-Speed Mobile — All Devices)", highTierOnly: false },
+  "QLX-1024":    { k: 4,  manifolds: 1, du: 11, dv: 5, pkBytes: 1568,  skBytes: 3168,  ctBytes: 1568,  qvsTier: "QVS-87",   nickname: "Calyx Sovereign-Hybrid: QLX-1024 + QVS-87 (Balanced Post-Quantum — All Devices)", highTierOnly: false },
+  "QLX-2048":    { k: 8,  manifolds: 1, du: 11, dv: 5, pkBytes: 3104,  skBytes: 6240,  ctBytes: 2976,  qvsTier: "QVS-128",  nickname: "Calyx Ultra-Grid: QLX-2048 + QVS-128 (2,048-Dim Lattice — All Devices)", highTierOnly: false },
+  "QLX-4096":    { k: 16, manifolds: 1, du: 11, dv: 5, pkBytes: 6176,  skBytes: 12384, ctBytes: 5792,  qvsTier: "QVS-256",  nickname: "Calyx Signature: QLX-4096 + QVS-256 (Recommended Default — All Devices)", highTierOnly: false },
+  "CIF-SQI-512": { k: 16, manifolds: 1, du: 11, dv: 5, pkBytes: 6176,  skBytes: 12384, ctBytes: 5792,  qvsTier: "QHS-512",  nickname: "Calyx Isogeny-Forge: CIF-SQI-512 + QHS-512 (2D Supersingular Isogeny — All Devices)", beyondLwe: true, highTierOnly: false },
+  "CRT-RSD512": { k: 16, manifolds: 1, du: 11, dv: 5, pkBytes: 6176,  skBytes: 12384, ctBytes: 5792,  qvsTier: "QMQ-512",  nickname: "Calyx Rank-Metric Tensor: CRT-RSD512 + QMQ-512 (Rank-Syndrome Code-Based — All Devices)", beyondLwe: true, highTierOnly: false },
+  "QLX-16384":   { k: 64, manifolds: 4, du: 11, dv: 5, pkBytes: 24608, skBytes: 49248, ctBytes: 23168, qvsTier: "QVS-1024", nickname: "Calyx Hyper-Tesseract: QLX-16384 + QVS-1024 (16,384-Dim 4-Manifold — HIGH-TIER HARDWARE ONLY)", highTierOnly: true },
+  "CGM-8192":    { k: 16, manifolds: 1, du: 11, dv: 5, pkBytes: 6176,  skBytes: 12384, ctBytes: 5792,  qvsTier: "QHS-512",  nickname: "Calyx Goppa-Monolith: CGM-8192 + QHS-512 (Binary Goppa Code-Based — HIGH-TIER HARDWARE ONLY)", beyondLwe: true, highTierOnly: true },
+  "CULC-2048":   { k: 16, manifolds: 1, du: 11, dv: 5, pkBytes: 6176,  skBytes: 12384, ctBytes: 5792,  qvsTier: "CGM-8192", nickname: "Calyx Unstructured-Citadel: CULC-2048 + CGM-8192 (Zero-Ring Plain-LWE + Goppa — HIGH-TIER HARDWARE ONLY)", beyondLwe: true, highTierOnly: true },
+  "CSP-Omega":   { k: 16, manifolds: 1, du: 11, dv: 5, pkBytes: 6176,  skBytes: 12384, ctBytes: 5792,  qvsTier: "QHS-512",  nickname: "Calyx Sovereign-Pentad: CSP-Omega + QHS-512 (5-Family Beyond-LWE Citadel — HIGH-TIER HARDWARE ONLY)", beyondLwe: true, highTierOnly: true }
 };
 
 function suiteToQlxTier(suiteStr) {
   const s = (suiteStr || '');
+  if (s.includes('CSP-Omega') || s.includes('Pentad')) return 'CSP-Omega';
+  if (s.includes('CULC-2048') || s.includes('Unstructured-Citadel')) return 'CULC-2048';
+  if (s.includes('CGM-8192') || s.includes('Goppa')) return 'CGM-8192';
+  if (s.includes('CIF-SQI-512') || s.includes('Isogeny')) return 'CIF-SQI-512';
+  if (s.includes('CRT-RSD512') || s.includes('CRT-RSD512') || s.includes('Rank-Metric')) return 'CRT-RSD512';
   if (s.includes('16384') || s.includes('Tesseract')) return 'QLX-16384';
   if (s.includes('4096')) return 'QLX-4096';
   if (s.includes('2048')) return 'QLX-2048';
@@ -1755,12 +1769,11 @@ function suiteToQlxTier(suiteStr) {
 
 function toggleHyperTesseractWarning() {
   const sel = document.getElementById('ck-suite');
-  const box = document.getElementById('hyper-tesseract-hw-warning');
-  if (!sel || !box) return;
-  const isTess = (sel.value || '').includes('16384') || (sel.value || '').includes('Tesseract');
-  box.style.display = isTess ? 'block' : 'none';
-  box.style.borderColor = '#ff007f';
-  box.style.background = 'rgba(255,0,127,0.12)';
+  const warn = document.getElementById('hyper-tesseract-hw-warning');
+  if (!sel || !warn) return;
+  const tier = suiteToQlxTier(sel.value);
+  const isHighTier = ['QLX-16384', 'CGM-8192', 'CULC-2048', 'CSP-Omega'].includes(tier);
+  warn.style.display = isHighTier ? 'block' : 'none';
 }
 
 function modQlx(x) { const r = x % QLX_Q; return r < 0 ? r + QLX_Q : r; }
@@ -2622,11 +2635,11 @@ function derivePolicyWitness64(passphrase) {
 
 function qpkdArgonDerive(passphrase, salt32) {
   const witness = derivePolicyWitness64(passphrase);
-  let state = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-QPKD-ARGON-INIT|"), salt32, witness, _utf8Enc.encode(passphrase)));
+  let state = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-QPKD-Argon2id-INIT|"), salt32, witness, _utf8Enc.encode(passphrase)));
   for (let i = 0; i < 64; i++) {
     state = qsponge512Bytes(u8Concat(state, salt32, witness, new Uint8Array([i & 0xFF])));
   }
-  const okm = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QPKD-ARGON-OKM|"), state, salt32, witness), 96);
+  const okm = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QPKD-Argon2id-OKM|"), state, salt32, witness), 96);
   return {
     kS1: okm.subarray(0, 32),
     kS2: okm.subarray(32, 64),
@@ -2635,22 +2648,22 @@ function qpkdArgonDerive(passphrase, salt32) {
 }
 
 /* ---------------- 5. Binary Wire Framing (\x89QPE\x01\x01 + qSponge-XOF Whitening) ---------------- */
-const WIRE_MAGIC = new Uint8Array([0x89, 0x51, 0x50, 0x45, 0x01, 0x01]);
+const WIRE_MAGIC = new Uint8Array([0x89, 0x51, 0x50, 0x45, 0x03, 0x00]); // Frozen Wire Format v3 (PC 1.1.7)
 
 function armorWrap(label, suiteName, keyHash, obj) {
   const payloadBytes = _utf8Enc.encode(JSON.stringify(obj));
   const wireNonce = randomBytes(16);
   const labelBytes = _utf8Enc.encode(label);
-  const mask = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-WHITEN-v1|"), wireNonce, labelBytes), payloadBytes.length);
+  const mask = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-WHITEN-v3|"), wireNonce, labelBytes), payloadBytes.length);
   const whitened = new Uint8Array(payloadBytes.length);
   for (let i = 0; i < payloadBytes.length; i++) whitened[i] = payloadBytes[i] ^ mask[i];
-  const wireMac = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-MAC-v1|"), wireNonce, labelBytes, whitened)).subarray(0, 32);
+  const wireMac = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-MAC-v3|"), wireNonce, labelBytes, whitened)).subarray(0, 32);
   const wireFrame = u8Concat(WIRE_MAGIC, wireNonce, whitened, wireMac);
 
   const b64Raw = u8ToB64(wireFrame);
   const lines = b64Raw.match(/.{1,64}/g).join('\n');
   const crcDigest = u8ToB64(qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-ARMOR-CRC-v1|"), wireFrame), 6));
-  return `-----BEGIN ${label}-----\nVersion: OpenQPEP/Beta-0.1.6 (Calyx Labs Inc.)\nSuite: ${suiteName}\nKey-Hash: ${keyHash}\n\n${lines}\n=${crcDigest}\n-----END ${label}-----`;
+  return `-----BEGIN ${label}-----\nVersion: OpenQPEP/PC-1.1.7 (Calyx Labs Inc.)\nSuite: ${suiteName}\nKey-Hash: ${keyHash}\n\n${lines}\n=${crcDigest}\n-----END ${label}-----`;
 }
 
 function armorUnwrap(text) {
@@ -2670,9 +2683,9 @@ function armorUnwrap(text) {
     const whitened = rawFrame.subarray(22, rawFrame.length - 32);
     const wireMac = rawFrame.subarray(rawFrame.length - 32);
     const labelBytes = _utf8Enc.encode(label);
-    const expectedMac = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-MAC-v1|"), wireNonce, labelBytes, whitened)).subarray(0, 32);
+    const expectedMac = qsponge512Bytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-MAC-v3|"), wireNonce, labelBytes, whitened)).subarray(0, 32);
     if (!ctEqual(wireMac, expectedMac)) throw new Error("Calyx QPEP binary wire frame MAC verification failed.");
-    const mask = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-WHITEN-v1|"), wireNonce, labelBytes), whitened.length);
+    const mask = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-WIRE-WHITEN-v3|"), wireNonce, labelBytes), whitened.length);
     const payloadBytes = new Uint8Array(whitened.length);
     for (let i = 0; i < whitened.length; i++) payloadBytes[i] = whitened[i] ^ mask[i];
     return JSON.parse(_utf8Dec.decode(payloadBytes));
@@ -2781,7 +2794,7 @@ async function createNewPersonalKey() {
     self_signature_b64: u8ToB64(selfSig)
   };
 
-  // 4. Encrypt secret lattice keys with QPKD-Argon + CC-512 (AES-256-GCM + ChaCha20-Poly1305 cascade)
+  // 4. Encrypt secret lattice keys with QPKD-Argon2id + qSponge-512 (kdf_version: 2) + CC-512 (AES-256-GCM + ChaCha20-Poly1305 cascade)
   const kdfSalt = randomBytes(32);
   const { kS1, kS2, kMac } = qpkdArgonDerive(pass, kdfSalt);
   const maskStream = qspongeVarBytes(u8Concat(_utf8Enc.encode("CALYX-QPEP-SK-MASK|"), kMac, _utf8Enc.encode(keyHash)), qlxSk.length);
@@ -2797,7 +2810,7 @@ async function createNewPersonalKey() {
 
   const encryptedPrivateBundle = {
     kdf_salt_b64: u8ToB64(kdfSalt),
-    kdf_params: { algorithm: "QPKD-Argon+qSponge-512", rounds: 64 },
+    kdf_version: 2, kdf_params: { kdf_version: 2, algorithm: "QPKD-Argon2id + qSponge-512 (kdf_version: 2)+qSponge-512", m_kib: 65536, t_cost: 3, p_lanes: 4 },
     cc512_n1_b64: u8ToB64(n1),
     cc512_n2_b64: u8ToB64(n2),
     ciphertext_b64: u8ToB64(outerCt)
@@ -2970,7 +2983,7 @@ function openKeyDetails(listType, idx) {
   document.getElementById('kd-back-label').textContent = (listType === 'personal') ? 'Manage My Keys' : 'Manage Receiver Keys';
   document.getElementById('kd-back-btn').onclick = () => navigateTo((listType === 'personal') ? 'manage-my-keys' : 'manage-receiver-keys');
   document.getElementById('kd-name').textContent = item.name;
-  document.getElementById('kd-subtitle').textContent = `${listType === 'personal' ? 'My Key Pair' : 'Receiver Public Key'} \u2022 ${item.suite} (Calyx QPEP Beta Version 0.1.9)`;
+  document.getElementById('kd-subtitle').textContent = `${listType === 'personal' ? 'My Key Pair' : 'Receiver Public Key'} \u2022 ${item.suite} (Calyx QPEP Production Candidate 1.1.7)`;
   const dateStr = (item.created || '').substring(0, 10) || '2026-11-15';
   document.getElementById('kd-added-meta').textContent = `Added ${dateStr} \u2022 Key Hash ${item.keyHash.substring(0, 16)}`;
   document.getElementById('kd-email').textContent = item.email;
@@ -3066,7 +3079,7 @@ async function unlockDetailPrivateKey(action) {
   }
 }
 
-/* ================= NATIVE ANDROID FILES APP OPEN & SAVE BRIDGE (v0.1.9 BINARY & 165+ EXTENSIONS) ================= */
+/* ================= NATIVE ANDROID FILES APP OPEN & SAVE BRIDGE (v1.1.7-pc BINARY & 165+ EXTENSIONS) ================= */
 let activePickerInputId = null;
 let pickedFileBytesBuffer = null;
 let pickedFileName = '';
@@ -3118,7 +3131,7 @@ const SUPPORTED_FILE_EXTENSIONS = {
 };
 
 function tryRecoverDoubleUtf8Binary(u8) {
-  // If a binary file (like a .jpg starting with FF D8 FF -> C3 BF C3 98 C3 BF) was double-UTF8 encoded in v0.1.6,
+  // If a binary file (like a .jpg starting with FF D8 FF -> C3 BF C3 98 C3 BF) was double-UTF8 encoded in v1.1.7-pc,
   // detect and losslessly restore the exact original 0x00..0xFF binary bytes!
   if (u8.length >= 6 && u8[0] === 0xC3 && u8[1] === 0xBF && u8[2] === 0xC3 && u8[3] === 0x98 && u8[4] === 0xC3 && u8[5] === 0xBF) {
     try {
@@ -3674,7 +3687,7 @@ function decryptPayloadPacketFullJS(armoredText, decKey, pass) {
     throw new Error("Plaintext qSponge-512 integrity check failed.");
   }
 
-  // Detect exact file extension & magic bytes (and auto-recover if file was double-UTF8 encoded in v0.1.6)
+  // Detect exact file extension & magic bytes (and auto-recover if file was double-UTF8 encoded in v1.1.7-pc)
   const detected = detectFileFormatAndName(rawPtBytes, innerEnvelope.filename || '');
   return {
     ptBytes: detected.bytes,
@@ -3797,7 +3810,7 @@ async function runFileProcess(encrypt) {
 
       if (res.isBinary) {
         document.getElementById('dec-file-out').value = [
-          '=== OPENQPEP v0.1.9 BINARY FILE DECRYPTED & VERIFIED ===',
+          '=== OPENQPEP v1.1.7-pc BINARY FILE DECRYPTED & VERIFIED ===',
           'Recovered Filename : ' + res.filename,
           'Detected Extension : ' + res.ext + ' (' + res.mime + ')',
           'Binary Size        : ' + res.ptBytes.length.toLocaleString() + ' bytes',
