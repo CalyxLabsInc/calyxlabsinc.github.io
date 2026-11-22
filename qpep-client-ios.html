@@ -4309,6 +4309,19 @@ window.addEventListener('DOMContentLoaded', async function() {
     } catch (e) {}
     return { gb: 0, capped: true };
   }
+  function detectDeviceRamInfo() {
+    try {
+      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
+        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
+        if (gb > 0) return { gb: gb, capped: false };
+      }
+      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
+        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
+        return { gb: navigator.deviceMemory, capped: true };
+      }
+    } catch (e) {}
+    return { gb: 0, capped: true };
+  }
   function detectDeviceRamGiB() { return detectDeviceRamInfo().gb; }
   window.openqpepDeviceRamGiB = detectDeviceRamGiB;
   window.openqpepIsHighTierDevice = function () {
