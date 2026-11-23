@@ -3102,7 +3102,7 @@ async function createNewPersonalKey() {
   Object.assign(pubEnvelope, {
     format: "CALYX-QPKRF-v1",
     version: "OpenQPEP/1.1.0",
-    universal_version: "1.0.1",
+    universal_version: "1.1.0",
     wire_format: "v5",
     kdf_version: 4,
     key_name: name,
@@ -3168,6 +3168,10 @@ function updateKeyCountersAndLists() {
     !searchFilter || k.name.toLowerCase().includes(searchFilter) || k.email.toLowerCase().includes(searchFilter)
   );
 
+function _escHtml(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
   const pContainer = document.getElementById('personal-keys-list');
   if (filteredPersonal.length === 0) {
     pContainer.innerHTML = `<div class="empty-state-card"><div class="empty-icon-box"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3"/><path d="m17 6 3 3"/></svg></div><div class="empty-title">${searchFilter ? 'No Matching Personal Keys' : 'No Personal Keys in "Manage My Keys"'}</div><div class="empty-subtitle">Tap <strong>+ Create My Own Key</strong> or <strong>Import My Key Pair (.qpkrf)</strong> above to add your personal Calyx QPEP key pair.</div></div>`;
@@ -3176,12 +3180,12 @@ function updateKeyCountersAndLists() {
       <div class="key-item" onclick="openKeyDetails('personal', ${idx})" style="cursor:pointer;">
         <div class="key-item-top">
           <div>
-            <div class="key-item-name">${k.name}</div>
-            <div class="key-item-email">${k.email}</div>
+            <div class="key-item-name">${_escHtml(k.name)}</div>
+            <div class="key-item-email">${_escHtml(k.email)}</div>
           </div>
-          <span class="suite-badge">${k.suite}</span>
+          <span class="suite-badge">${_escHtml(k.suite)}</span>
         </div>
-        <div class="key-hash-mono">Key Hash: ${k.keyHash}</div>
+        <div class="key-hash-mono">Key Hash: ${_escHtml(k.keyHash)}</div>
         <div class="btn-row" onclick="event.stopPropagation();">
           <button class="btn-primary" onclick="openKeyDetails('personal', ${idx})">Key Details &amp; Options</button>
           <button class="btn-outline" onclick="openExportPublicModal('personal', ${idx})">Export Public .qpkrf</button>
@@ -3204,12 +3208,12 @@ function updateKeyCountersAndLists() {
       <div class="key-item" onclick="openKeyDetails('receiver', ${idx})" style="cursor:pointer;">
         <div class="key-item-top">
           <div>
-            <div class="key-item-name">${k.name}</div>
-            <div class="key-item-email">${k.email}</div>
+            <div class="key-item-name">${_escHtml(k.name)}</div>
+            <div class="key-item-email">${_escHtml(k.email)}</div>
           </div>
-          <span class="suite-badge">${k.suite}</span>
+          <span class="suite-badge">${_escHtml(k.suite)}</span>
         </div>
-        <div class="key-hash-mono">Key Hash: ${k.keyHash}</div>
+        <div class="key-hash-mono">Key Hash: ${_escHtml(k.keyHash)}</div>
         <div class="btn-row" onclick="event.stopPropagation();">
           <button class="btn-primary" onclick="openKeyDetails('receiver', ${idx})">Key Details &amp; Options</button>
           <button class="btn-outline" onclick="openExportPublicModal('receiver', ${idx})">Export Public .qpkrf</button>
@@ -3674,8 +3678,9 @@ function saveDecryptedFileOutput() {
 }
 
 function refreshAllKeyDropdowns() {
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const personalOpts = personalKeys.length
-    ? personalKeys.map((k, i) => `<option value="${i}">${k.name} &lt;${k.email}&gt; [Hash: ${k.keyHash.substring(0, 12)}...]</option>`).join('')
+    ? personalKeys.map((k, i) => `<option value="${i}">${esc(k.name)} &lt;${esc(k.email)}&gt; [Hash: ${esc(String(k.keyHash || '').substring(0, 12))}...]</option>`).join('')
     : `<option value="">-- No Personal Key in Keyring (Create a Key First) --</option>`;
 
   ['enc-note-sender', 'dec-note-key', 'enc-file-sender', 'dec-file-key', 'sig-create-key'].forEach(id => {
@@ -3684,11 +3689,11 @@ function refreshAllKeyDropdowns() {
   });
 
   const allKeys = [
-    ...receiverKeys.map(k => ({ label: `[Receiver] ${k.name} <${k.email}> [Hash: ${k.keyHash.substring(0, 12)}...]`, keyHash: k.keyHash, name: k.name })),
-    ...personalKeys.map(k => ({ label: `[Personal] ${k.name} <${k.email}> [Hash: ${k.keyHash.substring(0, 12)}...]`, keyHash: k.keyHash, name: k.name }))
+    ...receiverKeys.map(k => ({ label: `[Receiver] ${k.name} <${k.email}> [Hash: ${String(k.keyHash || '').substring(0, 12)}...]`, keyHash: k.keyHash, name: k.name })),
+    ...personalKeys.map(k => ({ label: `[Personal] ${k.name} <${k.email}> [Hash: ${String(k.keyHash || '').substring(0, 12)}...]`, keyHash: k.keyHash, name: k.name }))
   ];
   const recipOpts = allKeys.length
-    ? allKeys.map(k => `<option value="${k.keyHash}">${k.label}</option>`).join('')
+    ? allKeys.map(k => `<option value="${esc(k.keyHash)}">${esc(k.label)}</option>`).join('')
     : `<option value="">-- No Recipient Key in Keyring --</option>`;
 
   ['enc-note-recip', 'enc-file-recip'].forEach(id => {
@@ -3699,7 +3704,7 @@ function refreshAllKeyDropdowns() {
   const verifySel = document.getElementById('sig-verify-key');
   if (verifySel) {
     verifySel.innerHTML = `<option value="AUTO">Auto (Check All Keys in Keyring)</option>` +
-      allKeys.map(k => `<option value="${k.keyHash}">${k.label}</option>`).join('');
+      allKeys.map(k => `<option value="${esc(k.keyHash)}">${esc(k.label)}</option>`).join('');
   }
 }
 
@@ -3802,7 +3807,7 @@ async function confirmImportPersonal() {
       format: "CALYX-QPKRF-v1",
       magic: "QPKRF-v1",
       version: "OpenQPEP/1.1.0",
-      universal_version: "1.0.1",
+      universal_version: "1.1.0",
       wire_format: "v5",
       kdf_version: 4,
       ring_type: "PUBLIC_KEY_RING",
@@ -4903,7 +4908,7 @@ window.addEventListener('DOMContentLoaded', async function() {
       legacyRejected = !check.valid && String(check.error).indexOf("QPEPLegacyProtocolError") !== -1;
     } catch (e) { legacyRejected = true; }
     return {
-      version: "1.0.2",
+      version: "1.1.0",
       protocol: "OpenQPEP/1.1.0",
       suites_verified: suites.length,
       suites: suites,
