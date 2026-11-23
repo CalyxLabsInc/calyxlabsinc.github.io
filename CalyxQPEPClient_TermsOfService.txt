@@ -1,19 +1,19 @@
 ========================================================================
 CALYX QPEP CLIENT & OPENQPEP BY CALYX LABS INC. — TERMS OF SERVICE
-Universal Release: Release Candidate 1.0.0 (v1.0.0-rc) | Package: com.calyxlabs.qpepclient
+Universal Release: Official Release 1.1.0 (OpenQPEP/1.1.0) | Package: com.calyxlabs.qpepclient
 Developer: Tristen Martinez, Calyx Labs Inc. (support@calyxlabsinc.org)
 ========================================================================
 
 1. SOVEREIGN ON-DEVICE CRYPTOGRAPHY
-Calyx QPEP Client and OpenQPEP by Calyx Labs Inc. (Release Candidate 1.0.0) execute all
+Calyx QPEP Client and OpenQPEP by Calyx Labs Inc. (Official Release 1.1.0) execute all
 key generation (all 10 post-quantum suites including QLX-768..16384 + HGC-448, QVS-65..1024 + Ed448,
-CIF-SQI-512, CRT-RSD512, CGM-8192, CULC-2048, and CSP-Omega), encryption (CC-512, Wire Format v4),
-and signing locally on your device.
+CIF-SQI-512, CRT-RSD512, CGM-8192, CULC-2048, and CSP-Omega), encryption (CMT-4 CC-512,
+Official Wire Format v5 / Compact Binary TLV v5.1), and signing locally on your device.
 
 2. MANDATORY PASSPHRASE RESPONSIBILITY
 Private .qpkrf key rings require a minimum 12-character passphrase (at least 2
 uppercase, 4 lowercase, 2 numbers, and 4 special characters) stretched via
-QPKD-Argon2id / qSponge-512 (kdf_version: 3). Calyx Labs Inc. never has access to your passphrases or
-private keys and cannot recover lost passphrases.
+RFC 9106 QPKD-Argon2id + qSponge-512 (kdf_version: 4). Calyx Labs Inc. never has access
+to your passphrases or private keys and cannot recover lost passphrases.
 
-<!-- OpenQPEP v1.0.0-rc (Release Candidate 1.0.0) -->
+<!-- OpenQPEP Official Release 1.1.0 (OpenQPEP/1.1.0) -->

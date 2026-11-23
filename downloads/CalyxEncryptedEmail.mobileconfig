@@ -1,11 +1,11 @@
-0ƒİ«	*†H†÷ ƒİ›0ƒİ–10	`†He0ƒÖ/	*†H†÷ ƒÖƒÖ<?xml version="1.0" encoding="UTF-8"?>
+0ƒİ­	*†H†÷ ƒİ0ƒİ˜10	`†He0ƒÖ/	*†H†÷ ƒÖƒÖ<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>ConsentText</key>
 	<dict>
 		<key>default</key>
-		<string>Calyx Encrypted Email â€” Official Release 1.0.0 (OpenQPEP/1.0.0) by Calyx Labs Inc. Installs the zero-knowledge post-quantum encrypted @calyxmail.org WebClip (Wire Format v5, CMT-4 Key-Committing CC-512 AEAD, QPKD-Argon2id kdf_version 4, and all 10 post-quantum suites) on your iOS or iPadOS home screen.</string>
+		<string>Calyx Encrypted Email â€” Official Release 1.1.0 (OpenQPEP/1.1.0) by Calyx Labs Inc. Installs the zero-knowledge post-quantum encrypted @calyxmail.org WebClip (Wire Format v5, CMT-4 Key-Committing CC-512 AEAD, QPKD-Argon2id kdf_version 4, and all 10 post-quantum suites) on your iOS or iPadOS home screen.</string>
 	</dict>
 	<key>PayloadContent</key>
 	<array>
@@ -1536,9 +1536,9 @@ Sfl/XRLe2YYMbMcAAAAASUVORK5CYII=
 			<key>Label</key>
 			<string>Calyx Mail</string>
 			<key>PayloadDescription</key>
-			<string>Configures Calyx Encrypted Email Official Release 1.0.0 (OpenQPEP/1.0.0) Full-Screen App</string>
+			<string>Configures Calyx Encrypted Email Official Release 1.1.0 (OpenQPEP/1.1.0) Full-Screen App</string>
 			<key>PayloadDisplayName</key>
-			<string>Calyx Encrypted Email (Official Release 1.0.0)</string>
+			<string>Calyx Encrypted Email (Official Release 1.1.0)</string>
 			<key>PayloadIdentifier</key>
 			<string>org.calyxlabsinc.mail.webclip.v1</string>
 			<key>PayloadOrganization</key>
@@ -1556,7 +1556,7 @@ Sfl/XRLe2YYMbMcAAAAASUVORK5CYII=
 		</dict>
 	</array>
 	<key>PayloadDescription</key>
-	<string>Official iOS &amp; iPadOS Application Profile for Calyx Encrypted Email (Official Release 1.0.0 â€” OpenQPEP/1.0.0 Wire Format v5). Digitally signed by Calyx Labs Inc.</string>
+	<string>Official iOS &amp; iPadOS Application Profile for Calyx Encrypted Email (Official Release 1.1.0 â€” OpenQPEP/1.1.0 Wire Format v5). Digitally signed by Calyx Labs Inc.</string>
 	<key>PayloadDisplayName</key>
 	<string>Calyx Encrypted Email (v1.0.0)</string>
 	<key>PayloadIdentifier</key>
@@ -1573,11 +1573,13 @@ Sfl/XRLe2YYMbMcAAAAASUVORK5CYII=
 	<integer>1</integer>
 </dict>
 </plist>
- ‚a0‚]0‚E !ŞH+¼ñj¢×§2¿”;™¼„I˜0	*†H†÷ 0½10	UUS10	UOH10U	Cleveland10U4410510U
-Calyx Labs Inc.10UEngineering1'0%UTristen Martinez (aka Calyxia)1$0"	*†H†÷	tristen@calyxmail.org0261122000100Z361119000100Z0½10	UUS10	UOH10U	Cleveland10U4410510U
+ ‚c0‚_0‚G :7J¯EÙÔõìsNA&òÂ+Ø0	*†H†÷ 0½10	UUS10	UOH10U	Cleveland10U4410510U
+Calyx Labs Inc.10UEngineering1'0%UTristen Martinez (aka Calyxia)1$0"	*†H†÷	tristen@calyxmail.org0 261123043902Z20561115043902Z0½10	UUS10	UOH10U	Cleveland10U4410510U
 Calyx Labs Inc.10UEngineering1'0%UTristen Martinez (aka Calyxia)1$0"	*†H†÷	tristen@calyxmail.org0‚"0	*†H†÷ ‚ 0‚
-‚ œc­&_S,Xi-ŞÿÌ|Œ@¬CèÜ¯ÒİÍ*eˆóÖ:Ô¢?TŸó¬3ò3˜WJ$Å«ÇkŒ(´î
-‡k÷‘ èÛús´êR¡ê6
-ŒIÂNDqşnsÆ¹8zbÌ1Jİ¸IGZ¹ìH#_¤ö"‡6ÛŞ™3`×z6¯ ¼?¨¯pê«ÄºQ˜³u¼á\cSè²æ.üƒ•EAşq.CE8¼¾.˜A«¯-cáD¾m?õ¬WëŸs*L}M@"ÿ‹‹/Uş.†edcÃMÉ³o@wşé/DÅÕHbXW¶?ôè~#ŞW¼âIjg!Ò0@•i&“ £S0Q0Um,-‘¶"EXÒ¥ËJùÆ,¹0U#0€m,-‘¶"EXÒ¥ËJùÆ,¹0Uÿ0ÿ0	*†H†÷ ‚ z×l]ØŠ0äqğ5Q´´_áøsMÕTD/¡¥;É”¸½TY9¢>¥ëÁî¯é,Ü’ïÉg×¥¦+›XÜé¬¼Wj¶‹aøÄøhUvâUŒ`©¯ÒÄ‹ÙqTÉ~ìÍ9Ùd^¯ˆs/è"ç°'_c}mÖÿV’ÓçkQİê``p£±VP¯ğ?·ÆÈôh6µ•»_I:H¢{PY‚¨sµe»œLS™yá˜áHvÒq+0¾l±¶ Mº¨òvÎ2SÔ> ó(Zµ&½°Ã‡BëOÁ Š*3ùäÎnjxä´G;y[ö[±ÒØ×uô6ğ1‚ç0‚ã0Ö0½10	UUS10	UOH10U	Cleveland10U4410510U
-Calyx Labs Inc.10UEngineering1'0%UTristen Martinez (aka Calyxia)1$0"	*†H†÷	tristen@calyxmail.org!ŞH+¼ñj¢×§2¿”;™¼„I˜0	`†He ä0	*†H†÷	1	*†H†÷0	*†H†÷	1261122000100Z0/	*†H†÷	1" ”x^v¬å'¥¯=ª{F C	‚’Ì/aK{¸:•©ş 0y	*†H†÷	1l0j0	`†He*0	`†He0	`†He0
-*†H†÷0*†H†÷ €0*†H†÷@0+0*†H†÷(0	*†H†÷ ‚ T<•¬Á;}É`ø™p)M>´%qª‘¿ÃÂ”1åÑÚ·§FhO•k°³¯àÀç3KîUÙq?d†oª¶ÁâDNu·/ãQ4ä9¾øJ<ÎitïrL /‘”D]‚+/•(Ù£)İ£¬Ì‘Üµø­ÔÁº]sÿpQ]È ¹xM½â¾Ú*õÿ=Â÷tfìnP—ŸGhoVŞ¯YÖû®¤ØnF+'†É•—Aoé„¤:pD)&Ë`ÏÌŠ°:ŞjJÊ…¸ê	³ 	S>>bG3âcr÷ëú \ÛŞ^ÂºCÀsÁSûRğsÙ9Ò±¥§˜~8&±4%Û[~.\ª
+‚ ®"‡YäÙzÿMbïcåùk5>õ¿ìXàj)Ã‘šet¬c²ÉW±êA¨wDÊböc
+8ì…ãGEK$ºÅ™
+³"#ŠFR[üæ#dŸ’’æŞc@âfŒ“°­]?[ÃÌK:2w!”ŒÚt…ÇEŞI_ûğSGl`«CBa45Y|PÏAHÅÔğHaMYÇec‚íÊÚ!Ù<Å"Í„ç®Îÿs¹( !QX/HÛ(Z~¼fé^*Ö¸HÇÜ@š
+/÷(ùÍ%éŞÄzt7tĞW+äøjG< –: X>É±VÚ%GÓâÎ\@“7°}É|ckLi§M £S0Q0UGBã.lÀ5Khq¦<*kZÀë0U#0€GBã.lÀ5Khq¦<*kZÀë0Uÿ0ÿ0	*†H†÷ ‚ )Îõ‘İ“‘ ç£´ş†VÄ;ùüş÷º‘VèÄÓ¹FÕÖŸ0¡TİÈdãÂ¯)¤ºŒ_>£kŸKjŞ’-ûXÆæ+8t‚Õ!£µë´UúEÔ¼`õL“DÂw!mù<'é~Ãx&;Ÿ7á€¼½Ó¼½„ƒ*ñÿßvôq·ƒÓ
+:"‚@×ObŠÿşX¦î¯°ãî {T;¨g ŠòÔ;ŒıîÏÏÓ5¢Ä¤XÉ ;‘İI–Ú<ùœåSÊ'7íé*s>êÌoºÇ½/Üá´Ãù‰íp¯¼dT‡×Õ©·Ç.a@Ólºí1‚ç0‚ã0Ö0½10	UUS10	UOH10U	Cleveland10U4410510U
+Calyx Labs Inc.10UEngineering1'0%UTristen Martinez (aka Calyxia)1$0"	*†H†÷	tristen@calyxmail.org:7J¯EÙÔõìsNA&òÂ+Ø0	`†He ä0	*†H†÷	1	*†H†÷0	*†H†÷	1261123043902Z0/	*†H†÷	1" q¦ÛÅÚå3oPGÔŸ÷nÒ;q³Z¬mæcéüØ&U0y	*†H†÷	1l0j0	`†He*0	`†He0	`†He0
+*†H†÷0*†H†÷ €0*†H†÷@0+0*†H†÷(0	*†H†÷ ‚ ‘\B=M¨3H¥s®ê¤çÇŠD¯óÇ,5…ı0åw:zµ¡C÷´g¨Y—Ï4á |Ä(S¬cjYH9å“Éi±l‚!O@|b}Râ˜ÄÈ/¼"‹øÅwO>üıâêª0v©£5f¢–İŞöu’A×f	Õ~¡àdCx™ì»ŒÁJ%“É)ó9Å°LKÒ:XMæå[E‡Le'˜«¥N8"nÃ5¤Óñ½8wà¬)!G?:'–lÖc¬G£ ±_şÿÁ\4ÈÔRüx—ËŸ˜ykÍÛ‰Rº¶j]Oî.É}8i¹8l?·%DuÓmğğ«‘˜

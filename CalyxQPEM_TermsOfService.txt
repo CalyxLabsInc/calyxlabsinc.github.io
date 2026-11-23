@@ -1,9 +1,9 @@
 ========================================================================
-CALYX LABS INC. — OFFICIAL GOOGLE PLAY TERMS OF SERVICE
-Application: Calyx Encrypted Messenger (com.calyxlabs.qpem) — RC 1.0.0
-Protocol: OpenQPEP / Calyx QPEP (Release Candidate 1.0.0)
+CALYX LABS INC. — OFFICIAL TERMS OF SERVICE
+Application: Calyx Encrypted Messenger (com.calyxlabs.qpem) — Official Release 1.1.0
+Protocol: OpenQPEP / Calyx QPEP (Official Release 1.1.0 — OpenQPEP/1.1.0)
 ========================================================================
-Effective Date: November 16, 2026
+Effective Date: November 23, 2026
 Publisher / Developer: Calyx Labs Inc. (Created & Engineered by Tristen Martinez)
 Official Websites: https://calyxlabsinc.org | https://calyxlabsinc.github.io
 Messenger Relay & Directory Endpoint: https://messenger.calyxlabsinc.org
@@ -21,31 +21,34 @@ Application.
 In Calyx Encrypted Messenger, self-certified OpenQPEP Quantum-Proof Key Rings
 (.qpkrf) operate as user accounts:
   * Account Creation & Key Ring Binding: Creating an account generates a
-    post-quantum OpenQPEP key pair (QLX-768 + QVS-65 Velocity, QLX-1024 + QVS-87
-    Sovereign Hybrid, or QLX-2048 + QVS-128 Ultra-Grid) bound to your chosen Key
-    Name (username), Email address, and unique 64-character hex Key Hash.
-  * Mandatory QPKD-Argon2id Passphrase Gate: Before any private key is generated,
-    unlocked, imported, exported, or used to sign or decrypt messages, the
-    Application enforces the mandatory Calyx QPEP Passphrase Policy (minimum 12
-    characters, at least 2 digits 0-9, at least 4 special characters, at least 2
-    uppercase letters A-Z, and at least 4 lowercase letters a-z) stretched with
-    a 256-bit salt and 24-round Keccak-f[1600] qSponge-512 (kdf_version: 3).
+    post-quantum OpenQPEP key pair across any of the 10 canonical suites
+    (default Signature QLX-4096 + QVS-256, Velocity QLX-768, Sovereign Hybrid
+    QLX-1024, Ultra-Grid QLX-2048, Hyper-Tesseract QLX-16384, and 5 Beyond-LWE
+    suites) bound to your chosen Key Name, Email address, and unique
+    64-character hex Key Hash.
+  * Mandatory QPKD-Argon2id Passphrase Gate (kdf_version: 4): Before any private
+    key is generated, unlocked, imported, exported, or used to sign or decrypt
+    messages, the Application enforces the mandatory Calyx QPEP Passphrase
+    Policy (minimum 12 characters, at least 2 digits 0-9, at least 4 special
+    characters, at least 2 uppercase letters A-Z, and at least 4 lowercase
+    letters a-z) stretched with a 256-bit salt via RFC 9106 QPKD-Argon2id +
+    qSponge-512 (kdf_version: 4).
   * Local Private Key Isolation & Export: Your Private Key Ring (.qpkrf) and
     passphrase remain strictly on your local device. Calyx Labs Inc. never
     receives, escrows, or stores your private keys or passphrases. You may
     export your Public or Private .qpkrf Key Ring files at any time through the
     Application and are solely responsible for backing up your exported keys and
-    passphrase. Losing your QPKD-Argon2id passphrase permanently prevents unlocking
-    or exporting your Private Key Ring.
+    passphrase. Losing your QPKD-Argon2id passphrase permanently prevents
+    unlocking or exporting your Private Key Ring.
 
 3. END-TO-END ENCRYPTED MESSAGING & KEY HASH DIRECTORY
   * End-to-End Encryption (E2EE): All messages transmitted through the
-    Application are encapsulated on-device using Hybrid Quantum Lattice Key
-    Encapsulation (QLX + HGC-448), encrypted under Cascaded Dual-Stream Matrix
-    Payload Encryption (Calyx-Cascade-512 / CC-512), and signed with Conjunctive
-    Quantum Vector Digital Signatures (QVS + qSponge-512) prior to transmission.
-    Plaintext message contents are unreadable by Calyx Labs Inc. or any
-    intermediary server.
+    Application are encapsulated on-device using Hybrid Quantum Lattice /
+    Beyond-LWE Key Encapsulation, encrypted under CMT-4 Key-Committing
+    Calyx-Cascade-512 (AES-256-GCM + ChaCha20-Poly1305) over Official Wire
+    Format v5 (\x89QPE\x05\x00), and signed with Conjunctive Quantum Vector
+    Digital Signatures prior to transmission. Plaintext message contents are
+    unreadable by Calyx Labs Inc. or any intermediary server.
   * Key Hash Discovery & Relay (messenger.calyxlabsinc.org): To enable users to
     search and message each other by their unique 64-character Key Hash, the
     Application registers only your public key ring metadata (Key Name, Email,

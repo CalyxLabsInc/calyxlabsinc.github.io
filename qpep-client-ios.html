@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob: data:; script-src 'self' 'unsafe-inline' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://calyxlabsinc.org; connect-src 'self' https://qpepkeys.calyxlabsinc.org https://messenger.calyxlabsinc.org https://mail.calyxlabsinc.org https://calyxlabsinc.org; object-src 'none'; base-uri 'none'; frame-ancestors 'none';" />
 <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Calyx QPEP Client" />
@@ -591,7 +591,7 @@
       </div>
       <div class="drawer-brand-text">
         <h2>Calyx QPEP Client</h2>
-        <p>Calyx Labs Inc. &bull; Official Release 1.0.2</p>
+        <p>Calyx Labs Inc. &bull; Official Release 1.1.0</p>
       </div>
     </div>
     <button class="icon-btn" onclick="toggleDrawer(false)">
@@ -675,7 +675,7 @@
   </div>
 
   <div class="drawer-footer">
-    <span>Official Release 1.0.2</span>
+    <span>Official Release 1.1.0</span>
     <button class="drawer-footer-link" onclick="navigateTo('setup')">Setup Wizard</button>
   </div>
 </aside>
@@ -756,7 +756,7 @@
           </svg>
         </div>
         <div>
-          <div class="setup-eyebrow">CALYX LABS INC. &bull; Official Release 1.0.2</div>
+          <div class="setup-eyebrow">CALYX LABS INC. &bull; Official Release 1.1.0</div>
           <div class="setup-heading">Calyx QPEP Client Setup</div>
         </div>
       </div>
@@ -995,7 +995,7 @@
   <!-- PAGE 10: VERIFY ATTACHED SIGNATURE (No Separate Message Box Needed!) -->
   <section class="page-view" id="page-verify-signature">
     <div class="surface-card">
-      <div class="card-title" style="margin-bottom:6px;">Verify Attached Signature (OpenQPEP v1.0.2 — QVS / QHS / QMQ / CGM)</div>
+      <div class="card-title" style="margin-bottom:6px;">Verify Attached Signature (OpenQPEP v1.1.0 — QVS / QHS / QMQ / CGM)</div>
       <p class="card-desc">Verifies a self-contained `CALYX QPEP ATTACHED SIGNATURE` packet against a specific key or automatically across all keys in your keyring, and extracts the embedded message.</p>
 
       <label class="field-label accent">1. Key to Verify Signature</label>
@@ -1036,7 +1036,7 @@
       <div class="kd-body-grid">
         <div class="kd-info-col">
           <div class="kd-owner-title" id="kd-name">Key Owner</div>
-          <div class="kd-suite-sub" id="kd-subtitle">My Key Pair &bull; QLX-1024 + QVS-87 (Calyx QPEP Official Release 1.0.2)</div>
+          <div class="kd-suite-sub" id="kd-subtitle">My Key Pair &bull; QLX-1024 + QVS-87 (Calyx QPEP Official Release 1.1.0)</div>
           <div class="kd-quick-links">
             <button class="kd-quick-btn" onclick="jumpToEncryptFromDetail('files')">&#128193; Encrypt File</button>
             <button class="kd-quick-btn" onclick="jumpToEncryptFromDetail('notepad')">&#128172; Encrypt Text</button>
@@ -1072,7 +1072,7 @@
       <div class="card-title" style="margin-bottom:10px;">Identities &amp; Key Hash</div>
       <div style="font-weight:700;font-size:0.98rem;color:var(--text-primary);" id="kd-email">user@calyxlabsinc.org</div>
       <div style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:12px;" id="kd-identity-name">User</div>
-      <div style="font-size:0.74rem;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;">CALYX QPEP Official Release 1.0.2 / QPKRF KEY HASH (TAP TO COPY)</div>
+      <div style="font-size:0.74rem;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;">CALYX QPEP Official Release 1.1.0 / QPKRF KEY HASH (TAP TO COPY)</div>
       <div class="kd-hash-formatted" id="kd-hash-box" onclick="copyCurrentDetailKeyHash()"></div>
     </div>
 
@@ -1116,7 +1116,7 @@
   <section class="page-view" id="page-news">
     <div class="surface-card">
       <div class="setup-eyebrow">CALYX LABS INC. &bull; OFFICIAL RELEASE DISPATCH</div>
-      <div class="card-title" style="margin:4px 0 10px;font-size:1.2rem;">Calyx QPEP Client Official Release 1.0.2 &amp; OpenQPEP Ecosystem Launch</div>
+      <div class="card-title" style="margin:4px 0 10px;font-size:1.2rem;">Calyx QPEP Client Official Release 1.1.0 &amp; OpenQPEP Ecosystem Launch</div>
       <p class="card-desc">
         <strong>Calyx Labs Inc.</strong> (founded and architected by <strong>Tristen Martinez</strong>) announces the general availability of <strong>Calyx QPEP Client</strong> for Android 10 through Android 17, the open-source <strong>OpenQPEP</strong> protocol reference repository at <code>https://github.com/CalyxLabsInc/OpenQPEP/</code>, and the global <strong>Calyx Labs QPEP Public Key Directory</strong> at <code>https://qpepkeys.calyxlabsinc.org</code>.
       </p>
@@ -1573,7 +1573,7 @@ function setRulePill(id, text, ok) {
 }
 
 /* ============================================================================
- * CALYX QPEP REAL POST-QUANTUM CRYPTOGRAPHIC ENGINE (Official Release 1.0.2)
+ * CALYX QPEP REAL POST-QUANTUM CRYPTOGRAPHIC ENGINE (Official Release 1.1.0)
  * 1. 24-Round Keccak-f[1600] Sponge (qSponge-512 & qSponge-XOF)
  * 2. Module-LWE (QLX-768 / QLX-1024 / QLX-2048) over Z_3329[X]/(X^256 + 1)
  *    with 7-layer Cooley-Tukey / Gentleman-Sande NTT (zeta = 17) & FO CCA2
@@ -2762,7 +2762,7 @@ function _oqB64ToU8(b64) {
   return out;
 }
 function _oqWrapKeyV4Hex(saltHex, passphrase) {
-  return _oqBytesToHex(_oqSha3_512(`QPKD-Argon2id-WRAP-v4|${saltHex}|OpenQPEP/1.0.0|kdf_version=4|${passphrase}`));
+  return _oqBytesToHex(_oqSha3_512(`QPKD-Argon2id-WRAP-v4|${saltHex}|OpenQPEP/1.1.0|kdf_version=4|${passphrase}`));
 }
 function _oqWrapMacV4Hex(wrapKeyHex, wrappedSecretHex, keyHash) {
   return _oqBytesToHex(_oqSha3_512(`QPKD-WRAP-MAC-v4|${wrapKeyHex}|${wrappedSecretHex}|${String(keyHash || "").toUpperCase()}`));
@@ -2840,17 +2840,17 @@ function _oqUnpackArmorV5(armoredText) {
   }
   const verHdr = String(headers["version"] || "").toLowerCase();
   if (verHdr.includes("-rc") || verHdr.includes("-pc") || verHdr.includes("-beta") || verHdr.includes("production candidate") || verHdr.includes("release candidate")) {
-    throw new Error("QPEPLegacyProtocolError: Legacy pre-release (-rc, -pc, -beta) armor is strictly rejected in Official Release 1.0.2.");
+    throw new Error("QPEPLegacyProtocolError: Legacy pre-release (-rc, -pc, -beta) armor is strictly rejected in Official Release 1.1.0.");
   }
   if (!bodyLines.length) throw new Error("Empty OpenQPEP armor payload.");
   const rawFrame = _oqB64ToU8(bodyLines.join(""));
   if (rawFrame.length >= 6 && rawFrame[0] === 0x89 && rawFrame[1] === 0x51 && rawFrame[2] === 0x50 && rawFrame[3] === 0x45) {
     if (rawFrame[4] === 0x04 || rawFrame[4] === 0x03 || rawFrame[4] === 0x02 || rawFrame[4] === 0x01) {
-      throw new Error(`QPEPLegacyProtocolError: Legacy Wire Format v${rawFrame[4]} is strictly rejected in Official Release 1.0.2 (Wire Format v5 \\x89QPE\\x05\\x00 required).`);
+      throw new Error(`QPEPLegacyProtocolError: Legacy Wire Format v${rawFrame[4]} is strictly rejected in Official Release 1.1.0 (Wire Format v5 \\x89QPE\\x05\\x00 required).`);
     }
   }
   if (rawFrame.length < 8 + 16 + 32 || !_oqCtEq(rawFrame.subarray(0, 6), _OQ_WIRE_MAGIC_V5)) {
-    throw new Error("QPEPLegacyProtocolError: Invalid or legacy frame — Official Release 1.0.2 Wire Format v5 (\\x89QPE\\x05\\x00) required.");
+    throw new Error("QPEPLegacyProtocolError: Invalid or legacy frame — Official Release 1.1.0 Wire Format v5 (\\x89QPE\\x05\\x00) required.");
   }
   const expectedCrc = _oqComputeArmorCrcV5(rawFrame);
   if (!crcLine || !_oqCtEq(enc.encode(crcLine), enc.encode(expectedCrc))) {
@@ -2888,8 +2888,8 @@ function armorWrap(label, suiteName, keyHash, obj) {
   const ownerUid = (obj && (obj.uid || (obj.identity ? `${obj.identity.name} <${obj.identity.email}>` : ""))) || "";
   const hdrs = [
     `-----BEGIN ${label}-----`,
-    `Protocol: OpenQPEP (Official Release 1.0.2)`,
-    `Version: OpenQPEP/1.0.2`,
+    `Protocol: OpenQPEP (Official Release 1.1.0)`,
+    `Version: OpenQPEP/1.1.0`,
     `Wire-Format: v5 (\\x89QPE\\x05\\x00)`,
     `Suite: ${suiteName}`,
     `Key-Hash: ${keyHash}`
@@ -2981,7 +2981,7 @@ function unlockPrivateKeysJS(keyObj, pass) {
   if (privEnv.private_key_locked) {
     const pkl = privEnv.private_key_locked;
     if (Number(pkl.kdf_version || 0) < 4) {
-      throw new Error('QPEPLegacyProtocolError: Legacy kdf_version < 4 private key ring rejected in Official Release 1.0.2.');
+      throw new Error('QPEPLegacyProtocolError: Legacy kdf_version < 4 private key ring rejected in Official Release 1.1.0.');
     }
     const wrapKey = _oqWrapKeyV4Hex(pkl.salt_hex, pass);
     const expectedMac = _oqWrapMacV4Hex(wrapKey, pkl.wrapped_secret_hex, privEnv.key_hash || keyObj.keyHash);
@@ -3101,7 +3101,7 @@ async function createNewPersonalKey() {
   const _xSelfCert = _oqBytesToHex(_oqSha3_512(`QVS-SELF-CERT-SIG-v1|${keyHash}|${_xUid}|${qlxTier}|${created}`));
   Object.assign(pubEnvelope, {
     format: "CALYX-QPKRF-v1",
-    version: "OpenQPEP/1.0.2",
+    version: "OpenQPEP/1.1.0",
     universal_version: "1.0.1",
     wire_format: "v5",
     kdf_version: 4,
@@ -3122,7 +3122,7 @@ async function createNewPersonalKey() {
     private_key_locked: {
       kdf: "RFC 9106 QPKD-Argon2id + qSponge-512 (kdf_version: 4)",
       kdf_version: 4,
-      personalization: "OpenQPEP/1.0.0",
+      personalization: "OpenQPEP/1.1.0",
       salt_hex: _xSaltHex,
       wrapped_secret_hex: _xWrappedSecretHex,
       secret_mac: _xSecretMac,
@@ -3279,7 +3279,7 @@ function openKeyDetails(listType, idx) {
   document.getElementById('kd-back-label').textContent = (listType === 'personal') ? 'Manage My Keys' : 'Manage Receiver Keys';
   document.getElementById('kd-back-btn').onclick = () => navigateTo((listType === 'personal') ? 'manage-my-keys' : 'manage-receiver-keys');
   document.getElementById('kd-name').textContent = item.name;
-  document.getElementById('kd-subtitle').textContent = `${listType === 'personal' ? 'My Key Pair' : 'Receiver Public Key'} \u2022 ${item.suite} (Calyx QPEP Official Release 1.0.2)`;
+  document.getElementById('kd-subtitle').textContent = `${listType === 'personal' ? 'My Key Pair' : 'Receiver Public Key'} \u2022 ${item.suite} (Calyx QPEP Official Release 1.1.0)`;
   const dateStr = (item.created || '').substring(0, 10) || '2026-11-15';
   document.getElementById('kd-added-meta').textContent = `Added ${dateStr} \u2022 Key Hash ${item.keyHash.substring(0, 16)}`;
   document.getElementById('kd-email').textContent = item.email;
@@ -3526,10 +3526,23 @@ function detectFileFormatAndName(u8, hintFilename) {
 function triggerNativeOrWebFilePicker(fileInputId, targetTextareaId, isBinaryFileOp = false) {
   activePickerTargetId = targetTextareaId;
   activePickerInputId = fileInputId;
-  const inp = document.getElementById(fileInputId);
-  if (inp) {
-    inp.value = '';
-    inp.click();
+  const isAndroidWV = /Android/i.test(navigator.userAgent || '') && /;\s*wv\)/i.test(navigator.userAgent || '');
+  let handledNatively = false;
+  if (isAndroidWV) {
+    try {
+      const res = window.prompt('CALYX_OPEN', '');
+      if (res !== null) handledNatively = true;
+    } catch (e) {}
+    if (!handledNatively) {
+      try { window.location.href = 'calyxopen://pick'; handledNatively = true; } catch (e) {}
+    }
+  }
+  if (!handledNatively) {
+    const inp = document.getElementById(fileInputId);
+    if (inp) {
+      inp.value = '';
+      inp.click();
+    }
   }
 }
 
@@ -3604,32 +3617,25 @@ function triggerNativeBinaryFileSave(filename, u8Bytes) {
     return;
   }
   const safeName = String(filename || 'decrypted_file.bin').replace(/[^a-zA-Z0-9._-]/g, '_');
-  const mime = (typeof detectFileFormatAndName === 'function')
-    ? (detectFileFormatAndName(u8Bytes, safeName).mimeType || 'application/octet-stream')
-    : 'application/octet-stream';
-  const blob = new Blob([u8Bytes], { type: mime });
-  if (navigator.share && navigator.canShare) {
+  const b64 = u8ToB64(u8Bytes);
+  const isAndroidWV = /Android/i.test(navigator.userAgent || '') && /;\s*wv\)/i.test(navigator.userAgent || '');
+  let handledNatively = false;
+  if (isAndroidWV) {
     try {
-      const f = new File([blob], safeName, { type: mime });
-      if (navigator.canShare({ files: [f] })) {
-        navigator.share({ files: [f], title: safeName }).catch(() => {
-          const a = document.createElement('a');
-          a.href = URL.createObjectURL(blob);
-          a.download = safeName;
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-        });
-        return;
-      }
+      const res = window.prompt('CALYX_SAVE:' + safeName, b64);
+      if (res !== null) handledNatively = true;
     } catch (e) {}
   }
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = safeName;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+  if (!handledNatively) {
+    const blob = new Blob([u8Bytes], { type: 'application/octet-stream' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = safeName;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { try { document.body.removeChild(a); URL.revokeObjectURL(url); } catch (e) {} }, 1500);
+  }
 }
 
 function triggerNativeFileSave(filename, textContent) {
@@ -3795,7 +3801,7 @@ async function confirmImportPersonal() {
     const pubEnvelope = {
       format: "CALYX-QPKRF-v1",
       magic: "QPKRF-v1",
-      version: "OpenQPEP/1.0.2",
+      version: "OpenQPEP/1.1.0",
       universal_version: "1.0.1",
       wire_format: "v5",
       kdf_version: 4,
@@ -4347,7 +4353,7 @@ async function runFileProcess(encrypt) {
 
       if (res.isBinary) {
         document.getElementById('dec-file-out').value = [
-          '=== OPENQPEP v1.0.2 BINARY FILE DECRYPTED & VERIFIED ===',
+          '=== OPENQPEP v1.1.0 BINARY FILE DECRYPTED & VERIFIED ===',
           'Recovered Filename : ' + res.filename,
           'Detected Extension : ' + res.ext + ' (' + res.mime + ')',
           'Binary Size        : ' + res.ptBytes.length.toLocaleString() + ' bytes',
@@ -4522,204 +4528,9 @@ window.addEventListener('DOMContentLoaded', async function() {
 </script>
 <script>
 
-/* === OpenQPEP v1.0.2 Dynamic >= 12 GB RAM Hardware Enforcement & Web Worker Offloading === */
+/* === OpenQPEP v1.1.0 Dynamic >= 12 GB RAM Hardware Enforcement & Web Worker Offloading === */
 (function initOpenQPEPv120HardwareAndWorker() {
   const HIGH_TIER_SUITES = ['QLX-16384', 'CGM-8192', 'CULC-2048', 'CSP-Omega'];
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
-  function detectDeviceRamInfo() {
-    try {
-      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
-        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
-        if (gb > 0) return { gb: gb, capped: false };
-      }
-      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
-        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
-        return { gb: navigator.deviceMemory, capped: true };
-      }
-    } catch (e) {}
-    return { gb: 0, capped: true };
-  }
   function detectDeviceRamInfo() {
     try {
       if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
@@ -4773,13 +4584,13 @@ window.addEventListener('DOMContentLoaded', async function() {
 })();
 
 
-/* === OpenQPEP v1.0.2 (v1.3.0-pc - v2.0.0-pc Graduation): QPEP-KT Shield, Air-Gapped LT-QR, FIDO2-PRF Hardware Unlock, DeniableVault & ThresholdKEM === */
-(function initOpenQPEPRC100ClientStack() {
-  window.OPENQPEP_RELEASE = "v1.0.2";
-  window.OPENQPEP_WIRE_FORMAT = "v4 (\\x89QPE\\x04\\x00 / \\x89QPE\\x04\\x01)";
-  window.OPENQPEP_KDF_VERSION = 3;
+/* === OpenQPEP Official Release 1.1.0: QPEP-KT Shield, Air-Gapped LT-QR, FIDO2-PRF Hardware Unlock, DeniableVault & ThresholdKEM === */
+(function initOpenQPEPOfficial110ClientStack() {
+  window.OPENQPEP_RELEASE = "v1.1.0";
+  window.OPENQPEP_WIRE_FORMAT = "v5 (\\x89QPE\\x05\\x00 / \\x89QPE\\x05\\x01)";
+  window.OPENQPEP_KDF_VERSION = 4;
 
-  // v1.3.0-pc: Cryptographic Key Transparency (QPEP-KT) Merkle Proof Verifier & Green KT-Verified Shield
+  // Official Release 1.1.0: Cryptographic Key Transparency (QPEP-KT) Merkle Proof Verifier & Green KT-Verified Shield
   window.QPEPKTVerifier = {
     async verifyKeyHash(keyHash) {
       try {
@@ -4799,7 +4610,7 @@ window.addEventListener('DOMContentLoaded', async function() {
     }
   };
 
-  // v1.6.0-pc: Air-Gapped Luby-Transform Fountain QR (LT-QR) Animated Stream Codec
+  // Official Release 1.1.0: Air-Gapped Luby-Transform Fountain QR (LT-QR) Animated Stream Codec
   window.LTQRFountainEngine = {
     encodeFrames(payloadBytes, blockSize = 256, redundancyFactor = 1.5) {
       const u8 = payloadBytes instanceof Uint8Array ? payloadBytes : new TextEncoder().encode(String(payloadBytes));
@@ -4818,7 +4629,7 @@ window.addEventListener('DOMContentLoaded', async function() {
           for (let j = 0; j < blockSize; j++) xored[j] ^= blk[j];
         });
         frames.push(JSON.stringify({
-          v: "qpep-lt-qr-rc100",
+          v: "qpep-lt-qr-v110",
           seq: seq,
           k: k,
           n: u8.length,
@@ -4831,7 +4642,7 @@ window.addEventListener('DOMContentLoaded', async function() {
     }
   };
 
-  // v1.6.0-pc: FIDO2-PRF / YubiKey / StrongBox / Secure Enclave Hardware Unlock (kdf_version: 4)
+  // Official Release 1.1.0: FIDO2-PRF / YubiKey / StrongBox / Secure Enclave Hardware Unlock (kdf_version: 4)
   window.FIDO2PRFHardwareKeyEngine = {
     async evaluateHardwarePRF(saltBytes) {
       const salt = saltBytes instanceof Uint8Array ? saltBytes : new Uint8Array(32);
@@ -4855,32 +4666,194 @@ window.addEventListener('DOMContentLoaded', async function() {
     }
   };
 
-  // v1.6.0-pc: Plausible Deniability (DeniableVault) & t-of-n Threshold Recovery (ThresholdKEM)
+  // Official Release 1.1.0: Genuine Plausible-Deniability Dual-Slot Vault (WebCrypto AES-256-GCM + PBKDF2-SHA256 + Indistinguishable Fixed Padding)
   window.DeniableVaultEngine = {
-    sealDualVolume(outerPlaintext, outerPassphrase, hiddenPlaintext, hiddenPassphrase) {
+    SLOT_BYTES: 4096,
+    async _deriveSlotKey(passphrase, saltBytes, domainTag) {
+      const enc = new TextEncoder();
+      const baseKey = await window.crypto.subtle.importKey(
+        "raw",
+        enc.encode(domainTag + "|" + String(passphrase || "")),
+        "PBKDF2",
+        false,
+        ["deriveKey"]
+      );
+      return window.crypto.subtle.deriveKey(
+        { name: "PBKDF2", salt: saltBytes, iterations: 120000, hash: "SHA-256" },
+        baseKey,
+        { name: "AES-GCM", length: 256 },
+        false,
+        ["encrypt", "decrypt"]
+      );
+    },
+    async _encryptSlot(plaintextStr, passphrase, slotName, slotBytes) {
+      const enc = new TextEncoder();
+      const pt = enc.encode(String(plaintextStr || ""));
+      const maxPlain = slotBytes - 4;
+      if (pt.length > maxPlain) throw new Error("DeniableVault slot plaintext exceeds " + maxPlain + " bytes.");
+      const padded = new Uint8Array(slotBytes);
+      window.crypto.getRandomValues(padded);
+      const dv = new DataView(padded.buffer);
+      dv.setUint32(0, pt.length, false);
+      padded.set(pt, 4);
+      const salt = new Uint8Array(32);
+      const iv = new Uint8Array(12);
+      window.crypto.getRandomValues(salt);
+      window.crypto.getRandomValues(iv);
+      const key = await this._deriveSlotKey(passphrase, salt, "CALYX-DENIABLE-VAULT-v1.1.0|" + slotName);
+      const aad = enc.encode("CALYX-DENIABLE-SLOT-v1.1.0|" + slotName + "|" + slotBytes);
+      const ct = new Uint8Array(await window.crypto.subtle.encrypt({ name: "AES-GCM", iv: iv, additionalData: aad }, key, padded));
+      const toB64 = (u) => { let s = ""; for (let i = 0; i < u.length; i++) s += String.fromCharCode(u[i]); return btoa(s); };
+      return { salt_b64: toB64(salt), iv_b64: toB64(iv), ct_b64: toB64(ct) };
+    },
+    async sealDualVolume(outerPlaintext, outerPassphrase, hiddenPlaintext, hiddenPassphrase, slotBytes = 4096) {
+      if (!outerPassphrase || !hiddenPassphrase || outerPassphrase === hiddenPassphrase) {
+        throw new Error("DeniableVault requires two distinct passphrases for outer and hidden volumes.");
+      }
+      const outerSlot = await this._encryptSlot(outerPlaintext, outerPassphrase, "slot-A", slotBytes);
+      const hiddenSlot = await this._encryptSlot(hiddenPlaintext, hiddenPassphrase, "slot-B", slotBytes);
       return JSON.stringify({
-        envelope: "openqpep-deniable-vault-rc100",
+        envelope: "openqpep-deniable-vault-v1.1.0",
         kdf_version: 4,
-        wire_format: "v4",
-        outer_slot: btoa(unescape(encodeURIComponent(outerPlaintext))),
-        hidden_slot: btoa(unescape(encodeURIComponent(hiddenPlaintext)))
+        kdf: "PBKDF2-HMAC-SHA256-120000",
+        aead: "AES-256-GCM",
+        wire_format: "v5",
+        slot_bytes: slotBytes,
+        slots: [outerSlot, hiddenSlot]
       });
+    },
+    async openSlot(vaultJsonStr, passphrase) {
+      const env = typeof vaultJsonStr === "string" ? JSON.parse(vaultJsonStr) : vaultJsonStr;
+      const fromB64 = (b) => Uint8Array.from(atob(b), c => c.charCodeAt(0));
+      const enc = new TextEncoder();
+      const dec = new TextDecoder();
+      const slotBytes = Number(env.slot_bytes || this.SLOT_BYTES);
+      const names = ["slot-A", "slot-B"];
+      const labels = ["outer", "hidden"];
+      for (let i = 0; i < 2; i++) {
+        const sl = env.slots && env.slots[i];
+        if (!sl) continue;
+        try {
+          const salt = fromB64(sl.salt_b64);
+          const iv = fromB64(sl.iv_b64);
+          const ct = fromB64(sl.ct_b64);
+          const key = await this._deriveSlotKey(passphrase, salt, "CALYX-DENIABLE-VAULT-v1.1.0|" + names[i]);
+          const aad = enc.encode("CALYX-DENIABLE-SLOT-v1.1.0|" + names[i] + "|" + slotBytes);
+          const padded = new Uint8Array(await window.crypto.subtle.decrypt({ name: "AES-GCM", iv: iv, additionalData: aad }, key, ct));
+          const origLen = new DataView(padded.buffer).getUint32(0, false);
+          if (origLen <= slotBytes - 4) {
+            return { volume: labels[i], plaintext: dec.decode(padded.subarray(4, 4 + origLen)) };
+          }
+        } catch (e) {}
+      }
+      throw new Error("DeniableVault authentication failed: passphrase did not match any volume.");
     }
   };
 
+  // Official Release 1.1.0: Genuine GF(256) Shamir Secret Sharing (AES irreducible poly 0x11B + Lagrange interpolation)
   window.ThresholdKEMEngine = {
+    _gfMul(a, b) {
+      let p = 0;
+      let aa = a & 0xff, bb = b & 0xff;
+      for (let i = 0; i < 8; i++) {
+        if (bb & 1) p ^= aa;
+        const hi = aa & 0x80;
+        aa = (aa << 1) & 0xff;
+        if (hi) aa ^= 0x1b;
+        bb >>= 1;
+      }
+      return p;
+    },
+    _gfPow(a, e) {
+      let r = 1, base = a & 0xff, exp = e;
+      while (exp > 0) {
+        if (exp & 1) r = this._gfMul(r, base);
+        base = this._gfMul(base, base);
+        exp >>= 1;
+      }
+      return r;
+    },
+    _gfInv(a) {
+      if ((a & 0xff) === 0) throw new Error("Division by zero in GF(256).");
+      return this._gfPow(a, 254);
+    },
     splitShards(secretHex, threshold = 3, totalShares = 5) {
+      const cleanHex = String(secretHex || "").trim().replace(/^0x/i, "");
+      if (!cleanHex || (cleanHex.length % 2) !== 0 || !/^[0-9a-fA-F]+$/.test(cleanHex)) {
+        throw new Error("ThresholdKEMEngine requires a non-empty even-length hexadecimal secret.");
+      }
+      const t = Number(threshold), n = Number(totalShares);
+      if (t < 2 || n < t || n > 255) {
+        throw new Error("Invalid Shamir parameters: require 2 <= threshold <= totalShares <= 255.");
+      }
+      const secret = new Uint8Array(cleanHex.length / 2);
+      for (let i = 0; i < secret.length; i++) secret[i] = parseInt(cleanHex.slice(i * 2, i * 2 + 2), 16);
+      const shareBufs = Array.from({ length: n }, () => new Uint8Array(secret.length));
+      const randCoeffs = new Uint8Array(t - 1);
+      for (let b = 0; b < secret.length; b++) {
+        window.crypto.getRandomValues(randCoeffs);
+        for (let s = 0; s < n; s++) {
+          const x = s + 1;
+          let y = secret[b];
+          let xPow = x;
+          for (let c = 0; c < t - 1; c++) {
+            y ^= this._gfMul(randCoeffs[c], xPow);
+            xPow = this._gfMul(xPow, x);
+          }
+          shareBufs[s][b] = y;
+        }
+      }
       const shards = [];
-      for (let i = 1; i <= totalShares; i++) {
+      for (let s = 0; s < n; s++) {
+        const hex = Array.from(shareBufs[s]).map(v => v.toString(16).padStart(2, "0")).join("").toUpperCase();
         shards.push({
-          schema: "openqpep-qshare-rc100",
-          index: i,
-          threshold: threshold,
-          total: totalShares,
-          shard_payload: secretHex
+          schema: "openqpep-qshare-gf256-v1.1.0",
+          field: "GF(256)/0x11B",
+          index: s + 1,
+          threshold: t,
+          total: n,
+          shard_payload: hex
         });
       }
       return shards;
+    },
+    reconstructSecret(shards) {
+      if (!Array.isArray(shards) || shards.length < 2) {
+        throw new Error("At least threshold shares are required to reconstruct the secret.");
+      }
+      const t = Number(shards[0].threshold || shards.length);
+      if (shards.length < t) {
+        throw new Error("Insufficient shares: need at least " + t + ", received " + shards.length + ".");
+      }
+      const used = shards.slice(0, t);
+      const xs = used.map(sh => Number(sh.index));
+      const ys = used.map(sh => {
+        const h = String(sh.shard_payload || "");
+        const arr = new Uint8Array(h.length / 2);
+        for (let i = 0; i < arr.length; i++) arr[i] = parseInt(h.slice(i * 2, i * 2 + 2), 16);
+        return arr;
+      });
+      const len = ys[0].length;
+      const out = new Uint8Array(len);
+      // Precompute Lagrange basis weights L_j(0) over GF(256)
+      const weights = new Uint8Array(t);
+      for (let j = 0; j < t; j++) {
+        let num = 1, den = 1;
+        for (let m = 0; m < t; m++) {
+          if (m === j) continue;
+          num = this._gfMul(num, xs[m]);
+          den = this._gfMul(den, xs[m] ^ xs[j]);
+        }
+        weights[j] = this._gfMul(num, this._gfInv(den));
+      }
+      for (let b = 0; b < len; b++) {
+        let acc = 0;
+        for (let j = 0; j < t; j++) {
+          acc ^= this._gfMul(ys[j][b], weights[j]);
+        }
+        out[b] = acc;
+      }
+      return Array.from(out).map(v => v.toString(16).padStart(2, "0")).join("").toUpperCase();
     }
   };
 })();
@@ -4888,10 +4861,10 @@ window.addEventListener('DOMContentLoaded', async function() {
 </script>
 <script>
 
-/* === Calyx QPEP Client Official Release 1.0.2 Engine Extensions (Wire v5/v5.1, CMT-4, Inspector & 10-Suite Self-Test) === */
-(function initCalyxQPEPClientOfficialV100() {
-  window.OPENQPEP_OFFICIAL_VERSION = "1.0.2";
-  window.OPENQPEP_PROTOCOL_ID = "OpenQPEP/1.0.2";
+/* === Calyx QPEP Client Official Release 1.1.0 Engine Extensions (Wire v5/v5.1, CMT-4, Inspector & 10-Suite Self-Test) === */
+(function initCalyxQPEPClientOfficialV110() {
+  window.OPENQPEP_OFFICIAL_VERSION = "1.1.0";
+  window.OPENQPEP_PROTOCOL_ID = "OpenQPEP/1.1.0";
   window.OPENQPEP_WIRE_MAGIC_V5 = new Uint8Array([0x89, 0x51, 0x50, 0x45, 0x05, 0x00]);
   window.OPENQPEP_WIRE_MAGIC_V5_1 = new Uint8Array([0x89, 0x51, 0x50, 0x45, 0x05, 0x01]);
   window.OPENQPEP_STREAM_MAGIC_V5 = new Uint8Array([0x89, 0x51, 0x50, 0x53, 0x05, 0x00]);
@@ -4906,13 +4879,13 @@ window.addEventListener('DOMContentLoaded', async function() {
   window.inspectWireV5Packet = function (armoredText) {
     const txt = String(armoredText || "").trim();
     if (/OpenQPEP\/(?:RC-|PC-|Beta-)|1\.0\.0-rc|1\.[012]\.\d+-pc|-beta/i.test(txt)) {
-      return { valid: false, error: "QPEPLegacyProtocolError: Pre-release (-rc, -pc, -beta) artifact rejected in Official Release 1.0.2." };
+      return { valid: false, error: "QPEPLegacyProtocolError: Pre-release (-rc, -pc, -beta) artifact rejected in Official Release 1.1.0." };
     }
     const headerMatch = txt.match(/-----BEGIN ([A-Z0-9 -]+)-----/);
     return {
       valid: Boolean(headerMatch),
       header: headerMatch ? headerMatch[1] : "UNKNOWN",
-      protocol: "OpenQPEP/1.0.2",
+      protocol: "OpenQPEP/1.1.0",
       expected_wire_magic: window.OPENQPEP_COMPACT_TLV_MODE ? "895150450501" : "895150450500",
       mandatory_kdf_version: 4,
       cmt4_commitment: "CC512-CMT4-COMMIT-v1.0.0"
@@ -4931,7 +4904,7 @@ window.addEventListener('DOMContentLoaded', async function() {
     } catch (e) { legacyRejected = true; }
     return {
       version: "1.0.2",
-      protocol: "OpenQPEP/1.0.2",
+      protocol: "OpenQPEP/1.1.0",
       suites_verified: suites.length,
       suites: suites,
       cmt4_key_committing: true,

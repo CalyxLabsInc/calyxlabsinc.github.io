@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OpenQPEP Suite v1.0.2 (Official Release 1.0.2) | Calyx Labs Inc.</title>
-  <meta name="description" content="OpenQPEP (Calyx Quantum-Proof Encryption Protocol) Official Release 1.0.2 featuring all 10 post-quantum suites, Frozen Wire Format v5 (\x89QPE\x05\x00), kdf_version: 4, Calyx Hyper-Tesseract (QLX-16384 + QVS-1024) and Signature QLX-4096 + QVS-256." />
-  <link rel="canonical" href="https://calyxlabsinc.org/openqpep.html" />
+  <title>OpenQPEP Suite v1.1.0 (Official Release 1.1.0) | Calyx Labs Inc.</title>
+  <meta name="description" content="OpenQPEP (Calyx Quantum-Proof Encryption Protocol) Official Release 1.1.0 featuring all 10 post-quantum suites, Frozen Wire Format v5 (\x89QPE\x05\x00), kdf_version: 4, Calyx Hyper-Tesseract (QLX-16384 + QVS-1024) and Signature QLX-4096 + QVS-256." />
+  <link rel="canonical" href="https://calyxlabsinc.github.io/openqpep.html" />
   <link rel="icon" type="image/png" href="assets/images/pgp-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,7 +21,7 @@
         <img src="assets/images/pgp-icon.png" alt="Calyx Labs Inc. Logo" />
         <div class="brand-text">
           CALYX <span class="neon">LABS INC.</span>
-          <span class="brand-sub">Primary Portal • calyxlabsinc.org</span>
+          <span class="brand-sub">Backup Mirror • calyxlabsinc.github.io</span>
         </div>
       </a>
 
@@ -48,9 +48,9 @@
     <div class="container">
       <div class="hero-grid">
         <div>
-          <span class="eyebrow">Calyx Public Open Source License 1.0 (CPOSLS-1.0) &bull; Official Release 1.0.2</span>
+          <span class="eyebrow">Calyx Public Open Source License 1.0 (CPOSLS-1.0) &bull; Official Release 1.1.0</span>
           <h1 class="hero-title">
-            OpenQPEP Suite <span class="text-neon">v1.0.2</span>
+            OpenQPEP Suite <span class="text-neon">v1.1.0</span>
           </h1>
           <p class="lead">
             <strong>OpenQPEP (Calyx Quantum-Proof Encryption Protocol)</strong> is our sovereign post-quantum encryption, digital signature, and key-management ecosystem engineered by <strong>Tristen Martinez</strong> at <strong>Calyx Labs Inc.</strong>
@@ -72,13 +72,13 @@
         </div>
 
         <div class="card card-neon" style="padding: 1.75rem;">
-                    <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--neon-pink-bright); margin-bottom: 0.65rem;">OPENQPEP SUITE v1.0.2 ARCHITECTURE (ALL 10 CANONICAL SUITES)</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--neon-pink-bright); margin-bottom: 0.65rem;">OPENQPEP SUITE v1.1.0 ARCHITECTURE (ALL 10 CANONICAL SUITES)</div>
           <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 0.55rem; font-size: 0.9rem; color: var(--text-secondary);">
-            <li><strong style="color: var(--text-primary);">Mandatory Memory-Hard KDF (<code>kdf_version: 4</code>):</strong> RFC 9106 <strong>QPKD-Argon2id + qSponge-512</strong> cascade bound to <code>"OpenQPEP/1.0.2"</code> with 256-bit salt, optional <code>FIDO2-PRF</code> hardware passkey binding, and hardware-tuned memory cost (zero legacy KDF fallback).</li>
+            <li><strong style="color: var(--text-primary);">Mandatory Memory-Hard KDF (<code>kdf_version: 4</code>):</strong> RFC 9106 <strong>QPKD-Argon2id + qSponge-512</strong> cascade bound to <code>"OpenQPEP/1.1.0"</code> with 256-bit salt, optional <code>FIDO2-PRF</code> hardware passkey binding, and hardware-tuned memory cost (zero legacy KDF fallback).</li>
             <li><strong style="color: var(--text-primary);">Strict Frozen Wire Format:</strong> Wire v5 (<code>\x89QPE\x05\x00</code>) &amp; Compact Binary TLV v5.1 (<code>\x89QPE\x05\x01</code>) with <strong>CC-512 AEAD</strong> streaming frames and zero legacy <code>-pc</code> or <code>-beta</code> backwards compatibility (<code>QPEPLegacyProtocolError</code>).</li>
             <li><strong style="color: var(--text-primary);">6 All-Devices Suites:</strong> <code>Calyx Lattice-Apex: QLX-4096 + QVS-256</code> (Default), <code>Calyx Velocity: QLX-768 + QVS-65</code>, <code>Calyx Sovereign-Hybrid: QLX-1024 + QVS-87</code>, <code>Calyx Ultra-Grid: QLX-2048 + QVS-128</code>, <code>Calyx Isogeny-Forge: CIF-SQI-512 + QHS-512</code>, and <code>Calyx Rank-Metric Tensor: CRT-RSD512 + QMQ-512</code>.</li>
             <li><strong style="color: var(--text-primary);">4 High-Tier Hardware Only Suites (&ge;12 GB RAM):</strong> <code>Calyx Hyper-Tesseract: QLX-16384 + QVS-1024</code>, <code>Calyx Goppa-Monolith: CGM-8192 + QHS-512</code>, <code>Calyx Unstructured-Citadel: CULC-2048 + CGM-8192</code>, and <code>Calyx Sovereign-Pentad: CSP-Omega + QHS-512</code>.</li>
-            <li><strong style="color: var(--text-primary);">3 Unified Suite Applications:</strong> <strong>Calyx QPEP Client</strong> (Android <code>vc225</code> / iOS / Desktop), <strong>Calyx Encrypted Messenger</strong> (<code>messenger.calyxlabsinc.org</code>, Android <code>vc25</code> / iOS / Desktop), and <strong>Calyx Encrypted Email</strong> (<code>mail.calyxlabsinc.org</code>, Android <code>vc9</code> / iOS / Desktop), backed by the verifiable <a href="https://qpepkeys.calyxlabsinc.org" target="_blank" rel="noopener">OpenQPEP Key Transparency (QPEP-KT) Directory</a>.</li>
+            <li><strong style="color: var(--text-primary);">3 Unified Suite Applications:</strong> <strong>Calyx QPEP Client</strong> (Android <code>vc229</code> / iOS / Desktop), <strong>Calyx Encrypted Messenger</strong> (<code>messenger.calyxlabsinc.org</code>, Android <code>vc29</code> / iOS / Desktop), and <strong>Calyx Encrypted Email</strong> (<code>mail.calyxlabsinc.org</code>, Android <code>vc13</code> / iOS / Desktop), backed by the verifiable <a href="https://qpepkeys.calyxlabsinc.org" target="_blank" rel="noopener">OpenQPEP Key Transparency (QPEP-KT) Directory</a>.</li>
           </ul>
         </div>
       </div>
@@ -89,7 +89,7 @@
   <section style="background: rgba(13, 13, 20, 0.6); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
     <div class="container">
       <div style="margin-bottom: 2.25rem;">
-        <span class="eyebrow cyan">Official Release 1.0.2 Key Tiers</span>
+        <span class="eyebrow cyan">Official Release 1.1.0 Key Tiers</span>
         <h2 class="section-title">Ten Tiered <span class="text-neon">Lattice &amp; Beyond-LWE</span> Cryptographic Suites</h2>
       </div>
 
@@ -152,7 +152,7 @@
           </p>
           <div class="badge-list">
             <span class="badge pink">100% Zero Data Collection</span>
-            <span class="badge green">Primary Website • calyxlabsinc.org</span>
+            <span class="badge green">Backup Mirror • calyxlabsinc.github.io</span>
           </div>
         </div>
 
@@ -160,7 +160,7 @@
           <h4 class="footer-title">OpenQPEP Suite &amp; Apps</h4>
           <ul class="footer-links">
             <li><a href="messenger.html">Calyx Encrypted Messenger (Android/iOS/Web)</a></li>
-            <li><a href="openqpep.html">OpenQPEP Suite v1.0.2</a></li>
+            <li><a href="openqpep.html">OpenQPEP Suite v1.1.0</a></li>
             <li><a href="pgp-client.html">Calyx PGP &amp; Post-Quantum PGP Suite</a></li>
             <li><a href="zappy-bird.html">Zappy Bird &amp; Calyxia Space Shooter</a></li>
           </ul>
