@@ -2762,7 +2762,7 @@ function _oqB64ToU8(b64) {
   return out;
 }
 function _oqWrapKeyV4Hex(saltHex, passphrase) {
-  return _oqBytesToHex(_oqSha3_512(`QPKD-Argon2id-WRAP-v4|${saltHex}|OpenQPEP/1.1.0|kdf_version=4|${passphrase}`));
+  return _oqBytesToHex(_oqSha3_512(`QPKD-Argon2id-WRAP-v4|${saltHex}|OpenQPEP/1.0.0|kdf_version=4|${passphrase}`));
 }
 function _oqWrapMacV4Hex(wrapKeyHex, wrappedSecretHex, keyHash) {
   return _oqBytesToHex(_oqSha3_512(`QPKD-WRAP-MAC-v4|${wrapKeyHex}|${wrappedSecretHex}|${String(keyHash || "").toUpperCase()}`));
@@ -3122,7 +3122,7 @@ async function createNewPersonalKey() {
     private_key_locked: {
       kdf: "RFC 9106 QPKD-Argon2id + qSponge-512 (kdf_version: 4)",
       kdf_version: 4,
-      personalization: "OpenQPEP/1.1.0",
+      personalization: "OpenQPEP/1.0.0",
       salt_hex: _xSaltHex,
       wrapped_secret_hex: _xWrappedSecretHex,
       secret_mac: _xSecretMac,
