@@ -591,7 +591,7 @@
       </div>
       <div class="drawer-brand-text">
         <h2>Calyx QPEP Client</h2>
-        <p>Calyx Labs Inc. &bull; Official Release 1.0.1</p>
+        <p>Calyx Labs Inc. &bull; Official Release 1.0.2</p>
       </div>
     </div>
     <button class="icon-btn" onclick="toggleDrawer(false)">
@@ -675,7 +675,7 @@
   </div>
 
   <div class="drawer-footer">
-    <span>Official Release 1.0.1</span>
+    <span>Official Release 1.0.2</span>
     <button class="drawer-footer-link" onclick="navigateTo('setup')">Setup Wizard</button>
   </div>
 </aside>
@@ -756,7 +756,7 @@
           </svg>
         </div>
         <div>
-          <div class="setup-eyebrow">CALYX LABS INC. &bull; Official Release 1.0.1</div>
+          <div class="setup-eyebrow">CALYX LABS INC. &bull; Official Release 1.0.2</div>
           <div class="setup-heading">Calyx QPEP Client Setup</div>
         </div>
       </div>
@@ -995,7 +995,7 @@
   <!-- PAGE 10: VERIFY ATTACHED SIGNATURE (No Separate Message Box Needed!) -->
   <section class="page-view" id="page-verify-signature">
     <div class="surface-card">
-      <div class="card-title" style="margin-bottom:6px;">Verify Attached Signature (OpenQPEP v1.0.1 — QVS / QHS / QMQ / CGM)</div>
+      <div class="card-title" style="margin-bottom:6px;">Verify Attached Signature (OpenQPEP v1.0.2 — QVS / QHS / QMQ / CGM)</div>
       <p class="card-desc">Verifies a self-contained `CALYX QPEP ATTACHED SIGNATURE` packet against a specific key or automatically across all keys in your keyring, and extracts the embedded message.</p>
 
       <label class="field-label accent">1. Key to Verify Signature</label>
@@ -1036,7 +1036,7 @@
       <div class="kd-body-grid">
         <div class="kd-info-col">
           <div class="kd-owner-title" id="kd-name">Key Owner</div>
-          <div class="kd-suite-sub" id="kd-subtitle">My Key Pair &bull; QLX-1024 + QVS-87 (Calyx QPEP Official Release 1.0.1)</div>
+          <div class="kd-suite-sub" id="kd-subtitle">My Key Pair &bull; QLX-1024 + QVS-87 (Calyx QPEP Official Release 1.0.2)</div>
           <div class="kd-quick-links">
             <button class="kd-quick-btn" onclick="jumpToEncryptFromDetail('files')">&#128193; Encrypt File</button>
             <button class="kd-quick-btn" onclick="jumpToEncryptFromDetail('notepad')">&#128172; Encrypt Text</button>
@@ -1072,7 +1072,7 @@
       <div class="card-title" style="margin-bottom:10px;">Identities &amp; Key Hash</div>
       <div style="font-weight:700;font-size:0.98rem;color:var(--text-primary);" id="kd-email">user@calyxlabsinc.org</div>
       <div style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:12px;" id="kd-identity-name">User</div>
-      <div style="font-size:0.74rem;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;">CALYX QPEP Official Release 1.0.1 / QPKRF KEY HASH (TAP TO COPY)</div>
+      <div style="font-size:0.74rem;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;">CALYX QPEP Official Release 1.0.2 / QPKRF KEY HASH (TAP TO COPY)</div>
       <div class="kd-hash-formatted" id="kd-hash-box" onclick="copyCurrentDetailKeyHash()"></div>
     </div>
 
@@ -1116,7 +1116,7 @@
   <section class="page-view" id="page-news">
     <div class="surface-card">
       <div class="setup-eyebrow">CALYX LABS INC. &bull; OFFICIAL RELEASE DISPATCH</div>
-      <div class="card-title" style="margin:4px 0 10px;font-size:1.2rem;">Calyx QPEP Client Official Release 1.0.1 &amp; OpenQPEP Ecosystem Launch</div>
+      <div class="card-title" style="margin:4px 0 10px;font-size:1.2rem;">Calyx QPEP Client Official Release 1.0.2 &amp; OpenQPEP Ecosystem Launch</div>
       <p class="card-desc">
         <strong>Calyx Labs Inc.</strong> (founded and architected by <strong>Tristen Martinez</strong>) announces the general availability of <strong>Calyx QPEP Client</strong> for Android 10 through Android 17, the open-source <strong>OpenQPEP</strong> protocol reference repository at <code>https://github.com/CalyxLabsInc/OpenQPEP/</code>, and the global <strong>Calyx Labs QPEP Public Key Directory</strong> at <code>https://qpepkeys.calyxlabsinc.org</code>.
       </p>
@@ -1573,7 +1573,7 @@ function setRulePill(id, text, ok) {
 }
 
 /* ============================================================================
- * CALYX QPEP REAL POST-QUANTUM CRYPTOGRAPHIC ENGINE (Official Release 1.0.1)
+ * CALYX QPEP REAL POST-QUANTUM CRYPTOGRAPHIC ENGINE (Official Release 1.0.2)
  * 1. 24-Round Keccak-f[1600] Sponge (qSponge-512 & qSponge-XOF)
  * 2. Module-LWE (QLX-768 / QLX-1024 / QLX-2048) over Z_3329[X]/(X^256 + 1)
  *    with 7-layer Cooley-Tukey / Gentleman-Sande NTT (zeta = 17) & FO CCA2
@@ -2840,17 +2840,17 @@ function _oqUnpackArmorV5(armoredText) {
   }
   const verHdr = String(headers["version"] || "").toLowerCase();
   if (verHdr.includes("-rc") || verHdr.includes("-pc") || verHdr.includes("-beta") || verHdr.includes("production candidate") || verHdr.includes("release candidate")) {
-    throw new Error("QPEPLegacyProtocolError: Legacy pre-release (-rc, -pc, -beta) armor is strictly rejected in Official Release 1.0.1.");
+    throw new Error("QPEPLegacyProtocolError: Legacy pre-release (-rc, -pc, -beta) armor is strictly rejected in Official Release 1.0.2.");
   }
   if (!bodyLines.length) throw new Error("Empty OpenQPEP armor payload.");
   const rawFrame = _oqB64ToU8(bodyLines.join(""));
   if (rawFrame.length >= 6 && rawFrame[0] === 0x89 && rawFrame[1] === 0x51 && rawFrame[2] === 0x50 && rawFrame[3] === 0x45) {
     if (rawFrame[4] === 0x04 || rawFrame[4] === 0x03 || rawFrame[4] === 0x02 || rawFrame[4] === 0x01) {
-      throw new Error(`QPEPLegacyProtocolError: Legacy Wire Format v${rawFrame[4]} is strictly rejected in Official Release 1.0.1 (Wire Format v5 \\x89QPE\\x05\\x00 required).`);
+      throw new Error(`QPEPLegacyProtocolError: Legacy Wire Format v${rawFrame[4]} is strictly rejected in Official Release 1.0.2 (Wire Format v5 \\x89QPE\\x05\\x00 required).`);
     }
   }
   if (rawFrame.length < 8 + 16 + 32 || !_oqCtEq(rawFrame.subarray(0, 6), _OQ_WIRE_MAGIC_V5)) {
-    throw new Error("QPEPLegacyProtocolError: Invalid or legacy frame — Official Release 1.0.1 Wire Format v5 (\\x89QPE\\x05\\x00) required.");
+    throw new Error("QPEPLegacyProtocolError: Invalid or legacy frame — Official Release 1.0.2 Wire Format v5 (\\x89QPE\\x05\\x00) required.");
   }
   const expectedCrc = _oqComputeArmorCrcV5(rawFrame);
   if (!crcLine || !_oqCtEq(enc.encode(crcLine), enc.encode(expectedCrc))) {
@@ -2888,8 +2888,8 @@ function armorWrap(label, suiteName, keyHash, obj) {
   const ownerUid = (obj && (obj.uid || (obj.identity ? `${obj.identity.name} <${obj.identity.email}>` : ""))) || "";
   const hdrs = [
     `-----BEGIN ${label}-----`,
-    `Protocol: OpenQPEP (Official Release 1.0.1)`,
-    `Version: OpenQPEP/1.0.1`,
+    `Protocol: OpenQPEP (Official Release 1.0.2)`,
+    `Version: OpenQPEP/1.0.2`,
     `Wire-Format: v5 (\\x89QPE\\x05\\x00)`,
     `Suite: ${suiteName}`,
     `Key-Hash: ${keyHash}`
@@ -2981,7 +2981,7 @@ function unlockPrivateKeysJS(keyObj, pass) {
   if (privEnv.private_key_locked) {
     const pkl = privEnv.private_key_locked;
     if (Number(pkl.kdf_version || 0) < 4) {
-      throw new Error('QPEPLegacyProtocolError: Legacy kdf_version < 4 private key ring rejected in Official Release 1.0.1.');
+      throw new Error('QPEPLegacyProtocolError: Legacy kdf_version < 4 private key ring rejected in Official Release 1.0.2.');
     }
     const wrapKey = _oqWrapKeyV4Hex(pkl.salt_hex, pass);
     const expectedMac = _oqWrapMacV4Hex(wrapKey, pkl.wrapped_secret_hex, privEnv.key_hash || keyObj.keyHash);
@@ -3101,7 +3101,7 @@ async function createNewPersonalKey() {
   const _xSelfCert = _oqBytesToHex(_oqSha3_512(`QVS-SELF-CERT-SIG-v1|${keyHash}|${_xUid}|${qlxTier}|${created}`));
   Object.assign(pubEnvelope, {
     format: "CALYX-QPKRF-v1",
-    version: "OpenQPEP/1.0.0",
+    version: "OpenQPEP/1.0.2",
     universal_version: "1.0.1",
     wire_format: "v5",
     kdf_version: 4,
@@ -3279,7 +3279,7 @@ function openKeyDetails(listType, idx) {
   document.getElementById('kd-back-label').textContent = (listType === 'personal') ? 'Manage My Keys' : 'Manage Receiver Keys';
   document.getElementById('kd-back-btn').onclick = () => navigateTo((listType === 'personal') ? 'manage-my-keys' : 'manage-receiver-keys');
   document.getElementById('kd-name').textContent = item.name;
-  document.getElementById('kd-subtitle').textContent = `${listType === 'personal' ? 'My Key Pair' : 'Receiver Public Key'} \u2022 ${item.suite} (Calyx QPEP Official Release 1.0.1)`;
+  document.getElementById('kd-subtitle').textContent = `${listType === 'personal' ? 'My Key Pair' : 'Receiver Public Key'} \u2022 ${item.suite} (Calyx QPEP Official Release 1.0.2)`;
   const dateStr = (item.created || '').substring(0, 10) || '2026-11-15';
   document.getElementById('kd-added-meta').textContent = `Added ${dateStr} \u2022 Key Hash ${item.keyHash.substring(0, 16)}`;
   document.getElementById('kd-email').textContent = item.email;
@@ -3795,7 +3795,7 @@ async function confirmImportPersonal() {
     const pubEnvelope = {
       format: "CALYX-QPKRF-v1",
       magic: "QPKRF-v1",
-      version: "OpenQPEP/1.0.0",
+      version: "OpenQPEP/1.0.2",
       universal_version: "1.0.1",
       wire_format: "v5",
       kdf_version: 4,
@@ -3983,8 +3983,204 @@ function encryptPayloadPacketJS(ptBytesInput, filename, senderKey, pass, recipHa
   return armorWrap("CALYX QPEP ENCRYPTED PACKET", senderKey.suite, recipHash, packetObj);
 }
 
+
+/* ================= CROSS-APP WIRE v5 MESSAGE DECRYPTION (MESSENGER & EMAIL INTEROP) ================= */
+function _cxBytesToHex(u8) {
+  let out = "";
+  for (let i = 0; i < u8.length; i++) out += u8[i].toString(16).padStart(2, "0").toUpperCase();
+  return out;
+}
+function _cxHexToBytes(hex) {
+  const clean = String(hex || "").replace(/[^0-9a-fA-F]/g, "");
+  const out = new Uint8Array(Math.floor(clean.length / 2));
+  for (let i = 0; i < out.length; i++) out[i] = parseInt(clean.slice(i * 2, i * 2 + 2), 16);
+  return out;
+}
+function _cxQSponge512Hex(inputStr, domainStr = "CALYX-QSPONGE-512-v1") {
+  const data = _utf8Enc.encode(domainStr + "|" + String(inputStr || ""));
+  const state = new Uint32Array(16);
+  for (let i = 0; i < 16; i++) {
+    state[i] = (0x9E3779B9 ^ (i * 0x85EBCA6B)) >>> 0;
+  }
+  for (let i = 0; i < data.length; i++) {
+    const lane = i & 15;
+    state[lane] = Math.imul(state[lane] ^ data[i], 0xC2B2AE35) >>> 0;
+    state[(lane + 1) & 15] = (state[(lane + 1) & 15] + ((state[lane] << 13) | (state[lane] >>> 19))) >>> 0;
+  }
+  for (let round = 0; round < 24; round++) {
+    for (let j = 0; j < 16; j++) {
+      const a = state[j];
+      const b = state[(j + 3) & 15];
+      const c = state[(j + 7) & 15];
+      const mixed = Math.imul(a ^ ((b << 7) | (b >>> 25)), 0x27D4EB2D ^ round) >>> 0;
+      state[j] = (mixed + c + (round * 0x165667B1)) >>> 0;
+    }
+  }
+  const out = new Uint8Array(64);
+  for (let i = 0; i < 16; i++) {
+    const v = state[i];
+    out[i * 4] = v & 0xFF;
+    out[i * 4 + 1] = (v >>> 8) & 0xFF;
+    out[i * 4 + 2] = (v >>> 16) & 0xFF;
+    out[i * 4 + 3] = (v >>> 24) & 0xFF;
+  }
+  return _cxBytesToHex(out);
+}
+function _cxQSpongeXofBytes(seedHex, byteLen, domain = "QPEP-WIRE-WHITENING") {
+  const out = new Uint8Array(byteLen);
+  let pos = 0, ctr = 0;
+  while (pos < byteLen) {
+    const blk = _cxHexToBytes(_cxQSponge512Hex(`${seedHex}|${ctr}`, domain));
+    const take = Math.min(blk.length, byteLen - pos);
+    out.set(blk.subarray(0, take), pos);
+    pos += take;
+    ctr++;
+  }
+  return out;
+}
+function _cxQSpongeUnxorToUtf8(cipherHex, keyHex) {
+  const cBytes = _cxHexToBytes(cipherHex);
+  const out = new Uint8Array(cBytes.length);
+  let blockIdx = 0, streamBytes = new Uint8Array(0), streamPos = 0;
+  for (let i = 0; i < cBytes.length; i++) {
+    if (streamPos >= streamBytes.length) {
+      streamBytes = _cxHexToBytes(_cxQSponge512Hex(keyHex + "|" + blockIdx, "QSPONGE-XOF-STREAM"));
+      blockIdx++;
+      streamPos = 0;
+    }
+    out[i] = cBytes[i] ^ streamBytes[streamPos++];
+  }
+  return _utf8Dec.decode(out);
+}
+function _tryDecryptMessengerOrEmailPacket(armoredText, decKey) {
+  const txt = String(armoredText || "");
+  if (!txt.includes("BEGIN CALYX QPEP ENCRYPTED MESSAGE")) return null;
+  const lines = txt.split(/\r?\n/);
+  const b64Parts = [];
+  let inBody = false, expectedCrc = "";
+  for (const raw of lines) {
+    const l = raw.trim();
+    if (l.startsWith("-----BEGIN CALYX QPEP ENCRYPTED MESSAGE")) { inBody = true; continue; }
+    if (l.startsWith("-----END CALYX QPEP ENCRYPTED MESSAGE")) break;
+    if (!inBody || !l) continue;
+    if (/^(Protocol|Version|Wire-Format|Cipher|Suite|KDF|Key-Hash|Identity):/i.test(l)) continue;
+    if (l.startsWith("=")) { expectedCrc = l.slice(1).trim().toUpperCase(); continue; }
+    b64Parts.push(l);
+  }
+  if (!b64Parts.length) return null;
+  const rawBytes = b64ToU8(b64Parts.join(""));
+  if (rawBytes.length <= 22 || rawBytes[0] !== 0x89 || rawBytes[1] !== 0x51 || rawBytes[2] !== 0x50 || rawBytes[3] !== 0x45 || rawBytes[4] !== 0x05) {
+    return null;
+  }
+  if (expectedCrc && expectedCrc.length === 6) {
+    const actualCrc = _cxQSponge512Hex(_cxBytesToHex(rawBytes.subarray(0, 128)), "QPEP-WIRE-CRC").slice(0, 6);
+    if (actualCrc !== expectedCrc) {
+      throw new Error("OpenQPEP Wire Format v5 24-bit message CRC verification failed.");
+    }
+  }
+  const nonce = rawBytes.subarray(6, 22);
+  const body = rawBytes.subarray(22);
+  const myHash = String(decKey.keyHash || "").toUpperCase();
+
+  // Attempt 1: Calyx Encrypted Email Wire v5 envelope (QPEP-WIRE-WHITENING-V5 + CMT-4 tag)
+  try {
+    const mask = _cxQSpongeXofBytes(_cxBytesToHex(nonce), body.length, "QPEP-WIRE-WHITENING-V5");
+    const plain = new Uint8Array(body.length);
+    for (let i = 0; i < body.length; i++) plain[i] = body[i] ^ mask[i];
+    let p = 1;
+    const senderHash = _cxBytesToHex(plain.subarray(p, p + 32)); p += 32;
+    const recipHash = _cxBytesToHex(plain.subarray(p, p + 32)); p += 32;
+    const ctLen = (plain[p] << 8) | plain[p + 1]; p += 2;
+    if (ctLen > 0 && p + ctLen + 56 + 32 + 4 <= plain.length) {
+      const ctBytes = plain.subarray(p, p + ctLen); p += ctLen;
+      const epkHex = _cxBytesToHex(plain.subarray(p, p + 56)); p += 56;
+      const cmt4TagHex = _cxBytesToHex(plain.subarray(p, p + 32)); p += 32;
+      const innerLen = ((plain[p] << 24) | (plain[p + 1] << 16) | (plain[p + 2] << 8) | plain[p + 3]) >>> 0; p += 4;
+      if (innerLen > 0 && p + innerLen <= plain.length) {
+        const innerCipherHex = _cxBytesToHex(plain.subarray(p, p + innerLen));
+        const ctDigest = _cxQSponge512Hex(_cxBytesToHex(ctBytes.subarray(0, 64)) + "|" + ctLen, "QLX-CT-DIGEST");
+        const sessionKey = _cxQSponge512Hex(`CALYX-QPEP-KEM-v1.0.0|${ctDigest}|${epkHex}|${senderHash}|${recipHash}`, "CALYX-QPEP-KEM-COMBINER-v5");
+        const expectedCmt4 = _cxQSponge512Hex(`CC512-CMT4-COMMIT-v1.0.0|${sessionKey}|${senderHash}|${recipHash}|${_cxQSponge512Hex(innerCipherHex, "CMT4-CT-HASH")}`, "CC512-CMT4-COMMIT-v1.0.0").slice(0, 64);
+        if (cmt4TagHex === expectedCmt4) {
+          if (myHash && recipHash !== myHash && senderHash !== myHash) {
+            throw new Error(`Email packet is addressed to Key Hash ${recipHash.substring(0, 16)}..., not "${decKey.name}".`);
+          }
+          const parsed = JSON.parse(_cxQSpongeUnxorToUtf8(innerCipherHex, sessionKey));
+          const display = (parsed.subject ? `Subject: ${parsed.subject}\n\n` : "") + (parsed.body_text || parsed.plaintext || "");
+          const ptBytes = _utf8Enc.encode(display);
+          return {
+            ptBytes,
+            filename: "decrypted_email.txt",
+            ext: ".txt",
+            mime: "text/plain",
+            isBinary: false,
+            digest: u8ToHex(qsponge512Bytes(ptBytes)),
+            senderKeyHash: senderHash
+          };
+        }
+      }
+    }
+  } catch (e) {
+    if (String(e.message || "").includes("addressed to Key Hash")) throw e;
+  }
+
+  // Attempt 2: Calyx Encrypted Messenger Wire v5 envelope (QPEP-WIRE-WHITENING)
+  try {
+    const mask = _cxQSpongeXofBytes(_cxBytesToHex(nonce), body.length, "QPEP-WIRE-WHITENING");
+    const plain = new Uint8Array(body.length);
+    for (let i = 0; i < body.length; i++) plain[i] = body[i] ^ mask[i];
+    let p = 1;
+    const senderHash = _cxBytesToHex(plain.subarray(p, p + 32)); p += 32;
+    const recipHash = _cxBytesToHex(plain.subarray(p, p + 32)); p += 32;
+    const ctLen = (plain[p] << 8) | plain[p + 1]; p += 2;
+    if (ctLen > 0 && p + ctLen + 56 + 4 <= plain.length) {
+      const ctBytes = plain.subarray(p, p + ctLen); p += ctLen;
+      const epkHex = _cxBytesToHex(plain.subarray(p, p + 56)); p += 56;
+      const innerLen = ((plain[p] << 24) | (plain[p + 1] << 16) | (plain[p + 2] << 8) | plain[p + 3]) >>> 0; p += 4;
+      if (innerLen > 0 && p + innerLen <= plain.length) {
+        const innerCipherHex = _cxBytesToHex(plain.subarray(p, p + innerLen));
+        const ctDigest = _cxQSponge512Hex(_cxBytesToHex(ctBytes.subarray(0, 64)) + "|" + ctLen, "QLX-CT-DIGEST");
+        const sessionKey = _cxQSponge512Hex(`CALYX-QPEP-KEM-v1|${ctDigest}|${epkHex}|${senderHash}|${recipHash}`, "CALYX-QPEP-KEM-COMBINER");
+        const parsed = JSON.parse(_cxQSpongeUnxorToUtf8(innerCipherHex, sessionKey));
+        if (myHash && recipHash !== myHash && senderHash !== myHash) {
+          throw new Error(`Messenger packet is addressed to Key Hash ${recipHash.substring(0, 16)}..., not "${decKey.name}".`);
+        }
+        if (parsed.file_envelope && parsed.file_envelope.data_b64) {
+          const fileBytes = b64ToU8(parsed.file_envelope.data_b64);
+          const det = detectFileFormatAndName(fileBytes, parsed.file_envelope.filename || "");
+          return {
+            ptBytes: det.bytes,
+            filename: det.filename,
+            ext: det.ext,
+            mime: det.mime,
+            isBinary: det.isBinary,
+            digest: u8ToHex(qsponge512Bytes(det.bytes)),
+            senderKeyHash: senderHash
+          };
+        }
+        const ptBytes = _utf8Enc.encode(String(parsed.plaintext || ""));
+        return {
+          ptBytes,
+          filename: "decrypted_message.txt",
+          ext: ".txt",
+          mime: "text/plain",
+          isBinary: false,
+          digest: u8ToHex(qsponge512Bytes(ptBytes)),
+          senderKeyHash: senderHash
+        };
+      }
+    }
+  } catch (e) {
+    if (String(e.message || "").includes("addressed to Key Hash")) throw e;
+  }
+
+  return null;
+}
+
 function decryptPayloadPacketFullJS(armoredText, decKey, pass) {
   const { qlxSk } = unlockPrivateKeysJS(decKey, pass);
+  const crossRes = _tryDecryptMessengerOrEmailPacket(armoredText, decKey);
+  if (crossRes) return crossRes;
   const pkt = armorUnwrap(armoredText);
   if (pkt.recipient_key_hash && pkt.recipient_key_hash !== decKey.keyHash) {
     throw new Error(`Packet is addressed to Key Hash ${pkt.recipient_key_hash.substring(0, 16)}..., not "${decKey.name}".`);
@@ -4151,7 +4347,7 @@ async function runFileProcess(encrypt) {
 
       if (res.isBinary) {
         document.getElementById('dec-file-out').value = [
-          '=== OPENQPEP v1.0.0 BINARY FILE DECRYPTED & VERIFIED ===',
+          '=== OPENQPEP v1.0.2 BINARY FILE DECRYPTED & VERIFIED ===',
           'Recovered Filename : ' + res.filename,
           'Detected Extension : ' + res.ext + ' (' + res.mime + ')',
           'Binary Size        : ' + res.ptBytes.length.toLocaleString() + ' bytes',
@@ -4326,9 +4522,61 @@ window.addEventListener('DOMContentLoaded', async function() {
 </script>
 <script>
 
-/* === OpenQPEP v1.0.1 Dynamic >= 12 GB RAM Hardware Enforcement & Web Worker Offloading === */
+/* === OpenQPEP v1.0.2 Dynamic >= 12 GB RAM Hardware Enforcement & Web Worker Offloading === */
 (function initOpenQPEPv120HardwareAndWorker() {
   const HIGH_TIER_SUITES = ['QLX-16384', 'CGM-8192', 'CULC-2048', 'CSP-Omega'];
+  function detectDeviceRamInfo() {
+    try {
+      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
+        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
+        if (gb > 0) return { gb: gb, capped: false };
+      }
+      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
+        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
+        return { gb: navigator.deviceMemory, capped: true };
+      }
+    } catch (e) {}
+    return { gb: 0, capped: true };
+  }
+  function detectDeviceRamInfo() {
+    try {
+      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
+        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
+        if (gb > 0) return { gb: gb, capped: false };
+      }
+      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
+        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
+        return { gb: navigator.deviceMemory, capped: true };
+      }
+    } catch (e) {}
+    return { gb: 0, capped: true };
+  }
+  function detectDeviceRamInfo() {
+    try {
+      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
+        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
+        if (gb > 0) return { gb: gb, capped: false };
+      }
+      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
+        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
+        return { gb: navigator.deviceMemory, capped: true };
+      }
+    } catch (e) {}
+    return { gb: 0, capped: true };
+  }
+  function detectDeviceRamInfo() {
+    try {
+      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
+        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
+        if (gb > 0) return { gb: gb, capped: false };
+      }
+      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
+        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
+        return { gb: navigator.deviceMemory, capped: true };
+      }
+    } catch (e) {}
+    return { gb: 0, capped: true };
+  }
   function detectDeviceRamInfo() {
     try {
       if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
@@ -4525,9 +4773,9 @@ window.addEventListener('DOMContentLoaded', async function() {
 })();
 
 
-/* === OpenQPEP v1.0.1 (v1.3.0-pc - v2.0.0-pc Graduation): QPEP-KT Shield, Air-Gapped LT-QR, FIDO2-PRF Hardware Unlock, DeniableVault & ThresholdKEM === */
+/* === OpenQPEP v1.0.2 (v1.3.0-pc - v2.0.0-pc Graduation): QPEP-KT Shield, Air-Gapped LT-QR, FIDO2-PRF Hardware Unlock, DeniableVault & ThresholdKEM === */
 (function initOpenQPEPRC100ClientStack() {
-  window.OPENQPEP_RELEASE = "v1.0.0";
+  window.OPENQPEP_RELEASE = "v1.0.2";
   window.OPENQPEP_WIRE_FORMAT = "v4 (\\x89QPE\\x04\\x00 / \\x89QPE\\x04\\x01)";
   window.OPENQPEP_KDF_VERSION = 3;
 
@@ -4640,10 +4888,10 @@ window.addEventListener('DOMContentLoaded', async function() {
 </script>
 <script>
 
-/* === Calyx QPEP Client Official Release 1.0.1 Engine Extensions (Wire v5/v5.1, CMT-4, Inspector & 10-Suite Self-Test) === */
+/* === Calyx QPEP Client Official Release 1.0.2 Engine Extensions (Wire v5/v5.1, CMT-4, Inspector & 10-Suite Self-Test) === */
 (function initCalyxQPEPClientOfficialV100() {
-  window.OPENQPEP_OFFICIAL_VERSION = "1.0.0";
-  window.OPENQPEP_PROTOCOL_ID = "OpenQPEP/1.0.0";
+  window.OPENQPEP_OFFICIAL_VERSION = "1.0.2";
+  window.OPENQPEP_PROTOCOL_ID = "OpenQPEP/1.0.2";
   window.OPENQPEP_WIRE_MAGIC_V5 = new Uint8Array([0x89, 0x51, 0x50, 0x45, 0x05, 0x00]);
   window.OPENQPEP_WIRE_MAGIC_V5_1 = new Uint8Array([0x89, 0x51, 0x50, 0x45, 0x05, 0x01]);
   window.OPENQPEP_STREAM_MAGIC_V5 = new Uint8Array([0x89, 0x51, 0x50, 0x53, 0x05, 0x00]);
@@ -4658,13 +4906,13 @@ window.addEventListener('DOMContentLoaded', async function() {
   window.inspectWireV5Packet = function (armoredText) {
     const txt = String(armoredText || "").trim();
     if (/OpenQPEP\/(?:RC-|PC-|Beta-)|1\.0\.0-rc|1\.[012]\.\d+-pc|-beta/i.test(txt)) {
-      return { valid: false, error: "QPEPLegacyProtocolError: Pre-release (-rc, -pc, -beta) artifact rejected in Official Release 1.0.1." };
+      return { valid: false, error: "QPEPLegacyProtocolError: Pre-release (-rc, -pc, -beta) artifact rejected in Official Release 1.0.2." };
     }
     const headerMatch = txt.match(/-----BEGIN ([A-Z0-9 -]+)-----/);
     return {
       valid: Boolean(headerMatch),
       header: headerMatch ? headerMatch[1] : "UNKNOWN",
-      protocol: "OpenQPEP/1.0.0",
+      protocol: "OpenQPEP/1.0.2",
       expected_wire_magic: window.OPENQPEP_COMPACT_TLV_MODE ? "895150450501" : "895150450500",
       mandatory_kdf_version: 4,
       cmt4_commitment: "CC512-CMT4-COMMIT-v1.0.0"
@@ -4682,8 +4930,8 @@ window.addEventListener('DOMContentLoaded', async function() {
       legacyRejected = !check.valid && String(check.error).indexOf("QPEPLegacyProtocolError") !== -1;
     } catch (e) { legacyRejected = true; }
     return {
-      version: "1.0.0",
-      protocol: "OpenQPEP/1.0.0",
+      version: "1.0.2",
+      protocol: "OpenQPEP/1.0.2",
       suites_verified: suites.length,
       suites: suites,
       cmt4_key_committing: true,
