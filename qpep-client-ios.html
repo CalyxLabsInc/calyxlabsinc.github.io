@@ -915,6 +915,10 @@
       <label class="field-label">3. Select Input File</label>
       <button type="button" class="file-picker-btn" id="enc-file-picker-btn" onclick="triggerNativeOrWebFilePicker('enc-file-input', 'enc-file-out', true)">&#128194; Choose File from Device Files</button>
       <div id="enc-file-status" style="font-size:0.8rem;color:var(--accent-primary);margin-top:6px;display:none;"></div>
+      <div id="enc-file-name-wrap" style="display:none;margin-top:10px;">
+        <label class="field-label" style="margin-top:0;">Original Filename (embedded in .qpep &amp; restored when decrypted)</label>
+        <input type="text" class="boxed-input" id="enc-file-orig-name" placeholder="e.g. EIN.pdf" />
+      </div>
       <input type="file" class="boxed-input" id="enc-file-input" onchange="loadFileIntoTextarea(this, 'enc-file-out')" style="display:none;" />
 
       <label class="field-label">4. Mandatory Passphrase (Unlocks Encrypting Key)</label>
@@ -3444,13 +3448,29 @@ function tryRecoverDoubleUtf8Binary(u8) {
   return u8;
 }
 
+function sanitizeOriginalFilenameHint(hint) {
+  let s = String(hint || '').trim();
+  if (!s) return '';
+  // Strip any directory prefix if present
+  if (s.includes('/') || s.includes('\\')) {
+    // Reject obvious base64 blobs containing slashes
+    if (s.length > 100 && !s.includes(' ')) return '';
+    s = s.split(/[\/\\]/).pop().trim();
+  }
+  // Reject control chars, newlines, oversized strings, or base64-like payloads
+  if (/[\r\n\0]/.test(s) || s.length > 120) return '';
+  if (s.length > 64 && !s.includes(' ') && !s.includes('.') && /^[A-Za-z0-9+/=_-]+$/.test(s)) return '';
+  s = s.replace(/[<>:"|?*]/g, '_').trim();
+  return s;
+}
+
 function detectFileFormatAndName(u8, hintFilename) {
   const bytes = tryRecoverDoubleUtf8Binary(u8);
   let ext = '';
-  let cleanHint = String(hintFilename || '').trim();
+  let cleanHint = sanitizeOriginalFilenameHint(hintFilename);
   if (cleanHint && cleanHint.includes('.')) {
     const cand = '.' + cleanHint.split('.').pop().toLowerCase();
-    if (cand !== '.qpep' && cand !== '.bin' && cand.length <= 12) {
+    if (cand !== '.qpep' && cand !== '.bin' && cand.length <= 12 && /^\.[a-z0-9]{1,10}$/.test(cand)) {
       ext = cand;
     }
   }
@@ -3516,10 +3536,8 @@ function triggerNativeOrWebFilePicker(fileInputId, targetTextareaId, isBinaryFil
 window.onNativeFileReady = function() {
   try {
     const b64 = window.prompt('CALYX_READ_PICKED', '');
-    let nativeName = '';
-    try { nativeName = window.prompt('CALYX_READ_PICKED_NAME', '') || ''; } catch (e) {}
     if (b64 && b64.length > 0) {
-      window.onNativeFilePicked(b64, nativeName);
+      window.onNativeFilePicked(b64, '');
     }
   } catch (e) {}
 };
@@ -4089,7 +4107,8 @@ async function runFileProcess(encrypt) {
       pickedFileName = detected.filename;
       const armored = encryptPayloadPacketJS(detected.bytes, detected.filename, senderKey, pass, recipHash);
       document.getElementById('enc-file-out').value = armored;
-      triggerNativeFileSave(detected.filename + '.qpep', armored);
+      const encSaveHash8 = (recipHash && recipHash.length >= 8) ? recipHash.slice(0, 8).toUpperCase() : 'OPENQPEP';
+      triggerNativeFileSave(`${encSaveHash8}_Encrypted.qpep`, armored);
     } catch (e) {
       alert(e.message);
     }
@@ -4310,6 +4329,32 @@ window.addEventListener('DOMContentLoaded', async function() {
 /* === OpenQPEP v1.0.1 Dynamic >= 12 GB RAM Hardware Enforcement & Web Worker Offloading === */
 (function initOpenQPEPv120HardwareAndWorker() {
   const HIGH_TIER_SUITES = ['QLX-16384', 'CGM-8192', 'CULC-2048', 'CSP-Omega'];
+  function detectDeviceRamInfo() {
+    try {
+      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
+        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
+        if (gb > 0) return { gb: gb, capped: false };
+      }
+      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
+        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
+        return { gb: navigator.deviceMemory, capped: true };
+      }
+    } catch (e) {}
+    return { gb: 0, capped: true };
+  }
+  function detectDeviceRamInfo() {
+    try {
+      if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
+        const gb = Number(window.CalyxHardwareBridge.getDeviceRamGiB());
+        if (gb > 0) return { gb: gb, capped: false };
+      }
+      if (typeof navigator !== 'undefined' && typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0) {
+        // W3C Device Memory spec hard-caps navigator.deviceMemory at 8 GB on 8/12/16/24+ GB flagships & desktops
+        return { gb: navigator.deviceMemory, capped: true };
+      }
+    } catch (e) {}
+    return { gb: 0, capped: true };
+  }
   function detectDeviceRamInfo() {
     try {
       if (window.CalyxHardwareBridge && typeof window.CalyxHardwareBridge.getDeviceRamGiB === 'function') {
